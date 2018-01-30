@@ -2,18 +2,18 @@
 title: JH Blog
 email: pjh2359@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Let's Eat!!.
+  Test Blog
 baseurl: "" # the subpath of your site, e.g. /newpath-for-emping
-url: "http://example.com" # the base hostname & protocol for your site
-twitter_username: 
-github_username:  
-GoogleAnalytics: 
+url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
+twitter_username:
+github_username:
+GoogleAnalytics:
 
 twitter:
-  username: 
+  username:
 facebook:
-  app_id: 
-  publisher: 
+  app_id:
+  publisher:
 
 sass:
     style: compressed
