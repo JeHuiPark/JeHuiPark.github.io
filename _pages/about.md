@@ -6,13 +6,13 @@ avatar: true
 navigation: true
 ---
 
----
 ## 박제희
 >
   - 1992 광주
   - 2017 서울 이전
   - kakao : pjhjjj
   - email : pjh2359@gmail.com
+
 ---
 
 ## 자격증
@@ -20,6 +20,7 @@ navigation: true
   - SQLD
   - 정보처리기사
   - OCJP
+
 ---
 
 ## 이력
@@ -29,6 +30,8 @@ navigation: true
   - 2017.xx [서울안전 안드로이드 앱](https://play.google.com/store/apps/details?id=kr.go.seoul.hybrid.SafeCity) 카카오API연계 지원
   - 2017.xx [서울시 집수리닷컴](https://jibsuri.seoul.go.kr/) 프로젝트 참여
   - 2018.01 깃블로그 개설
+
+
 ---
 
 ### Site Last Generated : {{ site.time | date: "%-d %B %Y"  }}
