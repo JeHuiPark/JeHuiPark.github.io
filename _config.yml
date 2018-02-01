@@ -1,6 +1,7 @@
 # Site settings
 title: JH Blog
 email: pjh2359@gmail.com
+locale: ko_Kr
 description: > # this means to ignore newlines until "baseurl:"
   박제희
 baseurl: "" # the subpath of your site, e.g. /newpath-for-emping
