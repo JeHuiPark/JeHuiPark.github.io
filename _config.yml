@@ -8,9 +8,9 @@ baseurl: "" # the subpath of your site, e.g. /newpath-for-emping
 url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
 twitter_username:
 github_username: JeHuiPark
-GoogleAnalytics:
+GoogleAnalytics: UA-113477172-1
 
-disqus_shortname: https-jehuipark-github-io-blog # disqus 
+disqus_shortname: https-jehuipark-github-io-blog # disqus
 
 twitter:
   username:
