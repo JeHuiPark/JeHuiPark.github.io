@@ -21,7 +21,11 @@ facebook:
 sass:
     style: compressed
 
+permalink: pretty
+excerpt_seperator:  <!--break--> #구분자 {{ post.excerpt }}
+
 # Build settings
+
 markdown: kramdown
 kramdown:
   parse_block_html: true
