@@ -1,12 +1,15 @@
 # Site settings
-author : "PJH"
+
 title: JH Blog
-email: pjh2359@gmail.com
 lang : ko_Kr
 description: > # this means to ignore newlines until "baseurl:"
   개발자 박제희
 baseurl: "" # the subpath of your site, e.g. /newpath-for-emping
-url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
+
+author :
+  name : "박제희"
+  email: "pjh2359@gmail.com"
+  url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
 twitter_username:
 github_username: JeHuiPark
 GoogleAnalytics: UA-113477172-1
