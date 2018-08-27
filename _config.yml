@@ -4,8 +4,6 @@ lang : ko_Kr
 description: > # this means to ignore newlines until "baseurl:"
   개발자 박제희
   developer JH
-name: Xixia
-description: Welcome to Xixia！
 
 # url is currently only used only for the RSS feed in feed.xml
 author :
@@ -20,7 +18,7 @@ GoogleAnalytics: UA-113477172-1
 # be the project name.
 # *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
 #     run it like so: jekyll serve --baseurl=''
-baseurl: '/'
+baseurl: ""
 ## default date_format
 date_format:
   title: "%B-%-d-%Y"
