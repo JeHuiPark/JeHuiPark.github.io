@@ -1,32 +1,50 @@
-{% include sidebar.html %}
-<header class="site-header{% if include.avatar %} header-nav{% endif %}">
-    {% unless include.avatar %}<div class="wrapper"><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>{% endunless %}
+<!DOCTYPE html>
+<html lang="en">
 
-    <nav class="site-nav">
-      <button on='tap:sidebar.toggle' class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </button>
-      <div class="trigger">
-        {% for page in site.pages %}
-          {% if page.title and page.navigation %}
-          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-          {% endif %}
-        {% endfor %}
-        <a href="{{ site.baseurl | append: '/blog/'}}">Blog</a>
-      </div>
-    </nav>{% if include.avatar %}
-    <div class="wrapper">
-        <div class="author">
-          <a href="{{ site.baseurl | append: '/' }}">
-            <amp-img class="avatar" src="{{ site.baseurl | append:'/assets/avatar.png'}}" width="90" height="90" layout="responsive" alt="{{ site.title }}" ></amp-img>
-            <h1 class="name">{{ site.title }}</h1>
-          </a>
-          <h2 class="description">{{site.description}}</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site.name }}</title>
+	<link rel="icon" href="{{ site.baseurl }}/assets/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
+    <link href="{{ site.baseurl }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ site.baseurl }}/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!--[if lt IE 9]>
+       <script src="https://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet" type="text/css">
+{% include isso-comments.html %}
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.name }}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    {% assign trans = site.data.values[site.lan] %}
+                    <li class="active"><a href="{{ site.baseurl }}/">{{ trans.home }}</a></li>
+                    <li class="active"><a href="{{ site.baseurl }}/archive.html">{{ trans.archive }}</a></li>
+                    <li class="active"><a href="{{ site.baseurl }}/categories.html">{{ trans.categories }}</a></li>
+                    <li class="active"><a href="{{ site.baseurl }}/tags.html">{{ trans.tags }}</a></li>
+                    <li class="active"><a href="{{ site.baseurl }}/about.html">{{ trans.about }}</a></li>
+                </ul>
+            </div>
         </div>
-    </div>{% endif %}
-  {% unless include.avatar %}</div>{% endunless %}
-</header>
+    </div>
+</div>

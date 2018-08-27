@@ -1,13 +1,16 @@
-<!doctype html>
-<html ⚡ lang="ko">
-  {% include head.html %}
-  <body>
-    {% if page.avatar %}{% include header.html avatar="true" %} {% else %} {% include header.html %} {% endif %}
-    <div class="page-content {% if page.layout == 'default-author' %}default{%endif%}">
-      <div class="wrapper">
-        {{ content | replace: '<img', '<amp-img layout="responsive"' }}
-      </div>
+{% include header.html %}
+
+<div class="wrap">
+    <div class="container container-left">
+        <div class="row">
+            <div class="col-md-3 hidden-xs">
+                {% include sidebar.html %}
+            </div>
+            <div class="col-md-9">
+                {{ content }}
+            </div>
+        </div>
     </div>
+
     {% include footer.html %}
-  </body>
-</html>
+</div>

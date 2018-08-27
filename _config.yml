@@ -1,58 +1,29 @@
-# Site settings
+# Jekyll configuration
 
-title: JH Blog
-lang : ko_Kr
-description: > # this means to ignore newlines until "baseurl:"
-  개발자 박제희
-baseurl: "" # the subpath of your site, e.g. /newpath-for-emping
+name: Xixia
+description: Welcome to Xixia！
 
-author :
-  name : "박제희"
-  email: "pjh2359@gmail.com"
-  url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
-twitter_username:
-github_username: JeHuiPark
-GoogleAnalytics: UA-113477172-1
+# url is currently only used only for the RSS feed in feed.xml
+url: https://github.com/zxixia/jekyll-xixia
 
-disqus_shortname: https-jehuipark-github-io-blog # disqus
+# baseurl will often be '', but for a project page on gh-pages, it needs to
+# be the project name.
+# *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
+#     run it like so: jekyll serve --baseurl=''
+baseurl: '/jekyll-xixia'
+## default date_format
+date_format: 
+  title: "%B-%-d-%Y"
+  archive: "%b"
+  categories: "%b-%Y"
+  tag: "%b-%Y"
+# Language
+lan: "en" 
 
-twitter:
-  username:
-facebook:
-  app_id: 150481385751381
-  publisher:
+paginate: 10
 
-sass:
-    style: compressed
-
-permalink: pretty
-excerpt_seperator:  <!--break--> #구분자 {{ post.excerpt }}
-
-# Build settings
-
+highlighter: rouge
 markdown: kramdown
-kramdown:
-  parse_block_html: true
+gems: ['jekyll-paginate']
 
-gems:
-  - jekyll-redirect-from
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jemoji
-
-defaults:
-    - {scope: {type: posts}, values: {layout: post, permalink: '/blog/:title'}}
-
-include:
-  - _pages
-
-exclude:
-  - CNAME
-  - README.md
-  - Gemfile
-  - Gemfile.lock
-
-paginate: 12
-paginate_path: '/blog/:num'
+exclude: ['README.md', 'LICENSE', "*.bak"]
