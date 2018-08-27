@@ -1,10 +1,20 @@
 # Jekyll configuration
-
+title: JH Blog
+lang : ko_Kr
+description: > # this means to ignore newlines until "baseurl:"
+  개발자 박제희
+  developer JH
 name: Xixia
 description: Welcome to Xixia！
 
 # url is currently only used only for the RSS feed in feed.xml
-url: https://jehuipark.github.io/
+author :
+  name : "박제희"
+  email: "pjh2359@gmail.com"
+  url: "https://jehuipark.github.io/" # the base hostname & protocol for your site
+twitter_username:
+github_username: JeHuiPark
+GoogleAnalytics: UA-113477172-1
 
 # baseurl will often be '', but for a project page on gh-pages, it needs to
 # be the project name.
@@ -17,10 +27,21 @@ date_format:
   archive: "%b"
   categories: "%b-%Y"
   tag: "%b-%Y"
-# Language
-lan: "en"
+
+disqus_shortname: https-jehuipark-github-io-blog # disqus
+
+twitter:
+  username:
+facebook:
+  app_id: 150481385751381
+  publisher:
 
 paginate: 10
+
+sass:
+    style: compressed
+
+permalink: pretty
 
 highlighter: rouge
 markdown: kramdown
