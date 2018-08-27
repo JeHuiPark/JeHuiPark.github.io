@@ -19,7 +19,7 @@ GoogleAnalytics: UA-113477172-1
 # *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
 #     run it like so: jekyll serve --baseurl=''
 baseurl: ""
-disqus : "https-jehuipark-github-io-blog"
+disqus : 'https-jehuipark-github-io-blog'
 
 ## default date_format
 date_format:
@@ -29,7 +29,7 @@ date_format:
   tag: "%b-%Y"
 
 
-disqus_shortname: https-jehuipark-github-io-blog # disqus
+disqus_shortname: 'https-jehuipark-github-io-blog' # disqus
 
 twitter:
   username:
