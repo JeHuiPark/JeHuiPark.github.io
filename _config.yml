@@ -2,6 +2,7 @@
 name : JH Blog
 title: JH Blog
 lang : ko
+lan : ko
 description: > # this means to ignore newlines until "baseurl:"
   개발자 박제희
   developer JH
