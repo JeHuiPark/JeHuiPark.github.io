@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-image: url(/jekyll-xixia/assets/images/canvas_bg.jpg);
+    background-image: url(/assets/images/canvas_bg.jpg);
     padding-top: 60px;
     height:100%;
 }
@@ -101,9 +101,9 @@ body {
 	letter-spacing: 3px;
 }
 
-/* 
+/*
     custom bootstrap navbar
-    reference from: https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3 
+    reference from: https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3
 */
 .navbar-custom {
     background-color: $nav-bar-background-color;
