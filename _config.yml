@@ -27,6 +27,7 @@ date_format:
   categories: "%b-%Y"
   tag: "%b-%Y"
 
+disqus : https-jehuipark-github-io-blog
 disqus_shortname: https-jehuipark-github-io-blog # disqus
 
 twitter:
