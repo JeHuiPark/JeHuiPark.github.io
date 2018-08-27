@@ -38,8 +38,8 @@ facebook:
 
 paginate: 10
 
-sass:
-    style: compressed
+##sass:
+##    style: compressed
 
 permalink: pretty
 
