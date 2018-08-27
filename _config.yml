@@ -20,6 +20,7 @@ GoogleAnalytics: UA-113477172-1
 #     run it like so: jekyll serve --baseurl=''
 baseurl: ""
 disqus : 'https-jehuipark-github-io-blog'
+comments : true
 
 ## default date_format
 date_format:
