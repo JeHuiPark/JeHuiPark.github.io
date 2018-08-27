@@ -23,7 +23,7 @@ disqus : "https-jehuipark-github-io-blog"
 
 ## default date_format
 date_format:
-  title: "%B-%-d-%Y"
+  title: "%Y-%m-%d"
   archive: "%b"
   categories: "%b-%Y"
   tag: "%b-%Y"
