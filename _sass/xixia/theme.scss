@@ -205,3 +205,26 @@ pre {
 pre{
 	padding: 0px;
 }
+
+/* 표 테두리 */
+.post-content table {
+    margin: 1em auto;
+    /* border: 3px solid #f3cf00; */
+    border: 0.1em solid #e6e6e6;
+}
+
+.post-content th {
+    border: 1px solid #d4d4d4;
+    background: #e6e6e6;
+    text-align: center;
+}
+
+.post-content td {
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+}
+
+.post-content .footnotes p {
+    margin: 0;
+    text-align: left;
+}
