@@ -59,4 +59,4 @@ gems:
 
 exclude: ['README.md', 'LICENSE', "*.bak"]
 
-theme: jekyll-theme-cayman
+#theme: jekyll-theme-cayman
