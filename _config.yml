@@ -27,7 +27,7 @@ comments : true
 ## default date_format
 date_format:
   title: "%Y-%m-%d"
-  archive: "%m"
+  archive: "%m월"
   categories: "%b-%Y"
   tag: "%b-%Y"
 
