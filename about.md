@@ -20,6 +20,7 @@ navigation: true
     - 디자인 패턴
     - 신기술
     - 기타 궁금증 자극하는 기술들
+
 ---
 
 ## 자격증
@@ -52,4 +53,4 @@ navigation: true
 
 ---
 
-### Site Last Generated : {{ site.time | date: "%-d %B %Y"  }}
+### Site Last Generated : {{ site.time | date: "%Y-%m-%d"  }}
