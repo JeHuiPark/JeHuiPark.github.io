@@ -37,7 +37,7 @@ OGNL이 대체 뭘까요? 위키에서 OGNL(Object-Graph Navigation Language)의
 
 __sql맵에 아래와 같이 code에 따라 분기처리되는 sql이 있습니다.__
 ```xml
-<select id="parseTest3" parameterType="HashMap" resultType="string">
+<select id="parseTest3" resultType="string">
   <choose>
     <when test="code == '5'">
       SELECT 'OK' FROM DUAL
@@ -90,7 +90,7 @@ _ps. 물론 내부적으로 싱글쿼테이션으로 감싸진 값을 분석하�
 
 **sql맵을 아래와 같이 등록하고 테스트를 수행합니다.**
 ```xml
-<select id="parseTest4" parameterType="HashMap" resultType="string">
+<select id="parseTest4" resultType="string">
   <if test=" code ==&quot;5&quot; ">/* ok */</if>
   <choose>
     <when test=' code=="5" '>
@@ -110,7 +110,7 @@ _ps. 물론 내부적으로 싱글쿼테이션으로 감싸진 값을 분석하�
 <br>
 
 
-##### 마지막으로 이해를 돕기위해 좀 더 다양한 테스트 케이스를 공유하겠습니다.
+#### 마지막으로 이해를 돕기위해 좀 더 다양한 테스트 케이스를 공유하겠습니다.
 
 ```xml
 <select id="parseTest1" resultType="hashMap" >

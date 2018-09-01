@@ -17,7 +17,6 @@
 
     <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
     <script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
-    <script src="{{ stie.baseurl }}/assets/js/highlight.js"></script>
     <link href="{{ site.baseurl }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="{{ site.baseurl }}/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if IE 7]>
@@ -28,14 +27,11 @@
        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
     <![endif]-->
     <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet" type="text/css">
+
+    <script src="{{ stie.baseurl }}/assets/js/highlight.js"></script>
     <link href="{{ site.baseurl }}/assets/css/railscasts.css" rel="stylesheet" type="text/css">
-    <script>
-    $(document).ready(function() {
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    });
-    </script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
 <!-- {% include isso-comments.html %} -->
 </head>
 
