@@ -79,7 +79,9 @@ DELETE TABLE_NAME WHERE COL = #{key}
 >
 >~~테스트 완료~~
 >**정정합니다.** <span style="margin-right:20px;"></span>_(2018.09.01)_
-> **mybatis에서 파라미터값에 따라 자료형을 재정의하진 않습니다.**<br>
+>
+> **mybatis에서 파라미터값에 따라 자료형을 재정의하진 않습니다.**
+>
 > 위와같은 상황에서 **mybatis에 개발자가 원하는걸 명확히 전달하려면** 아래와 같이 사용하면 됩니다.
 
 ```xml
