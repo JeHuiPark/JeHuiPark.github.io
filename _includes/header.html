@@ -29,10 +29,18 @@
     <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet" type="text/css">
 
     <script src="{{ stie.baseurl }}/assets/js/highlight.js"></script>
-    <link href="{{ site.baseurl }}/assets/css/railscasts.css" rel="stylesheet" type="text/css">
+    <!--<link href="{{ site.baseurl }}/assets/css/railscasts.css" rel="stylesheet" type="text/css">-->
     <link href="{{ site.baseurl }}/assets/css/zenburn.css" rel="stylesheet" type="text/css">
-    <script>hljs.initHighlightingOnLoad();</script>
-    
+    <script>
+    $(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        debugger;
+        hljs.highlightBlock(block);
+      });
+    });
+    hljs.initLineNumbersOnLoad();
+    </script>
+
 <!-- {% include isso-comments.html %} -->
 </head>
 
