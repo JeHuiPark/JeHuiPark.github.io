@@ -4,10 +4,12 @@ title:  "SQL 튜닝"
 date:   2018-02-25 23:50:21 +0900
 comments: true
 categories:
-- 오라클
-- DB
+- oracle
+tags:
+- SQL 튜닝
 - 데이터베이스
 - ORACLE
+- 오라클
 published : true
 ---
 

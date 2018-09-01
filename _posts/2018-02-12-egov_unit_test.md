@@ -4,6 +4,8 @@ title:  "전자정부 프레임워크 유닛테스트"
 date:   2018-02-12 17:50:21 +0900
 comments: true
 categories:
+- egovframework
+tags:
 - 전자정부 프레임워크
 - 유닛 테스트
 ---

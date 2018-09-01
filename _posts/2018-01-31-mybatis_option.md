@@ -46,6 +46,7 @@ DELETE TABLE_NAME WHERE COL = #{key}
 ### 내가 mybatis에서 경험했던 이슈
 
 #### 1. sqlmap에서 if옵션을 사용해 분기처리를 하는부분이 있는데 의도한대로 분기처리가 되지 않았다.
+
 > ##### 문제의 sqlmap
 ```xml
 <select id="...." parameterType="HashMap" resultType="egovMap">
@@ -83,7 +84,7 @@ ORDER BY ....
 >~~테스트 완료~~
 >**정정합니다.** <span style="margin-right:20px;"></span>_(2018.09.01)_
 > **mybatis에서 파라미터값에 따라 자료형을 재정의하진 않습니다.**<br>
-> 위와같은 상황에서 **mybatis에 개발자가 원하는걸 명확히 전달하려면** 아래와 같이 사용하면 됩니다.<br>
+> 위와같은 상황에서 **mybatis에 개발자가 원하는걸 명확히 전달하려면** 아래와 같이 사용하면 됩니다.
 
 ```xml
 <!-- test구문을 싱글쿼테이션으로 감싸주는게 중요. -->
@@ -91,5 +92,5 @@ ORDER BY ....
   ...
 </if>
 ```
->왜 그런지에 대한 이유는 다른글에서 별도로 다루겠습니다.
-[mybatis의 OGNL기반 표현식 분석으로 이동](https://jehuipark.github.io/mybatis/2018/09/01/mybatis/)
+>왜 그런지에 대한 이유는 [다른글](https://jehuipark.github.io/mybatis/2018/09/01/mybatis_ognl/)에서 별도로 다루겠습니다.
+[mybatis의 OGNL기반 표현식 분석으로 이동](https://jehuipark.github.io/mybatis/2018/09/01/mybatis_ognl/)
