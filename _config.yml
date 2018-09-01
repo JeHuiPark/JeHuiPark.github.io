@@ -28,8 +28,8 @@ comments : true
 date_format:
   title: "%Y-%m-%d"
   archive: "%m월"
-  categories: "%b-%Y"
-  tag: "%b-%Y"
+  categories: "%Y-%m"
+  tag: "%Y-%m"
 
 
 disqus_shortname: 'https-jehuipark-github-io-blog' # disqus
