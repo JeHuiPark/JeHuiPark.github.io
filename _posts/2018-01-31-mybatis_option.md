@@ -48,20 +48,16 @@ DELETE TABLE_NAME WHERE COL = #{key}
 #### 1. sqlmap에서 if옵션을 사용해 분기처리를 하는부분이 있는데 의도한대로 분기처리가 되지 않았다.
 
 > ##### 문제의 sqlmap
+
 ```xml
 <select id="...." parameterType="HashMap" resultType="egovMap">
-    SELECT
-....
-  FROM ....
-WHERE .... = #{....}
-AND DEL_FLAGE = 'N'
-    <if test="fileTy == '5'">
-    ...sql
-</if>
-    <if test="fileTy == '6'">
-          AND LOAN_FILE_TYPE = #{fileTy}
-    </if>
-ORDER BY ....
+...
+  <if test="fileTy == '5'">
+    ...
+  <if>
+  <if test="fileTy == '6'">
+    ...
+  </if>
 </select>
 ```
 
