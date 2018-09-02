@@ -38,7 +38,7 @@
         try{block.className = block.parentElement.parentElement.parentElement.className.split(' ')[0].replace('language-', '')}catch(e){};
         hljs.highlightBlock(block);
       });
-      //hljs.initLineNumbersOnLoad();
+      hljs.initLineNumbersOnLoad();
     });
     </script>
 
