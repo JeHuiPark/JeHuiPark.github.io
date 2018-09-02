@@ -252,7 +252,7 @@ td.hljs-ln-code {
     padding-left: 10px;
 }
 
-code {
+code.hljs:nth-child(2) {
     white-space: pre;
     overflow-x: scroll;
 }
