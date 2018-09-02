@@ -27,7 +27,7 @@ layout: default
       {% assign categories_list = page.categories %}
       {% if categories_list.first[0] == null %}
         {% for category in categories_list %}
-            <li class="icon-style"><a href="{{ site.baseurl }}/categories.html">
+            <li class="icon-style"><a href="{{ site.baseurl }}/categories">
                 {{ category | join: "/" }} <span>({{ site.categories[category].size }})</span>
                 {% unless forloop.last %},{% endunless %}
             </a></li>
