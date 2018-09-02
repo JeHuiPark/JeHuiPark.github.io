@@ -251,3 +251,8 @@ td.hljs-ln-numbers {
 td.hljs-ln-code {
     padding-left: 10px;
 }
+
+pre, code {
+    white-space: pre;
+    overflow-x: scroll;
+}
