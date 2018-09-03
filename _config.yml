@@ -15,6 +15,7 @@ author :
 twitter_username:
 github_username: JeHuiPark
 GoogleAnalytics: UA-113477172-1
+gaaccount: UA-113477172-1
 
 # baseurl will often be '', but for a project page on gh-pages, it needs to
 # be the project name.
