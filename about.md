@@ -10,7 +10,7 @@ navigation: true
 >
   - 나이: 27   
   - 거주지: 서울
-  - 회사: (주)단감소프트
+  - 회사: 단감소프트
   - kakao_ID : pjhjjj
   - email : pjh2359@gmail.com
   - 기술 : android, java, javascript, rdbms, spring
