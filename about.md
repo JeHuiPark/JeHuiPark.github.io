@@ -6,16 +6,16 @@ avatar: true
 navigation: true
 ---
 
-## 박제희
+## 박제희 (JeHuiPark)
 >
-  - 1992 광주
-  - 2017 서울
-  - kakao : pjhjjj
+  - 나이: 27   
+  - 거주지: 서울
+  - kakao_ID : pjhjjj
   - email : pjh2359@gmail.com
-  - 기술 : 안드로이드, 자바, 자바스크립트, DB, 스프링
-  - 성향 : 논리적 사고, 원리 이해, 왜 이렇게 되지?
+  - 기술 : android, java, javascript, rdbms, spring
+  - 성향 : 논리적 사고, 원리 이해
   - 관심분야 :
-    - 프로그래밍 학문
+    - 학문적 프로그래밍
     - DB
     - 디자인 패턴
     - 신기술
