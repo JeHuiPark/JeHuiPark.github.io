@@ -39,37 +39,39 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
     <br>
 
     1. **ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성** (아래는 예시입니다.)
-      [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
 
-      ```java
-      ReportRequest request = new ReportRequest()
-          .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
-          .setDateRanges(this.helper.createDateRange(startDate, endDate)) // 데이터 조회 기간
-          .setMetrics(this.helper.createMetric()) // 어떤 통계를 뽑을지
-          .setDimensions(this.helper.createDimension()) // 통계를 어떤 관점에서 바라볼지
-          .setIncludeEmptyRows(true); // 데이터가 없는 행도 포함 시킬 것인지.
-      ```
+        [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
 
-      *View ID는 아래처럼 GoogleAnalytics에서 확인하실 수 있습니다!!!!*
-      ![view_id](https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png)
+        ```java
+        ReportRequest request = new ReportRequest()
+            .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
+            .setDateRanges(this.helper.createDateRange(startDate, endDate)) // 데이터 조회 기간
+            .setMetrics(this.helper.createMetric()) // 어떤 통계를 뽑을지
+            .setDimensions(this.helper.createDimension()) // 통계를 어떤 관점에서 바라볼지
+            .setIncludeEmptyRows(true); // 데이터가 없는 행도 포함 시킬 것인지.
+        ```
+
+        *View ID는 아래처럼 GoogleAnalytics에서 확인 할 수 있어요.*
+        ![view_id](https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png)
 
     2. **사전에 발급받은 json파일을 read하여 유효한 사용자인지 검증 후 구글로부터 해당 API에 대한 액세스 토큰을 발급 받습니다.**
 
-      ```java
-      HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-      		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
-      				.createScoped(AnalyticsReportingScopes.all());
-      AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
-      				.setApplicationName(APPLICATION_NAME).build();
-      ```
+        ```java
+        HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
+        				.createScoped(AnalyticsReportingScopes.all());
+        AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
+        				.setApplicationName(APPLICATION_NAME).build();
+        ```
 
     3. **요청 파라미터를 set하여 API를 호출하고 응답을 받습니다.**
-      ```java        
-      GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
-      GetReportsResponse response = service.reports().batchGet(getReport).execute();
-      ```
 
-      ![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
+        ```java        
+        GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
+        GetReportsResponse response = service.reports().batchGet(getReport).execute();
+        ```
+
+        ![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
 
 <br>
 
