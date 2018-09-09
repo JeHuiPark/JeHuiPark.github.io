@@ -33,11 +33,11 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 5. 아래와 같이 GoogleAnalytics콘솔로 돌아가서 데이터 조회 **권한을 서비스 계정에 부여**합니다.
 ![이미지삽입](https://user-images.githubusercontent.com/25237661/44958522-6dbf5180-af1c-11e8-9c06-08fc9ba05087.png)
 
-이렇게 **GoogleAnalytics** 와 **GoogleAnalytics Report API** 연계는 마무리가 됩니다.
+    이렇게 **GoogleAnalytics** 와 **GoogleAnalytics Report API** 연계는 마무리가 됩니다.
 
 6. 소스레벨에서  Report API 사용하기
 
-    #### 구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
+    ####구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
 
     1. **ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성** (아래는 예시입니다.)
     [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
