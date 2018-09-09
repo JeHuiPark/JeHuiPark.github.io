@@ -35,10 +35,12 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 
 6. 소스레벨에서  Report API 사용하기
 
-#### 구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
+    **구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해볼게요**
+    <br>
 
     1. **ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성** (아래는 예시입니다.)
       [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
+
       ```java
       ReportRequest request = new ReportRequest()
           .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
@@ -53,26 +55,29 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 
     2. **사전에 발급받은 json파일을 read하여 유효한 사용자인지 검증 후 구글로부터 해당 API에 대한 액세스 토큰을 발급 받습니다.**
 
-    ```java
-    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-    		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
-    				.createScoped(AnalyticsReportingScopes.all());
-    AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
-    				.setApplicationName(APPLICATION_NAME).build();
-    ```
+      ```java
+      HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+      		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
+      				.createScoped(AnalyticsReportingScopes.all());
+      AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
+      				.setApplicationName(APPLICATION_NAME).build();
+      ```
 
     3. **요청 파라미터를 set하여 API를 호출하고 응답을 받습니다.**
-    ```java        
-    GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
-    GetReportsResponse response = service.reports().batchGet(getReport).execute();
-    ```
+      ```java        
+      GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
+      GetReportsResponse response = service.reports().batchGet(getReport).execute();
+      ```
 
-    ![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
+      ![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
 
+<br>
 
 **필자의 경우는 특정기간에 사용자별, 브라우저별 등등 통계 타입이 사전에 정의가 되어 있었기에 추후 확장성을 고려하여 API 호출 파라미터를 작성하기 편하도록 아래와 같은 구조를 기반으로 작업을 진행하였습니다.**
 
 ![package](https://user-images.githubusercontent.com/25237661/45264404-f129f700-b476-11e8-8e48-608b52494258.PNG)
+
+<br>
 
 #### GAVo.java
 
