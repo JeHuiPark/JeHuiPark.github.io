@@ -13,9 +13,7 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 
 이번 글에서는 바로 java로 개발된 서버에서 **GoogleAnalytics Report API** 를 어떻게 연계하는지에 대해 공유해보겠습니다.
 
-#### 시작전에 GoogleAnalytics를 어느정도는 알고 있고 사용중이라는 가정을 하고 진행함을 미리 알려드립니다.
-
-
+<br>
 1. 우선 Google Play Console페이지로 이동하여 아래와 같은 순서로 프로젝트를 생성.
 (*GoogleAnalytics서비스와 GoogleAnalytics Report API는 다른 서비스이며 GoogleAnalytics Report API는 GoogleAnalytics의 데이터를 조회하기 위한 인터페이스*)
 ![이미지삽입](https://user-images.githubusercontent.com/25237661/44958518-6d26bb00-af1c-11e8-8c9d-86c173c277e6.png)
@@ -37,21 +35,21 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 
 6. 소스레벨에서  Report API 사용하기
 
-    ####구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
+#### 구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
 
     1. **ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성** (아래는 예시입니다.)
-    [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
-    ```java
-    ReportRequest request = new ReportRequest()
-        .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
-        .setDateRanges(this.helper.createDateRange(startDate, endDate)) // 데이터 조회 기간
-        .setMetrics(this.helper.createMetric()) // 어떤 통계를 뽑을지
-        .setDimensions(this.helper.createDimension()) // 통계를 어떤 관점에서 바라볼지
-        .setIncludeEmptyRows(true); // 데이터가 없는 행도 포함 시킬 것인지.
-    ```
+      [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
+      ```java
+      ReportRequest request = new ReportRequest()
+          .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
+          .setDateRanges(this.helper.createDateRange(startDate, endDate)) // 데이터 조회 기간
+          .setMetrics(this.helper.createMetric()) // 어떤 통계를 뽑을지
+          .setDimensions(this.helper.createDimension()) // 통계를 어떤 관점에서 바라볼지
+          .setIncludeEmptyRows(true); // 데이터가 없는 행도 포함 시킬 것인지.
+      ```
 
-    *View ID는 아래처럼 GoogleAnalytics에서 확인하실 수 있습니다!!!!*
-    ![view_id](https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png)
+      *View ID는 아래처럼 GoogleAnalytics에서 확인하실 수 있습니다!!!!*
+      ![view_id](https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png)
 
     2. **사전에 발급받은 json파일을 read하여 유효한 사용자인지 검증 후 구글로부터 해당 API에 대한 액세스 토큰을 발급 받습니다.**
 
