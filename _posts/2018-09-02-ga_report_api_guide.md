@@ -33,8 +33,260 @@ GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 �
 5. 아래와 같이 GoogleAnalytics콘솔로 돌아가서 데이터 조회 **권한을 서비스 계정에 부여**합니다.
 ![이미지삽입](https://user-images.githubusercontent.com/25237661/44958522-6dbf5180-af1c-11e8-9c06-08fc9ba05087.png)
 
-이렇게 **GoogleAnalytics** 와 **GoogleAnalytics Report API**연계는 마무리가 됩니다.
+이렇게 **GoogleAnalytics** 와 **GoogleAnalytics Report API** 연계는 마무리가 됩니다.
 
-실제 소스레벨에서 GoogleAnalytics Report API를 어떻게 연계하고 있는지는 다른 글에서 알아보겠다는 것을 알려드리며 마지막으로 GoogleAnalytics Report API샘플 소스를 구동한 모습을 공유해드리면서 이번 글을 마무리 짓겠습니다.
+6. 소스레벨에서  Report API 사용하기
 
-![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
+    #### 구글에서 제공하는 [API가이드](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java)를 간략하게 요약해보면 아래와 같습니다.
+
+    1. **ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성** (아래는 예시입니다.)
+    [요청 파라미터 작성 예제 사이트](https://ga-dev-tools.appspot.com/query-explorer/)
+    ```java
+    ReportRequest request = new ReportRequest()
+        .setViewId(GAHelper.VIEW_ID) // GoogleAnalytics View Id
+        .setDateRanges(this.helper.createDateRange(startDate, endDate)) // 데이터 조회 기간
+        .setMetrics(this.helper.createMetric()) // 어떤 통계를 뽑을지
+        .setDimensions(this.helper.createDimension()) // 통계를 어떤 관점에서 바라볼지
+        .setIncludeEmptyRows(true); // 데이터가 없는 행도 포함 시킬 것인지.
+    ```
+
+    *View ID는 아래처럼 GoogleAnalytics에서 확인하실 수 있습니다!!!!*
+    ![view_id](https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png)
+
+    2. **사전에 발급받은 json파일을 read하여 유효한 사용자인지 검증 후 구글로부터 해당 API에 대한 액세스 토큰을 발급 받습니다.**
+
+    ```java
+    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
+    				.createScoped(AnalyticsReportingScopes.all());
+    AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
+    				.setApplicationName(APPLICATION_NAME).build();
+    ```
+
+    3. **요청 파라미터를 set하여 API를 호출하고 응답을 받습니다.**
+    ```java        
+    GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
+    GetReportsResponse response = service.reports().batchGet(getReport).execute();
+    ```
+
+    ![ga_report_api_07](https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png)
+
+
+**필자의 경우는 특정기간에 사용자별, 브라우저별 등등 통계 타입이 사전에 정의가 되어 있었기에 추후 확장성을 고려하여 API 호출 파라미터를 작성하기 편하도록 아래와 같은 구조를 기반으로 작업을 진행하였습니다.**
+
+![package](https://user-images.githubusercontent.com/25237661/45264404-f129f700-b476-11e8-8e48-608b52494258.PNG)
+
+#### GAVo.java
+
+```java
+/**
+ * GoogleAnalytics VO
+ * @author JH
+ * @since 2018.08.21
+ */
+public class GAVo{
+
+  private String start;
+  private String end;
+  private int type;
+
+  public String getStart() {
+    return start;
+  }
+  public void setStart(String start) {
+    this.start = start;
+  }
+  public String getEnd() {
+    return end;
+  }
+  public void setEnd(String end) {
+    this.end = end;
+  }
+
+  /**
+   * set HelperEnumCode <p>
+   * 1 : 방문자 <p>
+   * 2 : 총 페이지뷰 <p>
+   * 3 : 브라우저별 <p>
+   * 4 : 모니터 해상도별 <p>
+   * 5 : 이전 접속 사이트 <p>
+   * 6 : 검색엔진 단어별 <p>
+   * 7 : 가장 많이본 사이트 <p>
+   * @param type
+   */
+  public void setType(int type) {
+    this.type = type;
+  }
+
+  /**
+   * @return type에 맞는 GAHelper.Type 반환
+   */
+  public GAHelper getHelper(){
+    switch(this.type){
+      case 1 : return GAHelper.VISIT_USER;
+      case 2 : return GAHelper.TOTAL_VIEW_COUNT;
+      case 3 : return GAHelper.BROWSER;
+      case 4 : return GAHelper.RESOLUTION;
+      case 5 : return GAHelper.REFFER;
+      case 6 : return GAHelper.KEYWORD;
+      case 7 : return GAHelper.PAGE_PATH;
+      default : return null;
+    }
+  }
+```
+
+#### GARequester.java
+
+```java
+/**
+ * GA Reporting API Request Creator
+ * @author JH
+ * @since 2018.08.21
+ */
+public class GARequester {
+  private List<ReportRequest> requests;
+  private File file;
+
+  private GARequester(List<ReportRequest> requests, File file){
+    this.requests = requests;
+    this.file = file;
+  }
+
+  public GetReportsResponse request() throws GeneralSecurityException, IOException{
+    AnalyticsReporting service = GAHelper.initializeAnalyticsReporting(file);
+    GetReportsRequest getReport = new GetReportsRequest().setReportRequests(requests);
+    GetReportsResponse response = service.reports().batchGet(getReport).execute();
+    return response;
+  }
+
+  /**
+   * GARequester Builder
+   * @author JH
+   * @since 2018.08.21
+   */
+  public static class Builder{
+
+    String startDate;
+    String endDate;
+    GAHelper helper;
+    File file;
+
+    public Builder setStartDate(String startDate){
+      this.startDate = startDate;
+      return this;
+    }
+    public Builder setEndDate(String endDate){
+      this.endDate = endDate;
+      return this;
+    }
+
+    public Builder setHelper(GAHelper helper){
+      this.helper = helper;
+      return this;
+    }
+
+    public Builder setFile(File file){
+      this.file = file;
+      return this;
+    }
+
+    public GARequester build(){
+      ReportRequest request = new ReportRequest()
+          .setViewId(GAHelper.VIEW_ID)
+          .setDateRanges(this.helper.createDateRange(startDate, endDate))
+          .setMetrics(this.helper.createMetric())
+          .setDimensions(this.helper.createDimension())
+          .setIncludeEmptyRows(true);
+      return new GARequester(Arrays.asList(request), file);
+    }
+  }
+}
+```
+
+#### GAHelper.java
+
+```java
+/**
+ * GA Helper <p>
+ * 조회타입에 맞게 파라미터 미리 정의 <p>
+ * {@link https://developers.google.com/analytics/devguides/reporting/core/v4}
+ *
+ * @author JH
+ * @since 2018.08.21
+ */
+public enum GAHelper {
+
+  VISIT_USER("ga:sessions", "ga:date", null, "user"),
+  TOTAL_VIEW_COUNT("ga:pageviews", "ga:date", null, "totalViewCount"),
+  BROWSER("ga:sessions", "ga:browser", null, "browser"),
+  RESOLUTION("ga:sessions","ga:screenResolution", null, "resolution"),
+  REFFER("ga:sessions", "ga:keyword", null, "reffer"),
+  KEYWORD("ga:sessions", "ga:fullReferrer", null, "keyword"),
+  PAGE_PATH("ga:users", "ga:pagePath", null, "pagePath");
+
+  private String metrics;
+  private String dimensions;
+  private String filter;
+  private String alias;
+
+  static final String APPLICATION_NAME = "DEMO";
+  static final GsonFactory GSON_FACTORY = GsonFactory.getDefaultInstance();
+  static final String VIEW_ID = "DEMO";
+
+  GAHelper(String metrics, String dimensions, String filter, String alias) {
+    this.metrics = metrics;
+    this.dimensions = dimensions;
+    this.filter = filter;
+    this.alias = alias;
+  }
+
+  /**
+   * QueryParameter DateRange
+   * @param start
+   * @param end
+   * @return dateRangeList
+   */
+  public List<DateRange> createDateRange(String start, String end) {
+    //...
+    return list;
+  }
+
+  /**
+   * QueryParameter Metric 초기화
+   * @return metricList
+   */
+  public List<Metric> createMetric() {
+    //...
+    return list;
+  }
+
+  /**
+   * QueryParameter Dimension 초기화
+   * @return dimenssionList
+   */
+  public List<Dimension> createDimension() {
+    //...
+    return list;
+  }
+
+  /**
+   * GA Reporting API 사용권한 검증
+   * @return AnalyticsReporting
+   * @throws GeneralSecurityException
+   * @throws IOException
+   */
+  static AnalyticsReporting initializeAnalyticsReporting(File file) throws GeneralSecurityException, IOException {
+
+    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(file))
+    		.createScoped(AnalyticsReportingScopes.all());
+
+    // Construct the Analytics Reporting service object.
+    return new AnalyticsReporting.Builder(httpTransport, GSON_FACTORY, credential)
+    		.setApplicationName(APPLICATION_NAME).build();
+  }
+
+}
+```
+
+**이번글은 여기서 마무리 하겠습니다 ~**
