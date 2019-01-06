@@ -121,7 +121,7 @@ author:
   bio              : "더 나은 개발자가 되는방법"
   location         : "Seoul, Korea"
   email            : "pjh2359@gmail.com"
-  uri              : "https://jehuipark.github.io/"
+  uri              : "https://jehuipark.github.io"
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
   codepen          :
@@ -217,7 +217,7 @@ timezone: "Asia/Seoul" # https://en.wikipedia.org/wiki/List_of_tz_database_time_
 
 # 플러그인을 정의하는 부분입니다.
 # Plugins (previously gems:)
-plugins:
+gems:
   - liquid
   - jekyll-mentions
   - jekyll-paginate
