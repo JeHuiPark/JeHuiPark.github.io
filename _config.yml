@@ -217,7 +217,7 @@ timezone: "Asia/Seoul" # https://en.wikipedia.org/wiki/List_of_tz_database_time_
 
 # 플러그인을 정의하는 부분입니다.
 # Plugins (previously gems:)
-gems:
+plugins:
   - liquid
   - jekyll-mentions
   - jekyll-paginate
