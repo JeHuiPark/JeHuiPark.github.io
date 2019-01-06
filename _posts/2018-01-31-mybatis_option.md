@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "마이바티스 옵션"
 date:   2018-01-31 17:59:21 +0900
 comments: true

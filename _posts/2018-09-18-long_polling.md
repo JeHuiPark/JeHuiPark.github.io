@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "LongPolling(지연응답) 구현"
 date:   2018-09-18 23:52:21 +0900
 comments: true

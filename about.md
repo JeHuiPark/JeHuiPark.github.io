@@ -1,14 +1,15 @@
 ---
-layout: default
-title: About
+layout: archive
+title: about
 permalink: /about/
 avatar: true
 navigation: true
+author_profile: true
 ---
 
 ## 박제희 (JeHuiPark)
 >
-  - 나이: 27   
+  - 나이: 28   
   - 거주지: 서울
   - 회사: 단감소프트
   - kakao_ID : pjhjjj

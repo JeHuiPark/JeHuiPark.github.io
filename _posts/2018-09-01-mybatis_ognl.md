@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "mybatis의 OGNL기반 표현식 분석"
 date:   2018-09-02 01:22:21 +0900
 comments: true

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "블로그 생성기"
 date:   2018-01-31 17:50:21 +0900
 comments: true

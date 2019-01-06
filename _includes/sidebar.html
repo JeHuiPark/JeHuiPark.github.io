@@ -1,44 +1,24 @@
-{% assign trans = site.data.values[site.lan] %}
-<div class="sidebar well">
-    <header class="sidebar-header" role="banner">
-        <a href="{{ site.baseurl }}/">
-            <img src="{{ site.baseurl }}/assets/images/xixia.gif" class="img-circle" />
-        </a>
-        <!--
-        <h3 class="title">
-        <a href="{{ site.BASE_PATH }}/">{{ site.title }}</a>
-        </h3>
-        -->
-    </header>
-    <div class="text-center">
-        {{ site.description }}
-    </div>
-</div>
-
-{% if site.data.tops.size > 0 %}
-<div class="sidebar well">
-    <h1>{{ trans.top_posts }}</h1>
-    <ul>
-        {% for top in site.data.tops %}
-            {% for post in site.posts %}
-                {% if post.url contains top.url %}
-                    <li><a href="{{ site.baseurl}}{{ post.url }}">{{ post.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-    </ul>
-</div>
+{% if page.author_profile or layout.author_profile or page.sidebar %}
+  <div class="sidebar sticky">
+  {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
+  {% if page.sidebar %}
+    {% for s in page.sidebar %}
+      {% if s.image %}
+        <img src=
+        {% if s.image contains "://" %}
+          "{{ s.image }}"
+        {% else %}
+          "{{ s.image | relative_url }}"
+        {% endif %}
+        alt="{% if s.image_alt %}{{ s.image_alt }}{% endif %}">
+      {% endif %}
+      {% if s.title %}<h3>{{ s.title }}</h3>{% endif %}
+      {% if s.text %}{{ s.text | markdownify }}{% endif %}
+      {% if s.nav %}{% include nav_list nav=s.nav %}{% endif %}
+    {% endfor %}
+    {% if page.sidebar.nav %}
+      {% include nav_list nav=page.sidebar.nav %}
+    {% endif %}
+  {% endif %}
+  </div>
 {% endif %}
-
-<div class="sidebar well">
-    <h1>{{ trans.recent_posts }}</h1>
-    <ul>
-        {% for post in site.posts limit:5 %}
-          <li><a href="{{ site.baseurl}}{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-
-<div class="sidebar well">
-    {% include links-list.html %}
-</div>

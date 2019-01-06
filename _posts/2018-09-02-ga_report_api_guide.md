@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "GoogleAnalytics Report API 연계"
 date:   2018-09-02 17:50:21 +0900
 comments: true

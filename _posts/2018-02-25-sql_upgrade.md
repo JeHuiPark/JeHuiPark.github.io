@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "SQL 튜닝"
 date:   2018-02-25 23:50:21 +0900
 comments: true

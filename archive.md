@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: archive
+author_profile: true
 ---
 
 <div class="well article">

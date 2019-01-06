@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 title:  "카카오 코딩테스트"
 date:   2018-06-11 22:12:21 +0900
 comments: true
