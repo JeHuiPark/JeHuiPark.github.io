@@ -6,3 +6,9 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+.archive {
+  @include breakpoint($large) {
+    padding-right: 0px;
+  }
+}
