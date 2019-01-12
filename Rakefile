@@ -7,7 +7,12 @@ require "jekyll"
 
 # Change your GitHub reponame
 GITHUB_REPONAME = "JeHuiPark/JeHuiPark.github.io"
-
+puts "레파지토리 경로 = https://github.com/#{GITHUB_REPONAME}"
+puts "브랜치명을 입력해주세요"
+branch = $stdin.gets.chomp
+puts "branch name = #{branch}"
+puts "계속 진행하시려면 아무키나 입력해주세요"
+system "pause"
 
 namespace :site do
   desc "Generate blog files"
@@ -19,7 +24,8 @@ namespace :site do
   end
 
 
-  desc "Generate and publish blog to gh-pages"
+  desc "Generate and publish blog"
+
   task :publish => [:generate] do
     Dir.mktmpdir do |tmp|
       cp_r "_site/.", tmp
@@ -33,6 +39,7 @@ namespace :site do
       system "git commit -m #{message.inspect}"
       system "git remote add origin https://github.com/#{GITHUB_REPONAME}.git"
       system "git push origin master:refs/heads/master --force"
+      system "pause"
 
       Dir.chdir pwd
     end
