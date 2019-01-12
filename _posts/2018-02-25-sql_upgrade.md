@@ -11,6 +11,8 @@ tags:
 - ORACLE
 - 오라클
 published : true
+redirect_from:
+- /oracle/2018/02/25/sql_upgrade/
 ---
 
 ### 서론

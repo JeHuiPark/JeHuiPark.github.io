@@ -4,6 +4,8 @@ title:  "블로그 생성기"
 date:   2018-01-31 17:50:21 +0900
 comments: true
 categories: jekyll
+redirect_from:
+  - /jekyll/2018/01/31/blog_start/
 ---
 ### **프롤로그**
 개발자로써 일을 시작한지 이제 만 1년이 지났고 최근들어 이런저런 생각이 들기 시작했다.

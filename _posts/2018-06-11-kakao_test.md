@@ -7,6 +7,8 @@ categories:
 - kakao
 tags:
 - 카카오 코딩테스트
+redirect_from:
+- /kakao/2018/06/11/kakao_test/
 ---
 
 ### 심심해서 해본 2017 카카오 신입공채 1차 코딩 스트

@@ -4,6 +4,9 @@ title:  "GoogleAnalytics Report API 연계"
 date:   2018-09-02 17:50:21 +0900
 comments: true
 categories: GoogleAnalytics
+redirect_from:
+  - /googleanalytics/2018/09/02/ga_report_api_guide/
+
 ---
 
 GoogleAnalytics를 들어보셨나요.

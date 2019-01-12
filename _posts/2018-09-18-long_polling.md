@@ -7,9 +7,9 @@ categories: study
 tags:
   - longpolling
   - 지연응답
+redirect_from:
+  - /study/2018/09/18/long_polling/
 ---
-
-## LongPolling(지연응답) 구현
 
 
 ### 이론
