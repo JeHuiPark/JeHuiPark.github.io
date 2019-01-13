@@ -1,13 +1,16 @@
 ---
 layout: posts
-title:  "블로그 생성기"
+title:  "블로그를 생성한 이유"
 date:   2018-01-31 17:50:21 +0900
 comments: true
-categories: jekyll
+categories: blog
+tags:
+  - jekyll
 redirect_from:
   - /jekyll/2018/01/31/blog_start/
+  - /jekyll/blog_start
 ---
-### **프롤로그**
+
 개발자로써 일을 시작한지 이제 만 1년이 지났고 최근들어 이런저런 생각이 들기 시작했다.
 본래 프로그래밍 하는것이 재밌었고, 높은 경지에 오르고 싶어서 시작한 일인데 1년을 뒤돌아보니 한것에 비해 남는게 없는것 같아 허전한감이 없지 않아있는 기분이다. (_사실 나만 도태되는것 같은 기분..._)
 그래서 나만의 블로그를 개설하고 포스팅을 통해 흔적을 남기자고 결심하게 되었다.

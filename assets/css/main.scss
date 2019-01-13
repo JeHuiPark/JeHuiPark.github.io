@@ -11,4 +11,8 @@
   @include breakpoint($large) {
     padding-right: 0px;
   }
+  font-size: 16px;
+}
+.hljs {
+  font-size: 16px;
 }

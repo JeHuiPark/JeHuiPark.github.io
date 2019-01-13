@@ -3,9 +3,12 @@ layout: posts
 title:  "GoogleAnalytics Report API 연계"
 date:   2018-09-02 17:50:21 +0900
 comments: true
-categories: GoogleAnalytics
+categories: study
+tags:
+  - googleanalytics
 redirect_from:
   - /googleanalytics/2018/09/02/ga_report_api_guide/
+  - /googleanalytics/ga_report_api_guide/
 
 ---
 

@@ -27,7 +27,7 @@ title                    : "JH Blog" # 블로그 제목
 title_separator          : "-" # 글 제목 - 블로그 제목  과 같이 사이트를 표시해줍니다.
 name                     : "Dev JH" # 사이트 소유자의 이름을 사용합니다.(Used to assign a site author.)
 description              : "developer JH website." # 사이트에 대한 간단한 설명입니다.
-url                      : "https://jehuipark.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://jehuipark.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 # 사이트의 주소를 입력합니다.
 
 baseurl                  : "" # the subpath of your site, e.g. "/blog"

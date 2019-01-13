@@ -4,12 +4,14 @@ title:  "mybatis의 OGNL기반 표현식 분석"
 date:   2018-09-02 01:22:21 +0900
 comments: true
 categories:
-  - mybatis
+  - java
 tags:
   - mybatis
-  - OGNL
+  - ognl
+  - spring
 redirect_from:
   - /mybatis/2018/09/01/mybatis_ognl/
+  - /mybatis/mybatis_ognl/
 ---
 
 mybatis는 동적SQL처리를 지원하기 위해 지정된 엘리먼트들을 제공합니다. 그리고 기존 ibatis에서 제공되어지던 다수의 엘리먼트들은 **OGNL기반의 표현식이 도입**됨으로써 많이 사라지고 다음과 같은것들로 대체 됨으로써 개발자가 알아야할 엘리먼트의 개수는 줄었다는 장점이 존재합니다.

@@ -4,15 +4,13 @@ title:  "SQL 튜닝"
 date:   2018-02-25 23:50:21 +0900
 comments: true
 categories:
-- oracle
+- database
 tags:
-- SQL 튜닝
-- 데이터베이스
-- ORACLE
-- 오라클
+- oracle
 published : true
 redirect_from:
 - /oracle/2018/02/25/sql_upgrade/
+- /oracle/sql_upgrade
 ---
 
 ### 서론

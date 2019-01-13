@@ -1,15 +1,15 @@
 ---
 layout: posts
-title:  "전자정부 프레임워크 유닛테스트"
+title:  "Springframework 단위테스트"
 date:   2018-02-12 17:50:21 +0900
 comments: true
 categories:
-- egovframework
+- java
 tags:
-- 전자정부 프레임워크
-- 유닛 테스트
+- junit
 redirect_from:
 - /egovframework/2018/02/12/egov_unit_test/
+- /egovframework/egov_unit_test
 ---
 
 1. **pom.xml** 에 의존성 라이브러리 추가  

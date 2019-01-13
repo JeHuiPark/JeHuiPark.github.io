@@ -4,16 +4,15 @@ title:  "마이바티스 옵션"
 date:   2018-01-31 17:59:21 +0900
 comments: true
 categories:
-  - mybatis
+  - java
 tags:
   - mybatis
   - spring
-redirect_froms:
+redirect_from:
   - /mybatis/2018/01/31/%EB%A7%88%EC%9D%B4%EB%B0%94%ED%8B%B0%EC%8A%A4(mybatis)-3.0/
-  - /blog/마이바티스(bybatis)-3.0/
-  - /blog/마이바티스(mybatis)-3.0
-  - /blog/마이바티스/(mybatis/)-3.0
+  - /blog/%EB%A7%88%EC%9D%B4%EB%B0%94%ED%8B%B0%EC%8A%A4(mybatis)-3.0/
   - /mybatis/2018/01/31/mybatis_option/
+  - /mybatis/mybatis_option/
 ---
 
 - ### insert, update, delete 요청에서 selectKey추출
