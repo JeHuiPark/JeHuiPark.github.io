@@ -7,6 +7,9 @@ require "jekyll"
 
 # Change your GitHub reponame
 GITHUB_REPONAME = "JeHuiPark/JeHuiPark.github.io"
+# 운영환경 빌드 아웃풋 경로
+PROD_DESTINATION = "_site_prod"
+
 puts "레파지토리 경로 = https://github.com/#{GITHUB_REPONAME}"
 puts "브랜치명을 입력해주세요"
 branch = $stdin.gets.chomp
@@ -19,7 +22,8 @@ namespace :site do
   task :generate do
     Jekyll::Site.new(Jekyll.configuration({
       "source"      => ".",
-      "destination" => "_site"
+      "destination" => "#{PROD_DESTINATION}",
+      "mode"=> "production"
     })).process
   end
 
@@ -28,7 +32,7 @@ namespace :site do
 
   task :publish => [:generate] do
     Dir.mktmpdir do |tmp|
-      cp_r "_site/.", tmp
+      cp_r "#{PROD_DESTINATION}/.", tmp
 
       pwd = Dir.pwd
       Dir.chdir tmp

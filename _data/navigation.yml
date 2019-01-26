@@ -8,8 +8,6 @@ main:
   #   url: /year-archive/
   # - title: "Sample Collections"
   #   url: /collection-archive/
-  - title: archive
-    url: /archive/
   - title: about
     url: /about/
   - title: category

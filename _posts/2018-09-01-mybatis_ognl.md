@@ -59,7 +59,7 @@ public interface TestMapper {
 ```
 
 __해당 메소드를 호출합니다.__
-``` java
+```java
 @Test
 public void case2() {
   Map<String, Object> map = new HashMap<String, Object>();

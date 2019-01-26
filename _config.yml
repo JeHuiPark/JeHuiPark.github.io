@@ -70,6 +70,7 @@ reCaptcha:
 atom_feed:
   path                   : # blank (default) uses feed.xml
 
+
 #사이트내 검색 설정에 대한 부분입니다.
 search                   :  # true, false (default)
 search_full_content      :  # true, false (default)
@@ -117,8 +118,8 @@ analytics:
 # Site Author
 author:
   name             : "JeHui Park"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "더 나은 개발자가 되는방법"
+  avatar           : "/assets/images/me.jpg"
+  bio              : "개발자 박제희"
   location         : "Seoul, Korea"
   email            : "pjh2359@gmail.com"
   uri              : "https://jehuipark.github.io"
@@ -217,6 +218,7 @@ timezone: "Asia/Seoul" # https://en.wikipedia.org/wiki/List_of_tz_database_time_
 
 # 플러그인을 정의하는 부분입니다.
 # Plugins (previously gems:)
+
 plugins:
   - liquid
   - jekyll-mentions
@@ -224,7 +226,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-gist
-  - jekyll-feed
+#  - jekyll-feed
   - jekyll-redirect-from
   - jemoji
 
@@ -265,8 +267,8 @@ jekyll-archives:
 # - http://jch.penibelst.de/
 compress_html:
   clippings: all
-  ignore:
-    envs: development
+  #ignore:
+  #  envs: development
 
 
 # Front Matter 설정입니다.
