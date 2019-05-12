@@ -11,7 +11,9 @@
   <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
 {% endif %}
-
+{% if site.search == true %}
+  {% include search/lunr-search-scripts.html %}
+{% endif %}
 
 
 {% include analytics.html %}

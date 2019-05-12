@@ -4,12 +4,13 @@
   {%- when "lunr" -%}
     <input type="text" id="search" class="search-input" tabindex="-1" placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}" />
     <div id="results" class="results"></div>
+    <h4>우측 상단의 돋보기를 누르면 원래 화면으로 돌아갈 수 있습니다.</h4>
   {%- when "google" -%}
     <form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
     <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1" placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}" />
     </form>
     <div id="results" class="results">
-        <gcse:searchresults-only></gcse:searchresults-only>    
+        <gcse:searchresults-only></gcse:searchresults-only>
     </div>
   {%- when "algolia" -%}
     <div class="search-searchbar"></div>

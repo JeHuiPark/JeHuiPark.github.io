@@ -70,12 +70,15 @@ reCaptcha:
 atom_feed:
   path                   : # blank (default) uses feed.xml
 
+head_scripts:
+  - /assets/js/highlight.js
+  - /assets/js/highlightjs-line-numbers.min.js
 
 #사이트내 검색 설정에 대한 부분입니다.
-search                   :  # true, false (default)
-search_full_content      :  # true, false (default)
+search                   : true # true, false (default)
+search_full_content      : false # true, false (default)
 # 저의 경우 algolia 를 사용하고 있으며 추가설정이 필요합니다.
-search_provider          :  # lunr (default), algolia, google
+search_provider          : lunr # lunr (default), algolia, google
 algolia:
   application_id         :  # YOUR_APPLICATION_ID
   index_name             :  # YOUR_INDEX_NAME
@@ -229,6 +232,7 @@ plugins:
 #  - jekyll-feed
   - jekyll-redirect-from
   - jemoji
+  # - jekyll-algolia
 
 # mimic GitHub Pages with --safe
 
@@ -281,7 +285,7 @@ defaults:
       path: ""
       type: posts
     values:
-      layout: single
+      layout: posts
       author_profile: true
       read_time: true
       comments: true

@@ -554,6 +554,7 @@ ko: &DEFAULT_KO
   comment_success_msg        : "감사합니다! 댓글이 머지된 후 확인하실 수 있습니다."
   comment_error_msg          : "댓글 등록에 문제가 있습니다. 필요 필드를 작성했는지 확인하고 다시 시도하세요."
   loading_label              : "로딩중..."
+  search_placeholder_text    : "검색어를 입력해주세요..."
 ko-KR:
   <<: *DEFAULT_KO
 
@@ -1150,7 +1151,7 @@ ro: &DEFAULT_RO
   back_to_top                : "Înapoi în susul paginii"
 ro-RO:
   <<: *DEFAULT_RO
-  
+
 # Punjabi
 # -----------------
 pa: &DEFAULT_PA
@@ -1196,7 +1197,7 @@ pa: &DEFAULT_PA
   results_found              : "ਨਤੀਜਾ ਮਿਲਿਆ/ਮਿਲੇ"
   back_to_top                : "ਵਾਪਸ ਚੋਟੀ 'ਤੇ ਜਾਓ"
 pa-IN:
-  <<: *DEFAULT_PA  
+  <<: *DEFAULT_PA
 
 # Persian (Farsi)
 # --------------
