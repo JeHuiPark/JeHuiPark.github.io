@@ -8,13 +8,19 @@ author_profile: true
 ---
 
 ## 박제희 (JeHuiPark)
+
+우아하고, 간결하게 개발하자
+
+---
+
+
 >
   - 나이: 28   
   - 거주지: 서울
   - 회사: 단감소프트
   - kakao_ID : pjhjjj
   - email : pjh2359@gmail.com
-  - tech : android, java, javascript, rdbms, spring
+  - tech : java, spring, back-end
 
 
 ---

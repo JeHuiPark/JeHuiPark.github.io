@@ -49,8 +49,8 @@ var store = [{
         "tags": ["jekyll"],
         "url": "https://jehuipark.github.io/blog/blog-publish",
         "teaser":null},{
-        "title": "[JAVA] 제너릭(Generic)이란",
-        "excerpt":"List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;(); List list2 = new ArrayList&lt;&gt;(); Map&lt;String, String&gt; map = new ArrayList&lt;&gt;(); 우리는 위와같이 꺽쇠안에 클래스 타입이 명시된 패턴을 자주 발견할 수 있다. 이걸 제너릭(Generic) 이라고 부르며, 제너릭 파라미터는 꺽쇠안에 포함하여 전달한다. 제너릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다. JAVA에서 제너릭이란? 파라미터 타입이나...","categories": ["java"],
+        "title": "[JAVA] 제네릭(Generic)이란",
+        "excerpt":"List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;(); List list2 = new ArrayList&lt;&gt;(); Map&lt;String, String&gt; map = new ArrayList&lt;&gt;(); 우리는 위와같이 꺽쇠안에 클래스 타입이 명시된 패턴을 자주 발견할 수 있다. 이걸 제네릭(Generic) 이라고 부르며, 제네릭 파라미터는 꺽쇠안에 포함하여 전달한다. 제네릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다. JAVA에서 제네릭이란? 파라미터 타입이나...","categories": ["java"],
         "tags": ["generic"],
         "url": "https://jehuipark.github.io/java/java-generic",
         "teaser":null},{
@@ -63,4 +63,24 @@ var store = [{
         "excerpt":"지킬 블로그에서 글을 작성하다보면 코드블럭에 리퀴드문법을 작성하는 경우가 있는데, 그냥 작성하게 되면 코드블럭에 포함된 리퀴드코드가 빌드하는 과정에서 의도치 않게 리퀴드 코드가 실행될 수 있습니다. 예를들어서 리퀴드문법에 소개하는 글을 아래처럼 작성하고 --- layout: posts title: \"제목\" --- **리퀴드 문법에서 변수선언은 이렇게합니다 !!** ``` {% assign var=\"어떤값을 저장할까.\" %} ``` 빌드후 실제로...","categories": ["blog"],
         "tags": ["jekyll"],
         "url": "https://jehuipark.github.io/blog/markdown-liquid-escape",
+        "teaser":null},{
+        "title": "Springboot 시작하기 쉬운 Database H2",
+        "excerpt":"Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다. Springboot + 데모수준 앱 + 관계형 데이터베이스(RDBMS) + 인텔리제이(IntelliJ) 이 4가지가 충족 된다면 H2 데이터베이스를 추천합니다. 인텔리제이의 경우에 H2를 선택한다면 무설치에 가까운 행위로 손쉽게 데이타소스 설정이 가능합니다. 위키에 따르면 H2는 JAVA로 작성된 RDBMS로 JAVA앱에 임베디드 되거나 클라이언트-서버모드로 구동이...","categories": ["java"],
+        "tags": ["spring","h2"],
+        "url": "https://jehuipark.github.io/java/springboot-h2-tcp-setup",
+        "teaser":null},{
+        "title": "Load Time Weaving 적용기 - Spring LTW",
+        "excerpt":"스프링 환경에서 IOC 대상이 아닌 일반객체도 별도의 코드 작성없이 스프링 컨테이너로부터 DI 받을 수 있는 방법을 공유합니다. 전체소스는 깃허브 에 존재합니다. 의문점에서 시작 Spring환경에서 개발을 진행하던중 문득 일반객체도 스프링 컨테이너에 빈으로 등록된 객체들을 별도의 코드작성없이 Autowired와 같은 어노테이션을 이용하여 DI받을 수는 없을까란 의문점이 생겼습니다. 즉, 제가 하고싶었던 것은 객체에 대한...","categories": ["java"],
+        "tags": ["spring","ltw"],
+        "url": "https://jehuipark.github.io/java/generic-object-di-try-with-spring",
+        "teaser":null},{
+        "title": "트랜잭션이 동작하지 않는다.",
+        "excerpt":"팀장님으로부터 어떤 업무를 처리할 서버앱을 데모형태로 먼저 개발해달란 요청이 들어왔고, 여느때와 다름없이 springboot를 이용하여 빠르게 구축하였다. 프로젝트에서 사용될 핵심 의존성은 대충 아래와 같았다. 의존성 querydsl web spring-data-jpa mariadb 문제는 데이터 레이어 개발을 끝내고 테스트 진행중에 발생하였다……ㅠㅠ 이슈 발견 Test를 위해 스프링부트에서 지원하는 DataJpaTest 어노테이션을 이용하여 슬라이싱 테스트를 진행하였고 몇번의 시행착오를...","categories": ["note"],
+        "tags": ["database"],
+        "url": "https://jehuipark.github.io/note/transaction-do-not-work-issue",
+        "teaser":null},{
+        "title": "전공서적 읽기 프로젝트",
+        "excerpt":"               제목       저자                       이펙티브 자바       조슈아 블로                 클린코드 애자일 소프트웨어 장인정신       로버트C. 마틴                 도메인 주도 설계       에릭 에반스                 자바 ORM 표준 JPA 프로그래밍       김한영          ","categories": ["note"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/note/book-read-plan",
         "teaser":null}]

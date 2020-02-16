@@ -41,6 +41,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
+  a {
+    text-decoration: none
+  }
+
   a::before {
     content: '';
     position: absolute;
@@ -48,6 +52,14 @@
     top: 0;
     right: 0;
     bottom: 0;
+  }
+
+  @include pong($link-color);
+
+  a::after {
+    content: ' ';
+    white-space: pre;
+    animation: pong 1s infinite;
   }
 
   a + a {

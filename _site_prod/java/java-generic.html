@@ -1,7 +1,9 @@
-<!doctype html> <!-- Minimal Mistakes Jekyll Theme 4.12.0 by Michael Rose Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes Free for personal and commercial use under the MIT license https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt --><html lang="ko" class="no-js"><head><meta charset="utf-8"> <!-- begin _includes/seo.html --><title>[JAVA] 제너릭(Generic)이란 - JH Blog</title><meta name="description" content="List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;();List list2 = new ArrayList&lt;&gt;();Map&lt;String, String&gt; map = new ArrayList&lt;&gt;();"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="JH Blog"><meta property="og:title" content="[JAVA] 제너릭(Generic)이란"><meta property="og:url" content="https://jehuipark.github.io/java/java-generic"><meta property="og:description" content="List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;();List list2 = new ArrayList&lt;&gt;();Map&lt;String, String&gt; map = new ArrayList&lt;&gt;();"><meta property="article:published_time" content="2019-01-14T00:45:21+09:00"><meta property="fb:app_id" content="150481385751381"><link rel="canonical" href="https://jehuipark.github.io/java/java-generic"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Person", "name": "Dev JH", "url": "https://jehuipark.github.io", "sameAs": null } </script><meta name="google-site-verification" content="googlece77ee37e1eecdba" /><meta name="naver-site-verification" content="naver4b9c5fbe228f7d5fc4264f265fee743a"> <!-- end _includes/seo.html --> <!--<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JH Blog Feed">--><link rel="alternate" type="application/rss+xml" href="https://jehuipark.github.io/feed.xml" title="JH Blog Feed"> <!-- https://t.co/dKP3o1e --><meta name="viewport" content="width=device-width, initial-scale=1.0"> <script> document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js '; </script> <!-- For all browsers --><link rel="stylesheet" href="/assets/css/main.css"> <!--[if IE ]><style> /* old IE unsupported flexbox fixes */ .greedy-nav .site-title { padding-right: 3em; } .greedy-nav button { position: absolute; top: 0; right: 0; height: 100%; }</style><![endif]--> <script src="/assets/js/highlight.js"></script> <script src="/assets/js/highlightjs-line-numbers.min.js"></script> <!-- start custom head snippets --> <!--<link href="/assets/css/railscasts.css" rel="stylesheet" type="text/css">--><link href="/assets/css/zenburn.css" rel="stylesheet" type="text/css"> <!-- insert favicons. use https://realfavicongenerator.net/ --> <!-- end custom head snippets --><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body class="layout--posts"> <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]--><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"> <a class="site-title" href="/">JH Blog</a><ul class="visible-links">
+<!doctype html> <!-- Minimal Mistakes Jekyll Theme 4.12.0 by Michael Rose Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes Free for personal and commercial use under the MIT license https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt --><html lang="ko" class="no-js"><head><meta charset="utf-8"> <!-- begin _includes/seo.html --><title>[JAVA] 제네릭(Generic)이란 - JH Blog</title><meta name="description" content="List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;();List list2 = new ArrayList&lt;&gt;();Map&lt;String, String&gt; map = new ArrayList&lt;&gt;();"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="JH Blog"><meta property="og:title" content="[JAVA] 제네릭(Generic)이란"><meta property="og:url" content="https://jehuipark.github.io/java/java-generic"><meta property="og:description" content="List&lt;Interger&gt; list1 = new ArrayList&lt;&gt;();List list2 = new ArrayList&lt;&gt;();Map&lt;String, String&gt; map = new ArrayList&lt;&gt;();"><meta property="article:published_time" content="2019-01-14T00:45:21+09:00"><meta property="fb:app_id" content="150481385751381"><link rel="canonical" href="https://jehuipark.github.io/java/java-generic"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Person", "name": "Dev JH", "url": "https://jehuipark.github.io", "sameAs": null } </script><meta name="google-site-verification" content="googlece77ee37e1eecdba" /><meta name="naver-site-verification" content="naver4b9c5fbe228f7d5fc4264f265fee743a"> <!-- end _includes/seo.html --> <!--<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JH Blog Feed">--><link rel="alternate" type="application/rss+xml" href="https://jehuipark.github.io/feed.xml" title="JH Blog Feed"> <!-- https://t.co/dKP3o1e --><meta name="viewport" content="width=device-width, initial-scale=1.0"> <script> document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js '; </script> <!-- For all browsers --><link rel="stylesheet" href="/assets/css/main.css"> <!--[if IE ]><style> /* old IE unsupported flexbox fixes */ .greedy-nav .site-title { padding-right: 3em; } .greedy-nav button { position: absolute; top: 0; right: 0; height: 100%; }</style><![endif]--> <script src="/assets/js/highlight.js"></script> <script src="/assets/js/highlightjs-line-numbers.min.js"></script> <!-- start custom head snippets --> <!--<link href="/assets/css/railscasts.css" rel="stylesheet" type="text/css">--><link href="/assets/css/zenburn.css" rel="stylesheet" type="text/css"> <!-- insert favicons. use https://realfavicongenerator.net/ --> <!-- end custom head snippets --><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body class="layout--posts"> <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]--><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"> <a class="site-title" href="/">JH Blog</a><ul class="visible-links">
 <li class="masthead__menu-item"> <a href="/about/">about</a>
 </li>
 <li class="masthead__menu-item"> <a href="/categories">category</a>
+</li>
+<li class="masthead__menu-item"> <a href="/tags">tag</a>
 </li>
 </ul>
 <button class="search__toggle" type="button"> <span class="visually-hidden">Toggle search</span> <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path> </svg> </button> <button class="greedy-nav__toggle hidden" type="button"> <span class="visually-hidden">토글 메뉴</span><div class="navicon"></div></button><ul class="hidden-links hidden"></ul></nav></div></div></div><div class="initial-content"><div id="main" role="main">
@@ -26,15 +28,15 @@
 </div>
 </div></div>
 <div class="archive">
-<h1 id="page-title" class="page__title">[JAVA] 제너릭(Generic)이란</h1>
+<h1 id="page-title" class="page__title">[JAVA] 제네릭(Generic)이란</h1>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Interger</span><span class="o">&gt;</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
 <span class="n">List</span> <span class="n">list2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
 <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
 </code></pre></div></div>
 <p>우리는 위와같이 꺽쇠안에 클래스 타입이 명시된 패턴을 자주 발견할 수 있다.</p>
-<p>이걸 <strong>제너릭(Generic)</strong> 이라고 부르며, 제너릭 파라미터는 꺽쇠안에 포함하여 전달한다.</p>
-<p>제너릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다.</p>
-<h1 id="java에서-제너릭이란">JAVA에서 제너릭이란?</h1>
+<p>이걸 <strong>제네릭(Generic)</strong> 이라고 부르며, 제네릭 파라미터는 꺽쇠안에 포함하여 전달한다.</p>
+<p>제네릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다.</p>
+<h1 id="java에서-제네릭이란">JAVA에서 제네릭이란?</h1>
 <ul>
 <li><strong>파라미터 타입이나 리턴 타입에 대한 정의를 외부로 미룬다</strong></li>
 <li><strong>타입에 대해 유연성과 안정성을 확보한다</strong></li>
@@ -42,14 +44,14 @@
 </ul>
 <blockquote><p><strong>타입을 유연하게 처리하며, 런타임에 발생할 수 있는 타입에러를 컴파일전에 검출한다.</strong></p></blockquote>
 <hr>
-<p><br> 예시로 아래와 같이 하나의 제너릭 파라미터를 전달받는 클래스를 정의해보자.</p>
+<p><br> 예시로 아래와 같이 하나의 제네릭 파라미터를 전달받는 클래스를 정의해보자.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  *
- * @param &lt;T&gt; 클래스 초기화 시 한 가지의 클래스 타입을 제너릭 파라미터로 받는다
+ * @param &lt;T&gt; 클래스 초기화 시 한 가지의 클래스 타입을 제네릭 파라미터로 받는다
  */</span>
 <span class="kd">class</span> <span class="nc">Sample</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">T</span> <span class="n">data</span><span class="o">;</span> <span class="c1">// 데이터의 타입은 제너릭 T</span>
+    <span class="kd">private</span> <span class="n">T</span> <span class="n">data</span><span class="o">;</span> <span class="c1">// 데이터의 타입은 제네릭 T</span>
 
     <span class="cm">/**
      *
@@ -68,11 +70,11 @@
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p><br> 그리고 Sample클래스를 초기화시키면서 임의의 클래스를 제너릭 파라미터로 전달하여 Sample클래스의 T에 대한 타입을 지정해보자</p>
+<p><br> 그리고 Sample클래스를 초기화시키면서 임의의 클래스를 제네릭 파라미터로 전달하여 Sample클래스의 T에 대한 타입을 지정해보자</p>
 <p><img src="https://user-images.githubusercontent.com/25237661/51187783-ecdb8200-191f-11e9-8498-8749bfbb9ef2.jpg" alt="generic_sample1"></p>
 <p><img src="https://user-images.githubusercontent.com/25237661/51187784-ecdb8200-191f-11e9-83e8-a8af352164e2.jpg" alt="generic_sample2"></p>
-<p>이처럼 제너릭 타입으로 어떤 클래스를 전달했냐에 따라서 메소드의 파라미터, 혹은 리턴타입이 제너릭 파라미터로 전달받은 클래스 타입으로 유연하게 바뀌며 동시에 강제성을 갖게 해주는 부분을 확인할 수 있다. 이로써 Sample클래스는 setData메소드나 getData메소드에 여러가지 타입을 이용할 수 있지만, <strong>제너릭 파라미터에 의해 타입이 고정되기 때문에 안정성이 확보되는 것을 확인 할 수 있다.</strong></p>
-<p><br> 만약 Sample클래스에 대응되는 클래스를 제너릭 타입없이 구현하게되면 아래처럼 될것이다.</p>
+<p>이처럼 제네릭 타입으로 어떤 클래스를 전달했냐에 따라서 메소드의 파라미터, 혹은 리턴타입이 제네릭 파라미터로 전달받은 클래스 타입으로 유연하게 바뀌며 동시에 강제성을 갖게 해주는 부분을 확인할 수 있다. 이로써 Sample클래스는 setData메소드나 getData메소드에 여러가지 타입을 이용할 수 있지만, <strong>제네릭 파라미터에 의해 타입이 고정되기 때문에 안정성이 확보되는 것을 확인 할 수 있다.</strong></p>
+<p><br> 만약 Sample클래스에 대응되는 클래스를 제네릭 타입없이 구현하게되면 아래처럼 될것이다.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">AnotherSample</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">Object</span> <span class="n">data</span><span class="o">;</span>
 
@@ -103,20 +105,20 @@
 <span class="n">String</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">integerSample</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
 </code></pre></div></div>
 <p><br></p>
-<h1 id="제너릭의-특징-및-사용법">제너릭의 특징 및 사용법</h1>
+<h1 id="제네릭의-특징-및-사용법">제네릭의 특징 및 사용법</h1>
 <ul>
 <li><strong>클래스 혹은 메소드에 선언할 수 있다.</strong></li>
 <li><strong>동시에 여러 타입을 선언할 수 있다.</strong></li>
 <li><strong>와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.</strong></li>
-<li><strong>제너릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></li>
+<li><strong>제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></li>
 </ul>
 <blockquote><p><strong>클래스 혹은 메소드에 선언할 수 있다.</strong></p></blockquote>
-<p>제너릭은 <u>두가지 방법</u>으로 선언된다.</p>
+<p>제네릭은 <u>두가지 방법</u>으로 선언된다.</p>
 <ol>
 <li>
-<p><strong>클래스에 제너릭 파라미터를 선언하는 방법</strong> <em>(클래스 인스턴스화 시점에서 제너릭 파라미터를 통해 타입 전달)</em></p>
+<p><strong>클래스에 제네릭 파라미터를 선언하는 방법</strong> <em>(클래스 인스턴스화 시점에서 제네릭 파라미터를 통해 타입 전달)</em></p>
 <p>인스턴스애서 타입을 공유할 경우에 사용되며, 컬렉션에서 자주볼수 있는 유형이다.</p>
-<p>사용법은 클래스 우측에 제너릭 파라미터를 선언한다.</p>
+<p>사용법은 클래스 우측에 제네릭 파라미터를 선언한다.</p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">class</span> <span class="nc">Sample</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
    <span class="kd">private</span> <span class="n">T</span> <span class="n">anonyTypeData</span><span class="o">;</span>
@@ -125,9 +127,9 @@
 <p><br></p>
 </li>
 <li>
-<p><strong>메소드에 제너릭 파라미터 선언하는 방법</strong> <em>(메소드 수행 시점에서 파라미터 타입과 비교하여 타입 전달)</em></p>
-<p>제너릭 타입이 메소드 호출시점에 결정되야 할 경우 사용되며, 파라미터 타입에 따라 제너릭 타입이 결정되기 때문에 다이나믹한 처리를 가능케 한다.</p>
-<p>사용법은 메소드의 반환타입 앞부분에 제너릭 파라미터를 선언한다.</p>
+<p><strong>메소드에 제네릭 파라미터 선언하는 방법</strong> <em>(메소드 수행 시점에서 파라미터 타입과 비교하여 타입 전달)</em></p>
+<p>제네릭 타입이 메소드 호출시점에 결정되야 할 경우 사용되며, 파라미터 타입에 따라 제네릭 타입이 결정되기 때문에 다이나믹한 처리를 가능케 한다.</p>
+<p>사용법은 메소드의 반환타입 앞부분에 제네릭 파라미터를 선언한다.</p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
   *
@@ -144,12 +146,12 @@
 </li>
 </ol>
 <blockquote><p><strong>동시에 여러 타입을 선언할 수 있다.</strong></p></blockquote>
-<p>제너릭 파라미터를 정의하는곳에 <u>콤마를 기준으로 여러 타입을 선언</u>하여 사용이 가능하다</p>
+<p>제네릭 파라미터를 정의하는곳에 <u>콤마를 기준으로 여러 타입을 선언</u>하여 사용이 가능하다</p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  *
  * @param p Function 메소드에서 소비될 P타입의 인자이다.
- * @param function Function 제너릭 인자의 첫번째 타입의 파라미터를 소비하여 두번째 타입의 리턴값을 반환한다.
+ * @param function Function 제네릭 인자의 첫번째 타입의 파라미터를 소비하여 두번째 타입의 리턴값을 반환한다.
  * @param &lt;P&gt; Function 메소드의 소비 파라미터 타입으로 정의한다.
  * @param &lt;R&gt; Function 메소드의 리턴 타입으로 정의한다. test메소드의 리턴타입으로 정의한다.
  * @return
@@ -165,31 +167,31 @@
 <p><br></p>
 <blockquote><p><strong>와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.</strong></p></blockquote>
 <p><strong>와일드 카드는 대입연산 수행시 유연한 처리를 돕는다.</strong></p>
-<p>JAVA 컴파일러는 대입연산을 수행할 때 left-value의 제너릭타입과 right-value의 제너릭타입이 정확하게 일치하지 않을 경우 컴파일 에러를 발생시킨다. 하지만, 와일드 카드를 사용한다면 컴파일러가 유연하게 대처하도록 할 수 있다.</p>
+<p>JAVA 컴파일러는 대입연산을 수행할 때 left-value의 제네릭타입과 right-value의 제네릭타입이 정확하게 일치하지 않을 경우 컴파일 에러를 발생시킨다. 하지만, 와일드 카드를 사용한다면 컴파일러가 유연하게 대처하도록 할 수 있다.</p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
   <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-  <span class="n">method1</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 제너릭 타입이 일치하지 않기 때문에 컴파일 에러 발생</span>
-  <span class="n">method2</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 모든 제너릭 타입을 허용하기 때문에 컴파일 에러 없음</span>
+  <span class="n">method1</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 제네릭 타입이 일치하지 않기 때문에 컴파일 에러 발생</span>
+  <span class="n">method2</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 모든 제네릭 타입을 허용하기 때문에 컴파일 에러 없음</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제너릭타입으로 Object만 허용한다.</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제네릭타입으로 Object만 허용한다.</span>
   <span class="c1">// ...</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;?&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제너릭타입으로 모든 타입을 허용한다.</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;?&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제네릭타입으로 모든 타입을 허용한다.</span>
   <span class="c1">// ...</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>method2처럼 제너릭 타입을 와일드 카드로 모든 타입에 대하여 허용하게 될 경우 param의 제너릭은 최상위 클래스인 Object로 정의되기 때문에 메소드 내부에서 특정 타입으로 캐스팅하여야 된다는 단점이 존재한다. 그래서 JAVA는 <u>제너릭 파라미터 대입 연산시 left-value와 right-value간의 캐스팅</u>이 가능하도록 <strong>super</strong> 와 <strong>extends</strong> 라는 키워드로 지원하고 있다. <br></p>
-<blockquote><p><strong>제너릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></p></blockquote>
+<p>method2처럼 제네릭 타입을 와일드 카드로 모든 타입에 대하여 허용하게 될 경우 param의 제네릭은 최상위 클래스인 Object로 정의되기 때문에 메소드 내부에서 특정 타입으로 캐스팅하여야 된다는 단점이 존재한다. 그래서 JAVA는 <u>제네릭 파라미터 대입 연산시 left-value와 right-value간의 캐스팅</u>이 가능하도록 <strong>super</strong> 와 <strong>extends</strong> 라는 키워드로 지원하고 있다. <br></p>
+<blockquote><p><strong>제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></p></blockquote>
 <ol>
 <li>
-<p><strong>제너릭 타입 정의시 상속관계를 명시하는 방법</strong> (와일드카드를 사용한다)</p>
+<p><strong>제네릭 타입 정의시 상속관계를 명시하는 방법</strong> (와일드카드를 사용한다)</p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
- <span class="c1">// List의 제너릭 인자를 Runnable을 상속받은 모든 타입에 대하여 허용하도록 정의</span>
+ <span class="c1">// List의 제네릭 인자를 Runnable을 상속받은 모든 타입에 대하여 허용하도록 정의</span>
  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method4</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">){</span>
      <span class="k">for</span><span class="o">(</span><span class="n">Runnable</span> <span class="n">runnable</span> <span class="o">:</span> <span class="n">param</span><span class="o">){</span>
          <span class="n">runnable</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
@@ -234,10 +236,10 @@
 
  <span class="kd">class</span> <span class="nc">AnotherSampleChildOfChild</span> <span class="kd">extends</span> <span class="n">AnotherSampleChild</span> <span class="o">{}</span>
 
-   <span class="c1">// List의 제너릭 인자를 AnotherSampleChild 클래스의 상위클래스만 허용토록 정의</span>
+   <span class="c1">// List의 제네릭 인자를 AnotherSampleChild 클래스의 상위클래스만 허용토록 정의</span>
    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">genericSample</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">AnotherSampleChild</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">){</span>
        <span class="cm">/****************************************************************************************
-        * list 의 제너릭 와일드카드는 AnotherSampleChild 클래스의 상위 클래스이기 때문에
+        * list 의 제네릭 와일드카드는 AnotherSampleChild 클래스의 상위 클래스이기 때문에
         * JAVA 컴파일러가 타입을 특정할 수 없기 때문에 list의 반환 요소타입은 Object로 추론한다.
         * **************************************************************************************/</span>
        <span class="n">Object</span> <span class="n">a</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
@@ -261,7 +263,7 @@
 <p><br></p>
 </li>
 <li>
-<p><strong>제너릭 타입 선언시 상속관계를 명시하는 방법</strong></p>
+<p><strong>제네릭 타입 선언시 상속관계를 명시하는 방법</strong></p>
 <p>예시)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
   *
@@ -288,8 +290,8 @@
 </code></pre></div></div>
 </li>
 </ol>
-<p>여기까지 자주 쓰이지만 지나치기 쉬운 JAVA의 제너릭에 대하여 알아보았다.</p>
-<p>제너릭 타입의 <strong>선언</strong> 과 <strong>정의</strong> 를 정확하게 구분한다면 어렵지 않게 제너릭 타입을 활용 할 수 있을 것 같다.</p>
+<p>여기까지 자주 쓰이지만 지나치기 쉬운 JAVA의 제네릭에 대하여 알아보았다.</p>
+<p>제네릭 타입의 <strong>선언</strong> 과 <strong>정의</strong> 를 정확하게 구분한다면 어렵지 않게 제네릭 타입을 활용 할 수 있을 것 같다.</p>
 <p class="page__taxonomy"> <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong> <span itemprop="keywords"> <a href="/tags/#generic" class="page__taxonomy-item" rel="tag">generic</a> </span></p>
 <a href="#page-title" class="back-to-top">Back to Top ↑</a><div class="page__comments">
 <h4 class="page__comments-title">댓글남기기</h4>
