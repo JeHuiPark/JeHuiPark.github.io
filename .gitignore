@@ -13,3 +13,6 @@ example/_site
 Gemfile.lock
 node_modules
 npm-debug.log*
+
+# 루비 모듈 캐싱 디렉토리 #
+.cache
