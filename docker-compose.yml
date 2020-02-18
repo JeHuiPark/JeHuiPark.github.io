@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  jekyll:
+    container_name: blog
+    image: jekyll/jekyll:3.8
+    ports:
+      - 4000:4000
+    volumes:
+      - $PWD:/srv/jekyll
+      - $PWD/.cache/bundle:/usr/local/bundle
+    command: jekyll serve
+    
