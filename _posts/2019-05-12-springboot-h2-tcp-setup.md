@@ -1,6 +1,6 @@
 ---
 layout: posts
-title:  "Springboot H2 RDBMS 사용하기"
+title:  Springboot 시작하기 쉬운 Database H2
 date:   2019-05-12 16:26:00 +0900
 comments: true
 categories: java
@@ -8,6 +8,8 @@ tags:
   - spring
   - h2
 ---
+
+Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다.
 
 ## Springboot + 데모수준 앱 + 관계형 데이터베이스(RDBMS) + 인텔리제이(IntelliJ)
 **이 4가지가 충족 된다면 H2 데이터베이스를 추천합니다.**
@@ -23,9 +25,8 @@ H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설
 
 1. **프로젝트에 의존성 주입**
 
-    ``` groovy
+    ``` gradle
     implementation 'com.h2database:h2'
-    implementation 'org.apache.tomcat:tomcat-jdbc:9.0.10'
     // implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' 드라이버스파이
     ```
 
@@ -35,13 +36,9 @@ H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설
     spring:
       datasource:
         continue-on-error: true
-        #url: jdbc:log4jdbc:h2:tcp://localhost:9093/mem:management_db_9093 드라이버스파이 적용할 경우 사용
-        #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy 드라이버스파이 적용할 경우 사용
-        url: jdbc:h2:tcp://localhost:9093/mem:management_db_9093
-        driver-class-name: org.h2.Driver
-        username:
-        password:
-
+        hikari:
+          jdbc-url: jdbc:h2:tcp://localhost:9093/mem:management_db_9093
+          driver-class-name: org.h2.Driver
         jpa:
           database-platform: H2
           show-sql: false
@@ -118,7 +115,7 @@ H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설
     	 * @throws SQLException
     	 */
     	@Bean
-    	@ConfigurationProperties("spring.datasource")
+    	@ConfigurationProperties("spring.datasource.hikari")
     	public DataSource dataSource() throws SQLException {
     		//Server server = adviceRun(9093, "external_db_name", "dbname", FilePath.absolute);
     		Server server = defaultRun(9093);
@@ -127,7 +124,7 @@ H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설
     		}
     		log.info("h2 server url = {}", server.getURL());
 
-    		return new org.apache.tomcat.jdbc.pool.DataSource();
+    		return new HikariDataSource();
     	}
 
     	private Server adviceRun(int port, String externalDbName, String dbname, FilePath db_store) throws SQLException {
