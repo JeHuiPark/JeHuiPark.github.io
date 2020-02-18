@@ -19,3 +19,17 @@
     opacity: 1;
   }
 }
+
+@mixin pong($prompt-color) {
+  @keyframes pong {
+    0% {
+      background-color: $prompt-color;
+    }
+    50% {
+      background-color: inherit;
+    }
+    100% {
+      background-color: $prompt-color;
+    }
+  }
+}
