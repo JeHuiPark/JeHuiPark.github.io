@@ -4,7 +4,7 @@
 
 $toc-width: 17%;
 
-ul#markdown-toc {
+#markdown-toc {
   position: fixed;
   top: 76px;
   bottom: 0;
@@ -25,6 +25,16 @@ ul#markdown-toc {
   }
 }
 
+.archive.has-toc {
+  @include breakpoint($large) {
+    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width-narrow});
+  }
+
+  @include breakpoint($x-large) {
+    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width});
+  }
+}
+
 .archive {
   margin-top: 1em;
   margin-bottom: 2em;
@@ -33,13 +43,11 @@ ul#markdown-toc {
     float: left;
     width: calc(100% - #{$right-sidebar-width-narrow});
     padding-right: $right-sidebar-width-narrow;
-    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width-narrow});
   }
 
   @include breakpoint($x-large) {
     width: calc(100% - #{$right-sidebar-width});
     padding-right: $right-sidebar-width;
-    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width});
   }
 }
 

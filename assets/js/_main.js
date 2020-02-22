@@ -122,4 +122,9 @@ $(document).ready(function() {
     closeOnContentClick: true,
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
+
+  // toc
+  $('.archive')
+    .has('#markdown-toc')
+    .addClass('has-toc');
 });
