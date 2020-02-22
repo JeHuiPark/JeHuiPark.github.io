@@ -1,0 +1,122 @@
+<!doctype html> <!-- Minimal Mistakes Jekyll Theme 4.12.0 by Michael Rose Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes Free for personal and commercial use under the MIT license https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt --><html lang="ko" class="no-js"><head><meta charset="utf-8"> <!-- begin _includes/seo.html --><title>오브젝트 - JH Blog</title><meta name="description" content="오브젝트"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="JH Blog"><meta property="og:title" content="오브젝트"><meta property="og:url" content="https://jehuipark.github.io/study/object-chapter1"><meta property="og:description" content="오브젝트"><meta property="article:published_time" content="2019-07-22T00:00:00+09:00"><meta property="fb:app_id" content="150481385751381"><link rel="canonical" href="https://jehuipark.github.io/study/object-chapter1"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Person", "name": "Dev JH", "url": "https://jehuipark.github.io", "sameAs": null } </script><meta name="google-site-verification" content="googlece77ee37e1eecdba" /><meta name="naver-site-verification" content="naver4b9c5fbe228f7d5fc4264f265fee743a"> <!-- end _includes/seo.html --> <!--<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JH Blog Feed">--><link rel="alternate" type="application/rss+xml" href="https://jehuipark.github.io/feed.xml" title="JH Blog Feed"> <!-- https://t.co/dKP3o1e --><meta name="viewport" content="width=device-width, initial-scale=1.0"> <script> document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js '; </script> <!-- For all browsers --><link rel="stylesheet" href="/assets/css/main.css"> <!--[if IE ]><style> /* old IE unsupported flexbox fixes */ .greedy-nav .site-title { padding-right: 3em; } .greedy-nav button { position: absolute; top: 0; right: 0; height: 100%; }</style><![endif]--> <script src="/assets/js/highlight.js"></script> <script src="/assets/js/highlightjs-line-numbers.min.js"></script> <!-- start custom head snippets --> <!--<link href="/assets/css/railscasts.css" rel="stylesheet" type="text/css">--><link href="/assets/css/zenburn.css" rel="stylesheet" type="text/css"> <!-- insert favicons. use https://realfavicongenerator.net/ --> <!-- end custom head snippets --><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body class="layout--posts"> <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]--><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"> <a class="site-title" href="/">JH Blog</a><ul class="visible-links">
+<li class="masthead__menu-item"> <a href="/about/">about</a>
+</li>
+<li class="masthead__menu-item"> <a href="/categories">category</a>
+</li>
+<li class="masthead__menu-item"> <a href="/tags">tag</a>
+</li>
+</ul>
+<button class="search__toggle" type="button"> <span class="visually-hidden">Toggle search</span> <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path> </svg> </button> <button class="greedy-nav__toggle hidden" type="button"> <span class="visually-hidden">토글 메뉴</span><div class="navicon"></div></button><ul class="hidden-links hidden"></ul></nav></div></div></div><div class="initial-content"><div id="main" role="main">
+<div class="sidebar sticky"><div itemscope itemtype="https://schema.org/Person">
+<div class="author__avatar"> <img src="/assets/images/me.jpg" alt="JeHui Park" itemprop="image">
+</div>
+<div class="author__content">
+<h3 class="author__name" itemprop="name">JeHui Park</h3>
+<p class="author__bio" itemprop="description"> 개발자 박제희</p>
+</div>
+<div class="author__urls-wrapper"> <button class="btn btn--inverse">팔로우</button><ul class="author__urls social-icons">
+<li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place"> <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+</li>
+<li> <a href="https://jehuipark.github.io" itemprop="url"> <i class="fas fa-fw fa-link" aria-hidden="true"></i> 웹사이트 </a>
+</li>
+<li> <a href="mailto:pjh2359@gmail.com"><meta itemprop="email" content="pjh2359@gmail.com"> <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일 </a>
+</li>
+<li> <a href="https://github.com/JeHuiPark" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub </a>
+</li>
+<!--<li> <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link </a></li>-->
+</ul>
+</div>
+</div></div>
+<div class="archive">
+<h1 id="page-title" class="page__title">오브젝트</h1>
+<p>오브젝트</p>
+<p>책을 보기위한 기본소양을 갖추기 위하여 아래와 같은 내용을 소개 개발자들은 코딩을 왜 할까? motivation = 돈 왜 그렇게 짰어? 돈이 덜드니까.. 이렇게 하면 돈을 버니까 왜 ???</p>
+<h2 id="philosophy">Philosophy</h2>
+<p>철학에 관한 이야기</p>
+<p>켄트백은 생각하는 코드의 틀로 3가지를 제안</p>
+<ul>
+<li>Value 가치<ul>
+<li>Communication 소통하기 쉬운 코드</li>
+<li>Simplicity 간단한 코드</li>
+<li>Flexibility 유연한 코드</li>
+</ul>
+</li>
+<li>Principle 원칙 - 예외적인 상황을 즉각적으로 파악할 수 있게 한다.<ul>
+<li>Local consequenes 생명주기는 되도록이면 짧게</li>
+<li>Minimize repetition 중복은 최소화 (중복은 발견되는 것)</li>
+<li>Symmetry 짝을 맞추어라</li>
+<li>Convention</li>
+</ul>
+</li>
+<li>Pattern 패턴 (가치와 원칙을 베이스로 하는 반복되는 유형 ) Xoriented // 이게뭐지? 어떠한 유형의 사고의 틀? OOP: SOLID, DRY Functional, Reactive, …</li>
+</ul>
+<p>Q. 강의에서 아래 내용은 왜 나온것일까??</p>
+<ul>
+<li><p>Relativism: 토마스 쿤 (과학혁명의 구조) 과학은 절대적인 진리가 아닌 상대적이다.<br> 현재 우리가 알고 있는 과학은 어떻게 보면 종교와 비슷하다.</p></li>
+<li><p>Rationalism: 러커토시 임레(수학적 발견의 논리: 증명과 반박) 과학은 합리적이다라며 근거를 제시</p></li>
+</ul>
+<p>A. 합리주의를 통해 기준을 도출하고 기준점을 토대로 상대성을 갖는다 상대주의와 합리주의를 공존, 사고방식을 넓혀라</p>
+<p>시시각각 변화하는 요구사항을 계속 수렴하면서 납기일을 지켰다. 어떻게? 그게 바로 이책의 주제 유연성, 격리성, 견고성</p>
+<p>변화에 따른 격리, 어떻게? 현재 객체지향 방법론에서 도메인을 격리시킬 유일한 수단은 역활모델 역활모델을 이해하고 OOP 세계에 입문해야 한다 역활모델 설계를 잘하려면? 추상화를 잘 해야한다.</p>
+<h2 id="abstraction">Abstraction</h2>
+<p>Generalization: 일반화 - modeling, function, algorithm Association: 연관화 - reference, dependence Aggregation: 집단화 - group, category</p>
+<p>데이터 추상화 모델링: 어떤 목적에 맞추어서 필요한 정보를 추려내는 작업 카테고리 분류 공통분모</p>
+<p>절차(함수) 추상화 일반화 함수의 개수가 줄어든다 « 공통점을 찾아서 인터페이스를 추출</p>
+<p>캡슐화 (캡슐화에 대한 정의는 여러가지가 존재) 캡슐화 개념이 왜 나왔을까? 캡슐화에 실패한다면 복잡성이 노출되며 사용자의 지능이 높아져야한다. » 휴먼에러가 높아진다, (사용성이 낮아진다) 캡슐화에 성공한다면 사용자의 사용성이 높아진다. » 휴먼에러가 낮아진다 (사용성이 높아진다)</p>
+<p>객체 추상화 Generalization Realization Dependency Association ..</p>
+<p>객체지향이 어려운 이유는?? 실제로 코드레벨에 이러한 개념을 실제로 적용하는건 상당히 어렵다 이해하고 코드레벨에 적용이 된다면 유연성, 격리성, 견고성을 확보하게 될 것이다.</p>
+<h2 id="program--timing">Program &amp; Timing</h2>
+<p>프로그램 생명주기? (스크립트는 생략) LANGUAGE CODE // LINT TIME MACHINE LANGUAGE // COMPILE TIME FILE LOAD RUN // RUN TIME TERMINATE</p>
+<p>폰 노이만 머신 (동기화 명령) 메모리 영역에 명령이 적재된 순서대로 실행 Runtime Loading 메모리 명령세트와, 값세트가 로드 Instruction Fetch &amp; Decoding CPU 제어유닛(디코더), 연산유닛(제어정보), 데이터유닛(메모리 계수기) « 외부버스 디코더는 메모리영역에 있는 명령을 페칭 후 디코딩 (메모리 영역에 있는 명령을 CPU가 이해할 수 있는 명령으로 변경하는 단계) 그리고 연산유닛으로 명령을 전달 execution 연산유닛은 명령 실행을 위한 값을 데이터유닛으로 부터 전달 받고 실행후 결과값 데이터유닛에게 전달, 데이터유닛은 메모리의 특정영역에 값을 전달</p>
+<p>loading 과정을 좀 더 디테일하게 (언어마다 상이한점은 존재하지만 유사) essential definition loading 프로그램을 구동하기 위한 기초적인 정의부터 로딩 (컴파일러가 처리) vtable mapping 변수와 메모리가 매핑될 수 있는 이유 » 가상 메모리와 실제 메모리를 매핑하는 표를 생성 run runtime definition loading 자바의 클래스로더를 생각하면 된다. (c는 해당 개념이 존재하지 않는다) run</p>
+<p>Runtime은 상대적이다, 유연하다, 애매모호</p>
+<h2 id="pointer-of-pointer">Pointer of Pointer</h2>
+<p>특정 포인터를 직접 가리키지 않고, 어떤 값을 얻기 위해서 포인터를 찾은 후 그 포인터를 보고 포인터를 다시 찾는다 a = “TEST” // a의 주소는 11이라고 가정 b = &amp;a // b는 a의 주소인 11이라는 주소값을 갖겠지? 포인터b는 “TEST”가 될것이고 c = b, d = b // c와 d도 b가 가리키고 있는 a의 주소를 갖게 될꺼야 k = “ABC” // k의 주소가 28이라고 가정 b = &amp;k // 여기부터 b는 k의 주소인 28을 가리키게 될꺼야</p>
+<p>여기서 발생하는 문제는???? c와 d는 b와 같은것이라고 착각하게 만든다 (직접참조의 문제) c,d != b</p>
+<p>b = {a: &amp;b, v:3} // 참조에 참조 개념 (간접참조) c = b, d = b b.a = &amp;k</p>
+<p>이러한 개념은 interface에 활용된다고 함</p>
+<h1 id="value--identifier">Value &amp; Identifier</h1>
+<p>객체지향에서 객체의 동질성을 평가하는 방법은? 객체의 식별자</p>
+<h1 id="polymoriphism">Polymoriphism</h1>
+<p>Substituion 대체가능성 Internal identity 내적동질성</p>
+<p>대체 가능성에 대한 설명 객체의 다양성은 공짜가 아니다. 그만큼의 연산이 추가된다</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Worker implements Runnable {
+  @Override public void run(){
+    //..
+  }
+}
+Runnable worker = new Worker();
+worker.run();
+</code></pre></div></div>
+<p>해당 코드가 동작되는 실제 과정은 이렇다. Runnable이라는 인터페이스 안에 있는 포인터안에서 run이라는 포인터를 찾고, 그대로 쓸 수없으니 구현체의 메소드의 포인터를 찾은 후 실행된다. 이러한 과정은 컴파일 타임에 개별 포인터 참조 구조체들을 데피니션 타임에 로딩 (이것은 C++베이스 코드 기반)</p>
+<p>내적 동질성을 설명하는 코드</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Worker implements Runnable {
+  @Override public void run(){
+    //..
+  }
+  public void print(){
+    run();
+  }
+}
+class HardWorker extends Worker {
+  @Override void run(){
+    // ...
+  }
+}
+Runnable worker = new HardWorker();
+worker.print();
+</code></pre></div></div>
+<a href="#page-title" class="back-to-top">Back to Top ↑</a><div class="page__comments">
+<h4 class="page__comments-title">댓글남기기</h4>
+<section id="disqus_thread"></section>
+</div>
+</div>
+</div></div><div class="search-content"><div class="search-content__inner-wrap">
+<input type="text" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력해주세요..."><div id="results" class="results"></div>
+<h3>우측 상단의 돋보기를 누르면 원래 화면으로 돌아갈 수 있습니다.</h3>
+</div></div><div class="page__footer"><footer> <!-- start custom footer snippets --> <!-- end custom footer snippets --><div class="page__footer-follow"><ul class="social-icons">
+<li><strong>팔로우:</strong></li>
+<li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+</ul></div>
+<div class="page__footer-copyright">© 2020 Dev JH. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div></footer></div><script src="/assets/js/main.min.js"></script> <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script> <script src="/assets/js/lunr/lunr.min.js"></script> <script src="/assets/js/lunr/lunr-store.js"></script> <script src="/assets/js/lunr/lunr-en.js"></script> <!-- start custom analytics snippet --> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-113477172-1', 'auto'); ga('send', 'pageview'); </script> <!-- end custom analytics snippet --> <script> var disqus_config = function () { this.page.url = "https://jehuipark.github.io/study/object-chapter1"; /* Replace PAGE_URL with your page's canonical URL variable */ this.page.identifier = "/study/object-chapter1"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */ }; (function() { /* DON'T EDIT BELOW THIS LINE */ var d = document, s = d.createElement('script'); s.src = 'https://https-jehuipark-github-io-blog.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript> <script> $(document).ready(function() { $('pre code').each(function(i, block) { try{block.className = block.parentElement.parentElement.parentElement.className.split(' ')[0].replace('language-', '')}catch(e){}; hljs.highlightBlock(block); }); hljs.initLineNumbersOnLoad(); }); </script></body></html>

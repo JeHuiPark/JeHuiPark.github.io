@@ -1,0 +1,210 @@
+<!doctype html> <!-- Minimal Mistakes Jekyll Theme 4.12.0 by Michael Rose Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes Free for personal and commercial use under the MIT license https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt --><html lang="ko" class="no-js"><head><meta charset="utf-8"> <!-- begin _includes/seo.html --><title>Springboot 시작하기 쉬운 Database H2 - JH Blog</title><meta name="description" content="Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다."><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="JH Blog"><meta property="og:title" content="Springboot 시작하기 쉬운 Database H2"><meta property="og:url" content="https://jehuipark.github.io/java/springboot-h2-tcp-setup"><meta property="og:description" content="Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다."><meta property="article:published_time" content="2019-05-12T16:26:00+09:00"><meta property="fb:app_id" content="150481385751381"><link rel="canonical" href="https://jehuipark.github.io/java/springboot-h2-tcp-setup"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Person", "name": "Dev JH", "url": "https://jehuipark.github.io", "sameAs": null } </script><meta name="google-site-verification" content="googlece77ee37e1eecdba" /><meta name="naver-site-verification" content="naver4b9c5fbe228f7d5fc4264f265fee743a"> <!-- end _includes/seo.html --> <!--<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JH Blog Feed">--><link rel="alternate" type="application/rss+xml" href="https://jehuipark.github.io/feed.xml" title="JH Blog Feed"> <!-- https://t.co/dKP3o1e --><meta name="viewport" content="width=device-width, initial-scale=1.0"> <script> document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js '; </script> <!-- For all browsers --><link rel="stylesheet" href="/assets/css/main.css"> <!--[if IE ]><style> /* old IE unsupported flexbox fixes */ .greedy-nav .site-title { padding-right: 3em; } .greedy-nav button { position: absolute; top: 0; right: 0; height: 100%; }</style><![endif]--> <script src="/assets/js/highlight.js"></script> <script src="/assets/js/highlightjs-line-numbers.min.js"></script> <!-- start custom head snippets --> <!--<link href="/assets/css/railscasts.css" rel="stylesheet" type="text/css">--><link href="/assets/css/zenburn.css" rel="stylesheet" type="text/css"> <!-- insert favicons. use https://realfavicongenerator.net/ --> <!-- end custom head snippets --><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body class="layout--posts"> <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]--><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"> <a class="site-title" href="/">JH Blog</a><ul class="visible-links">
+<li class="masthead__menu-item"> <a href="/about/">about</a>
+</li>
+<li class="masthead__menu-item"> <a href="/categories">category</a>
+</li>
+<li class="masthead__menu-item"> <a href="/tags">tag</a>
+</li>
+</ul>
+<button class="search__toggle" type="button"> <span class="visually-hidden">Toggle search</span> <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path> </svg> </button> <button class="greedy-nav__toggle hidden" type="button"> <span class="visually-hidden">토글 메뉴</span><div class="navicon"></div></button><ul class="hidden-links hidden"></ul></nav></div></div></div><div class="initial-content"><div id="main" role="main">
+<div class="sidebar sticky"><div itemscope itemtype="https://schema.org/Person">
+<div class="author__avatar"> <img src="/assets/images/me.jpg" alt="JeHui Park" itemprop="image">
+</div>
+<div class="author__content">
+<h3 class="author__name" itemprop="name">JeHui Park</h3>
+<p class="author__bio" itemprop="description"> 개발자 박제희</p>
+</div>
+<div class="author__urls-wrapper"> <button class="btn btn--inverse">팔로우</button><ul class="author__urls social-icons">
+<li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place"> <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+</li>
+<li> <a href="https://jehuipark.github.io" itemprop="url"> <i class="fas fa-fw fa-link" aria-hidden="true"></i> 웹사이트 </a>
+</li>
+<li> <a href="mailto:pjh2359@gmail.com"><meta itemprop="email" content="pjh2359@gmail.com"> <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일 </a>
+</li>
+<li> <a href="https://github.com/JeHuiPark" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub </a>
+</li>
+<!--<li> <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link </a></li>-->
+</ul>
+</div>
+</div></div>
+<div class="archive">
+<h1 id="page-title" class="page__title">Springboot 시작하기 쉬운 Database H2</h1>
+<p>Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다.</p>
+<h2 id="springboot--데모수준-앱--관계형-데이터베이스rdbms--인텔리제이intellij">Springboot + 데모수준 앱 + 관계형 데이터베이스(RDBMS) + 인텔리제이(IntelliJ)</h2>
+<p><strong>이 4가지가 충족 된다면 H2 데이터베이스를 추천합니다.</strong> 인텔리제이의 경우에 H2를 선택한다면 무설치에 가까운 행위로 손쉽게 데이타소스 설정이 가능합니다.</p>
+<blockquote><p><a href="https://ko.wikipedia.org/wiki/H2" title="위키로 이동">위키</a>에 따르면 H2는 JAVA로 작성된 RDBMS로 JAVA앱에 임베디드 되거나 클라이언트-서버모드로 구동이 가능하다고 합니다.</p></blockquote>
+<p>H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설명이 잘 되어있으니 생략하고,</p>
+<p>여기에서는 H2를 서버(TCP)모드로 구동시키는 법을 소개할 것이며, 서버모드의 장점은 다른 DB처럼 데이터베이스 클라이언트를 활용하여 커넥션 할 수 있다는 장점이 있습니다.</p>
+<p>전체 소스는 <a href="https://github.com/JeHuiPark/spring-study/tree/master/h2" title="깃허브로 이동">깃허브</a>에서 확인하실 수 있습니다.</p>
+<ol>
+<li>
+<p><strong>프로젝트에 의존성 주입</strong></p>
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">implementation</span> <span class="s1">'com.h2database:h2'</span>
+ <span class="c1">// implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' 드라이버스파이</span>
+</code></pre></div></div>
+</li>
+<li>
+<p><strong>application 설정</strong></p>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">spring</span><span class="pi">:</span>
+   <span class="na">datasource</span><span class="pi">:</span>
+     <span class="na">continue-on-error</span><span class="pi">:</span> <span class="no">true</span>
+     <span class="na">hikari</span><span class="pi">:</span>
+       <span class="na">jdbc-url</span><span class="pi">:</span> <span class="s">jdbc:h2:tcp://localhost:9093/mem:management_db_9093</span>
+       <span class="na">driver-class-name</span><span class="pi">:</span> <span class="s">org.h2.Driver</span>
+     <span class="na">jpa</span><span class="pi">:</span>
+       <span class="na">database-platform</span><span class="pi">:</span> <span class="s">H2</span>
+       <span class="na">show-sql</span><span class="pi">:</span> <span class="no">false</span>
+       <span class="na">hibernate</span><span class="pi">:</span>
+         <span class="na">ddl-auto</span><span class="pi">:</span> <span class="s">update</span>
+</code></pre></div></div>
+<p>여기서 <code class="highlighter-rouge">jdbc:h2:tcp://localhost:9093/mem:management_db_9093</code> <strong>이 라인을 이해해야셔야 다음 단계에서 수월하게 이해할 수 있습니다.</strong></p>
+<ul>
+<li>
+<code class="highlighter-rouge">jdbc:h2:tcp://</code> 여기까지는 프로토콜 즉 약속입니다. 해석하자면 h2데이터베이스를 사용할 것이고 tcp(클라이언트)모드로 사용할 것이다. 이 정도의 의미가 됩니다.</li>
+<li>
+<code class="highlighter-rouge">localhost:9093</code> 아시다시피 커넥션 할 목적지입니다.</li>
+<li>
+<code class="highlighter-rouge">mem:management_db_9093</code> 이 부분은 모두가 알다시피 관리할 db 이름을 명시하는 곳인데 H2 DB를 TCP모드로 실행할 경우 <code class="highlighter-rouge">management_db_{tcpPort}</code>라는 데이터베이스가 자동으로 생성됩니다. database서버를 9093 포트로 서비스할 것이기 때문에 management_db_9093으로 명시해주었으며, <code class="highlighter-rouge">mem:</code>은 H2 드라이버에서 정의한 dbname 프로토콜로 보입니다.</li>
+</ul>
+<p>해당 내용은 org.h2.Driver패키지에서 확인가능하며, org.h2.server.TcpServer 클래스에서 정의되어 있습니다. <img src="https://user-images.githubusercontent.com/25237661/57580201-a2d76700-74e1-11e9-8914-cc7d81b65c22.png" alt="h2 db prefix"> <img src="https://user-images.githubusercontent.com/25237661/57580223-f47ff180-74e1-11e9-86c0-29251e4517a9.png" alt="h2 dbname"></p>
+</li>
+<li>
+<strong>테스트용 도메인</strong><pre><code class="language-Java"> @Builder
+ @Data
+ @Entity
+ public class User {
+
+   @Id
+   @GeneratedValue
+   private long id;
+   @Column(unique = true)
+   private String userId;
+   private String userName;
+   private int age;
+ }
+
+ @Repository
+ public interface UserRepository extends CrudRepository&lt;User, Long&gt; {
+ }
+
+ @RequiredArgsConstructor
+ @Service
+ public class UserRegister {
+
+   private final UserRepository userRepository;
+
+   /**
+    * 랜덤유저생성
+    * @return 생성된 유저
+    */
+   public User randUser(){
+     User rand = User.builder()
+         .userId(System.currentTimeMillis() + "")
+         .age(new Random().nextInt(31)+1)
+         .userName(new String[]{"김철수", "김영희", "짱구", "맹구", "슛돌이", "도꺠비", "김삿갓"}[new Random().nextInt(7)])
+         .build();
+     return userRepository.save(rand);
+   }
+ }
+</code></pre>
+</li>
+<li>
+<strong>Java 설정</strong><pre><code class="language-Java"> @Slf4j
+ @Configuration
+ @ComponentScan(includeFilters = @Filter(OptionalComponent.class))
+ @Profile("local")
+ public class H2ServerConfiguration {
+
+
+ 	/**
+ 	 * @see org.h2.server.TcpServer
+ 	 * @return
+ 	 * @throws SQLException
+ 	 */
+ 	@Bean
+ 	@ConfigurationProperties("spring.datasource.hikari")
+ 	public DataSource dataSource() throws SQLException {
+ 		//Server server = adviceRun(9093, "external_db_name", "dbname", FilePath.absolute);
+ 		Server server = defaultRun(9093);
+ 		if(server.isRunning(true)){
+ 			log.info("server run success");
+ 		}
+ 		log.info("h2 server url = {}", server.getURL());
+
+ 		return new HikariDataSource();
+ 	}
+
+ 	private Server adviceRun(int port, String externalDbName, String dbname, FilePath db_store) throws SQLException {
+ 		return Server.createTcpServer(
+ 				"-tcp",
+ 				"-tcpAllowOthers",
+ 				"-ifNotExists",
+ 				"-tcpPort", port+"", "-key", externalDbName, db_store.value2(dbname)).start();
+ 	}
+
+ 	private Server defaultRun(int port) throws SQLException {
+ 		return Server.createTcpServer(
+ 				"-tcp",
+ 				"-tcpAllowOthers",
+ 				"-ifNotExists",
+ 				"-tcpPort", port+"").start();
+ 	}
+
+ 	enum FilePath {
+ 		absolute("~/"),
+ 		relative("./");
+ 		String prefix;
+ 		FilePath(String prefix){
+ 			this.prefix = prefix;
+ 		}
+ 		public String value2(String dbname){
+ 			return prefix + dbname;
+ 		}
+ 	}
+ }
+</code></pre>
+<p>H2 DB도 <a href="http://www.h2database.com/html/advanced.html" title="h2 공식사이트로 이동">공식사이트</a>를 살펴보면 많은 옵션을 지원하는거 같은데요 저에게 필요한 기능만 가져와 보았습니다.</p>
+<p><strong>기본옵션으로 TCP모드를 실행할 경우 데이터베이스를 인메모리로 서비스</strong>하기 때문에 서버종료시 데이터를 유지할 수 없습니다. 하지만 저는 일반적인 DB처럼 <strong>영속가능한 DB</strong>를 원했기 때문에 사진에 보이는것 처럼 -key라는 옵션을 추가하였습니다.</p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57582566-3ec49b00-7501-11e9-81ab-37c7a0ac64aa.png" alt="image"></p>
+<ul>
+<li>key의 첫번째 인자값은 **외부용 dbname으로 externalDbName은 db커넥션시 명시해줘야할 dbname을 말합니다.<blockquote><p>해당옵션을 사용하였다면 datasource설정에서 url속성도 변경이 필요합니다.<br> ex) <code class="highlighter-rouge">spring.datasource.url: jdbc:h2:tcp://{address}:{port}/{externalDbName}</code></p></blockquote>
+</li>
+<li>
+<p>key의 두번째 인자값은 내부적으로 관리될 dbname으로 <strong>prefix로 ./또는 ~/을 붙여주어야 합니다.</strong></p>
+<ul>
+<li><p>두번째 인자값이 ./{dbname}일 경우에는 상대경로에 <strong>{dbname}.mv.db</strong>라는 파일이 생기며 해당 파일에 데이터영속화가 수행됩니다. <em>상대경로의 기본경로는 모듈경로입니다. h2.iml파일에 명시되어있네요.</em></p></li>
+<li><p>두번째 인자값이 ~/{dbname}일 경우에는 절대경로에 <strong>{dbname}.mv.db</strong> 파일이 생기며 해당 파일에 데이터 영속화가 수행됩니다. <em>절대경로의 기본경로는 -baseDir 옵션을 따로 지정하지 않았으니 OS에 로그인된 계정의 root경로 입니다.</em></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>서버실행 후 DB 클라이언트로 접속하기</strong></p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57582905-995ff600-7505-11e9-97f5-6cba6d0091e7.png" alt="서버실행로그"></p>
+<p>도깨비라는 이름을 가진 USER가 생성되었네요</p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57582949-1f7c3c80-7506-11e9-940e-7c694cdfd71d.png" alt="IntelliJ database"></p>
+<p><strong>사진에 보이는 메뉴가 없으면 인텔리제이의 액션기능(Ctrl+Shift+A)에 Database를 입력하시면 됩니다.</strong></p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57583012-19d32680-7507-11e9-85ab-47fb93aaf411.png" alt="IntelliJ data source"></p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57583047-759daf80-7507-11e9-82b8-31e0a09eaea1.png" alt="IntelliJ data source properties"></p>
+<p>사진처럼 커넥션 타입을 URL only로 설정하신후 URL에 db서버 주소를 명시해주세요. (remote 선택하셔도 무방합니다.)</p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57583099-06748b00-7508-11e9-9ada-15794a04f686.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/25237661/57583103-0eccc600-7508-11e9-91b3-720b62a3ad19.png" alt="image"></p>
+<p>DB콘솔 활성화후 쿼리를 날려보니 아까전에 서버 실행로그에서 확인했던 도깨비라는 유저의 정보를 확인할 수 있네요!</p>
+</li>
+</ol>
+<p>개인공부용으로 쓰기 위해 제가 분석한 H2의 내용은 여기까지 입니다. 내용상에 오류가 있다면 지적 부탁드리며, 여기까지 따라오느라 수고하셨습니다!</p>
+<p class="page__taxonomy"> <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong> <span itemprop="keywords"> <a href="/tags/#h2" class="page__taxonomy-item" rel="tag">h2</a><span class="sep">, </span> <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">spring</a> </span></p>
+<a href="#page-title" class="back-to-top">Back to Top ↑</a><div class="page__comments">
+<h4 class="page__comments-title">댓글남기기</h4>
+<section id="disqus_thread"></section>
+</div>
+</div>
+</div></div><div class="search-content"><div class="search-content__inner-wrap">
+<input type="text" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력해주세요..."><div id="results" class="results"></div>
+<h3>우측 상단의 돋보기를 누르면 원래 화면으로 돌아갈 수 있습니다.</h3>
+</div></div><div class="page__footer"><footer> <!-- start custom footer snippets --> <!-- end custom footer snippets --><div class="page__footer-follow"><ul class="social-icons">
+<li><strong>팔로우:</strong></li>
+<li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+</ul></div>
+<div class="page__footer-copyright">© 2020 Dev JH. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div></footer></div><script src="/assets/js/main.min.js"></script> <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script> <script src="/assets/js/lunr/lunr.min.js"></script> <script src="/assets/js/lunr/lunr-store.js"></script> <script src="/assets/js/lunr/lunr-en.js"></script> <!-- start custom analytics snippet --> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-113477172-1', 'auto'); ga('send', 'pageview'); </script> <!-- end custom analytics snippet --> <script> var disqus_config = function () { this.page.url = "https://jehuipark.github.io/java/springboot-h2-tcp-setup"; /* Replace PAGE_URL with your page's canonical URL variable */ this.page.identifier = "/java/springboot-h2-tcp-setup"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */ }; (function() { /* DON'T EDIT BELOW THIS LINE */ var d = document, s = d.createElement('script'); s.src = 'https://https-jehuipark-github-io-blog.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript> <script> $(document).ready(function() { $('pre code').each(function(i, block) { try{block.className = block.parentElement.parentElement.parentElement.className.split(' ')[0].replace('language-', '')}catch(e){}; hljs.highlightBlock(block); }); hljs.initLineNumbersOnLoad(); }); </script></body></html>
