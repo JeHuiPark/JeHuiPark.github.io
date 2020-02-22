@@ -6,10 +6,10 @@ comments: true
 categories: blog
 tags: 
   - jekyll
-toc: true
 ---
 
-{:toc .toc__menu}
+* TOC
+{:toc}
 
 몇 가지 이유로 나는 이 블로그를 거의 1년간 방치하고 있었다. (~~*사실 핑계*~~)
 - 2019년 06월 이직
