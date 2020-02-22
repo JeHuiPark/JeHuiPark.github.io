@@ -1,0 +1,53 @@
+name: blog-auto-publish
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches: 
+      - work
+jobs:
+  build:
+    name: blog-auto-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with: 
+          ref: work
+      
+      - name: Setup Ruby for use with actions
+        uses: actions/setup-ruby@v1.0.0
+      
+      - name: Setup Jekyll for Gem
+        run: gem install bundler 
+      
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem
+      
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      
+      - name: jekyll build
+        run: rake site:generate
+      
+      - name: git push
+        run: |
+          git config --global user.email "pjh2359@gmail.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git fetch origin
+          mv _site_prod ../temp    
+          git fetch origin
+          git checkout -b master origin/master
+          rm -rf `ls`
+          cp -r ../temp/* `pwd`
+          mv ../temp/.gitignore .gitignore
+          git add .
+          git commit -m "publish by github action"
+          git push origin -f
+          git checkout work
+          
