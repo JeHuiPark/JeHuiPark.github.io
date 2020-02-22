@@ -1,0 +1,5 @@
+I"�<p>GoogleAnalytics를 들어보셨나요.
+GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 이용하는 사용자들의 활동을 추적할 수 있게 도와주는 아주 유용한 도구입니다.
+물론 추적 데이터 또한 구글 자체서버에 저장되고 있으니 기본적인 기능만 이용할꺼라면 개발자는 정말 아무것도 할 게 없게 만들어주는 강력한 도구이죠.
+이러한 추적데이터를 <a href="https://analytics.google.com/analytics">GoogleAnalytics 공홈</a>에서 확인 할 수도 있지만 구글은 고맙게도 추적데이터를 개발자가 직접 서비스 할 수 있게 <strong>GoogleAnalytics Report API</strong> 서비스를 제공하고 있습니다.</p>
+:ET

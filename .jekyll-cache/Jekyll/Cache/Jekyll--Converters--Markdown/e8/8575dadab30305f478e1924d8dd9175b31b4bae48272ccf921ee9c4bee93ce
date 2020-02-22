@@ -1,0 +1,300 @@
+I"�<h3 id="심심해서-해본-2017-카카오-신입공채-1차-코딩-스트">심심해서 해본 2017 카카오 신입공채 1차 코딩 스트</h3>
+
+<p><em>제한시간 5시간으로 잡고 카페에서 생각날때마다 풀이를 해봤다.</em></p>
+<h5 id="결과는-처참-4번-문제에서-접근을-잘못해서-시간낭비를-어마어마하게-함-ㅜㅜㅜㅜㅜ">결과는 처참….. 4번 문제에서 접근을 잘못해서 시간낭비를 어마어마하게 함 ㅜㅜㅜㅜㅜ</h5>
+
+<p><strong>1번</strong> 비밀 지도(난이도: 하) 정답률 : 81.78%</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">exam1</span><span class="p">(</span><span class="nx">len</span><span class="p">,</span> <span class="nx">arr1</span><span class="p">,</span> <span class="nx">arr2</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">function</span> <span class="nx">validCheck</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">maxValue</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nx">len</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">minValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">num</span> <span class="o">&gt;</span> <span class="nx">maxValue</span> <span class="o">||</span> <span class="nx">num</span> <span class="o">&lt;</span> <span class="nx">minValue</span><span class="p">)</span>
+      <span class="k">throw</span> <span class="dl">"</span><span class="s2">범위 초과</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getBinary</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">binary</span> <span class="o">=</span> <span class="nx">num</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">padStart</span><span class="p">(</span><span class="nx">len</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">lPad</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/0/g</span><span class="p">,</span> <span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/1/g</span><span class="p">,</span> <span class="dl">'</span><span class="s1">#</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">val1</span> <span class="o">=</span> <span class="nx">arr1</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">val2</span> <span class="o">=</span> <span class="nx">arr2</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nx">validCheck</span><span class="p">(</span><span class="nx">val1</span><span class="p">);</span>
+    <span class="nx">validCheck</span><span class="p">(</span><span class="nx">val2</span><span class="p">);</span>
+  	<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">getBinary</span><span class="p">(</span><span class="nx">val1</span> <span class="o">|</span> <span class="nx">val2</span><span class="p">);</span>
+		<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">lPad</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span>
+  <span class="p">}</span>
+	<span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">exam1</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">28</span><span class="p">]);</span>
+<span class="nx">exam1</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="p">[</span><span class="mi">46</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">33</span> <span class="p">,</span><span class="mi">22</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">27</span> <span class="p">,</span><span class="mi">56</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>2번</strong> 다트 게임(난이도: 하) 정답률 : 73.47%</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 정규식 테스트사이트 참고</span>
+<span class="kd">function</span> <span class="nx">exam2</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">regx</span> <span class="o">=</span> <span class="sr">/</span><span class="se">\d</span><span class="sr">+</span><span class="se">[</span><span class="sr">SDT</span><span class="se">]([</span><span class="sr">*#</span><span class="se">]?)</span><span class="sr">+/g</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">scoreRegx</span> <span class="o">=</span> <span class="sr">/</span><span class="se">\d</span><span class="sr">+/</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">zoneRegx</span> <span class="o">=</span> <span class="sr">/</span><span class="se">[</span><span class="sr">SDT</span><span class="se">]</span><span class="sr">/</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">scores</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">function</span> <span class="nx">scoreCalc</span><span class="p">(</span><span class="nx">score</span><span class="p">,</span> <span class="nx">zone</span><span class="p">,</span> <span class="nx">option</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">currentScore</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">score</span><span class="p">),</span> <span class="p">{</span><span class="dl">'</span><span class="s1">S</span><span class="dl">'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="dl">'</span><span class="s1">D</span><span class="dl">'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="dl">'</span><span class="s1">T</span><span class="dl">'</span><span class="p">:</span><span class="mi">3</span><span class="p">}[</span><span class="nx">zone</span><span class="p">]);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">option</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">scores</span><span class="p">[</span><span class="nx">state</span><span class="o">-</span><span class="mi">1</span><span class="p">]){</span>
+        <span class="nx">scores</span><span class="p">[</span><span class="nx">state</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">scores</span><span class="p">[</span><span class="nx">state</span><span class="p">]</span> <span class="o">=</span> <span class="nx">currentScore</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">option</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">#</span><span class="dl">'</span><span class="p">){</span>
+      <span class="nx">scores</span><span class="p">[</span><span class="nx">state</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nx">currentScore</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">scores</span><span class="p">[</span><span class="nx">state</span><span class="p">]</span> <span class="o">=</span> <span class="nx">currentScore</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">sum</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">scores</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+      <span class="nx">value</span> <span class="o">+=</span> <span class="nx">obj</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">val</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">((</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">regx</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">){</span>
+    <span class="nx">val</span> <span class="o">=</span> <span class="nx">val</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">score</span> <span class="o">=</span> <span class="nx">scoreRegx</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">zone</span> <span class="o">=</span> <span class="nx">zoneRegx</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">option</span> <span class="o">=</span> <span class="nx">val</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">score</span><span class="o">+</span><span class="nx">zone</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+    <span class="nx">scoreCalc</span><span class="p">(</span><span class="nx">score</span><span class="p">,</span> <span class="nx">zone</span><span class="p">,</span> <span class="nx">option</span><span class="p">);</span>
+    <span class="nx">state</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">sum</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1S2D*3T</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1D2S#10S</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1D2S0T</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1S*2T*3S</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1D#2S*3S</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1T2D3D#</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam2</span><span class="p">(</span><span class="dl">'</span><span class="s1">1D2S3T*</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>3번</strong> 캐시(난이도: 하) 정답률 : 45.26% <br />
+다 풀어 놓고 저장 안한걸 1주일 후에 알았던 문제</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">exam3</span><span class="p">(</span><span class="nx">cacheSize</span><span class="p">,</span> <span class="nx">cities</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">HIT</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">MISS</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">cost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">cacheList</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">function</span> <span class="nx">putCache</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">cacheList</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">cacheSize</span><span class="p">)</span>
+      <span class="nx">cacheList</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">cacheList</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getCache</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">cache</span><span class="p">;</span>
+    <span class="nx">cacheList</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">idx</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">data</span><span class="p">){</span>
+        <span class="nx">point</span> <span class="o">=</span> <span class="nx">idx</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">point</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+      <span class="nx">cost</span> <span class="o">+=</span> <span class="nx">HIT</span><span class="p">;</span>
+      <span class="nx">cacheList</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">cache</span> <span class="o">=</span> <span class="nx">cacheList</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">point</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+			<span class="nx">putCache</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+      <span class="nx">cost</span> <span class="o">+=</span> <span class="nx">MISS</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">cache</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">cities</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">city</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">_city</span> <span class="o">=</span> <span class="nx">city</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">getCache</span><span class="p">(</span><span class="nx">_city</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">소요시간</span><span class="dl">'</span><span class="p">,</span>  <span class="nx">cost</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">cost</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">LA</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">LA</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">LA</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">SanFrancisco</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Rome</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Paris</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Rome</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> 	<span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">LA</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">SanFrancisco</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Rome</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Paris</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Rome</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">newyork</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> 	<span class="p">[</span><span class="dl">"</span><span class="s2">Jeju</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Pangyo</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Seoul</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">LA</span><span class="dl">"</span><span class="p">]);</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>4번</strong> 셔틀버스(난이도: 중) 정답률 : 26.79%</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+입력 형식
+셔틀 운행 횟수 n, 셔틀 운행 간격 t, 한 셔틀에 탈 수 있는 최대 크루 수 m, 크루가 대기열에 도착하는 시각을 모은 배열 timetable이 입력으로 주어진다.
+
+0 ＜ n ≦ 10
+0 ＜ t ≦ 60
+0 ＜ m ≦ 45
+timetable은 최소 길이 1이고 최대 길이 2000인 배열로, 하루 동안 크루가 대기열에 도착하는 시각이 HH:MM 형식으로 이루어져 있다.
+크루의 도착 시각 HH:MM은 00:01에서 23:59 사이이다.
+**/</span>
+
+<span class="kd">function</span> <span class="nx">exam4</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">t</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span> <span class="nx">timetable</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">CON</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">busStartTime</span><span class="p">;</span> <span class="c1">// 버스운행시간</span>
+
+	<span class="nx">timetable</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span> <span class="c1">// 타임테이블 정렬</span>
+
+	<span class="kd">function</span> <span class="nx">initBustTime</span><span class="p">(){</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">busStartTime</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+			<span class="nx">busStartTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+			<span class="nx">busStartTime</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+			<span class="nx">busStartTime</span><span class="p">.</span><span class="nx">setMinutes</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+		<span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+			<span class="nx">busStartTime</span><span class="p">.</span><span class="nx">setMinutes</span><span class="p">(</span><span class="nx">busStartTime</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="o">+</span><span class="nx">t</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="kd">function</span> <span class="nx">initTime</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+		<span class="kd">var</span> <span class="nx">split</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">:</span><span class="dl">'</span><span class="p">);</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="nx">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nx">setMinutes</span><span class="p">(</span><span class="nx">split</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">lastTime</span><span class="p">;</span> <span class="c1">// 마지막 탑승시각</span>
+	<span class="kd">var</span> <span class="nx">isFull</span><span class="p">;</span> <span class="c1">// 만석여부</span>
+	<span class="kd">var</span> <span class="nx">driveCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 운행횟수</span>
+	<span class="k">while</span><span class="p">(</span><span class="nx">driveCnt</span><span class="o">++</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 탑승인원</span>
+		<span class="nx">isFull</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+		<span class="nx">initBustTime</span><span class="p">();</span> <span class="c1">// 버스운행시간 초기화</span>
+		<span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">timetable</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">timetable</span><span class="p">);</span>
+		<span class="k">for</span><span class="p">(;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="kd">var</span> <span class="nx">waitter</span> <span class="o">=</span> <span class="nx">initTime</span><span class="p">(</span><span class="nx">clone</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">waitter</span> <span class="o">&lt;=</span> <span class="nx">busStartTime</span> <span class="o">&amp;&amp;</span> <span class="nx">cnt</span> <span class="o">&lt;</span> <span class="nx">m</span><span class="p">){</span>
+				<span class="k">if</span><span class="p">(</span><span class="o">++</span><span class="nx">cnt</span> <span class="o">===</span> <span class="nx">m</span><span class="p">){</span>
+					<span class="nx">isFull</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+					<span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">waitter</span><span class="p">;</span>
+					<span class="k">break</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="nx">timetable</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">cnt</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">if</span><span class="p">(</span><span class="nx">isFull</span><span class="p">){</span>
+		<span class="nx">lastTime</span><span class="p">.</span><span class="nx">setMinutes</span><span class="p">(</span><span class="nx">lastTime</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+		<span class="nx">CON</span> <span class="o">=</span> <span class="nx">lastTime</span>
+	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+		<span class="nx">CON</span> <span class="o">=</span> <span class="nx">busStartTime</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="nx">CON</span> <span class="o">=</span> <span class="nx">CON</span><span class="p">.</span><span class="nx">getHours</span><span class="p">().</span><span class="nx">toString</span><span class="p">().</span><span class="nx">padStart</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">:</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">CON</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">().</span><span class="nx">toString</span><span class="p">().</span><span class="nx">padStart</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">CON</span><span class="p">);</span>
+	<span class="k">return</span> <span class="nx">CON</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">08:00</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">08:01</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">08:02</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">08:03</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">09:10</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">09:09</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">08:00</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">09:00</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">09:00</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">09:00</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">09:00</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">00:01</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">00:01</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">00:01</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">00:01</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">00:01</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">]);</span>
+<span class="nx">exam4</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">23:59</span><span class="dl">"</span><span class="p">]);</span>
+
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>5번</strong> 뉴스 클러스터링(난이도: 중) 정답률 : 41.84%</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 자카드 유사도 = 교집합/합집합
+ * 두집합 모드 공집합일경우 유사도를 따로 1로 정의
+ * 입력값은 영문자로 된 글자 쌍만 유효
+ * 기타 공백이나 숫자, 특수문자가 들어가 있는경우  그 글자 쌍을 버린다.
+ */</span>
+<span class="kd">function</span> <span class="nx">exam5</span><span class="p">(</span><span class="nx">str1</span><span class="p">,</span> <span class="nx">str2</span><span class="p">){</span>
+	<span class="kd">var</span> <span class="nx">setA</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">setB</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">union</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">intersection</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">regx</span> <span class="o">=</span> <span class="sr">/</span><span class="se">[</span><span class="sr">a-zA-Z</span><span class="se">][</span><span class="sr">a-zA-Z</span><span class="se">]</span><span class="sr">/</span><span class="p">;</span>
+
+
+	<span class="kd">function</span> <span class="nx">createSet</span><span class="p">(</span><span class="nx">s</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+		<span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+		<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">regx</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
+				<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="nx">setA</span> <span class="o">=</span> <span class="nx">createSet</span><span class="p">(</span><span class="nx">str1</span><span class="p">);</span>
+	<span class="nx">setB</span> <span class="o">=</span> <span class="nx">createSet</span><span class="p">(</span><span class="nx">str2</span><span class="p">);</span>
+
+	<span class="kd">var</span> <span class="nx">unionSet</span> <span class="o">=</span> <span class="p">[];</span>
+	<span class="kd">var</span> <span class="nx">overGroup</span> <span class="o">=</span> <span class="p">{};</span>
+	<span class="nx">setA</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ele</span><span class="p">){</span>
+		<span class="nx">unionSet</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">ele</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span>
+			<span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">else</span>
+			<span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+	<span class="p">});</span>
+
+	<span class="kd">var</span> <span class="nx">interSectionSet</span> <span class="o">=</span> <span class="p">[];</span>
+	<span class="nx">setB</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ele</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">){</span>
+			<span class="nx">unionSet</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">ele</span><span class="p">);</span>
+		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+				<span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+				<span class="nx">interSectionSet</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">ele</span><span class="p">);</span>
+			<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+				<span class="nx">unionSet</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">overGroup</span><span class="p">[</span><span class="nx">ele</span><span class="p">]);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">});</span>
+
+	<span class="nx">union</span> <span class="o">=</span> <span class="nx">unionSet</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+	<span class="nx">intersection</span> <span class="o">=</span> <span class="nx">interSectionSet</span><span class="p">.</span><span class="nx">length</span>
+
+	<span class="kd">var</span> <span class="nx">result</span>
+	<span class="k">if</span><span class="p">(</span><span class="nx">union</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="nx">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">else</span>
+ 		<span class="nx">result</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">intersection</span> <span class="o">/</span> <span class="nx">union</span><span class="p">)</span> <span class="o">*</span> <span class="mi">65536</span><span class="p">);</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">union is </span><span class="dl">'</span><span class="p">,</span> <span class="nx">union</span><span class="p">,</span> <span class="dl">'</span><span class="s1">intersection is </span><span class="dl">'</span><span class="p">,</span> <span class="nx">intersection</span><span class="p">,</span> <span class="dl">'</span><span class="s1">result is </span><span class="dl">'</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">exam5</span><span class="p">(</span><span class="dl">'</span><span class="s1">FRANCE</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">french</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam5</span><span class="p">(</span><span class="dl">'</span><span class="s1">handshake</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">shake hands</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam5</span><span class="p">(</span><span class="dl">'</span><span class="s1">aa1+aa2</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">AAAA12</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">exam5</span><span class="p">(</span><span class="dl">'</span><span class="s1">E=M*C^2</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">e=m*c^2</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p>포스팅 하고보니….. 들여쓰기 무엇..?</p>
+:ET

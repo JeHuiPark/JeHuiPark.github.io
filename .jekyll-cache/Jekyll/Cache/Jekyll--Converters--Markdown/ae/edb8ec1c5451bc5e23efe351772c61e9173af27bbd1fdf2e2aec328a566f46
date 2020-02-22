@@ -1,0 +1,299 @@
+I"fu<p>GoogleAnalytics를 들어보셨나요.
+GoogleAnalytics는 개발자가 약간의 노력만으로 특정 서비스를 이용하는 사용자들의 활동을 추적할 수 있게 도와주는 아주 유용한 도구입니다.
+물론 추적 데이터 또한 구글 자체서버에 저장되고 있으니 기본적인 기능만 이용할꺼라면 개발자는 정말 아무것도 할 게 없게 만들어주는 강력한 도구이죠.
+이러한 추적데이터를 <a href="https://analytics.google.com/analytics">GoogleAnalytics 공홈</a>에서 확인 할 수도 있지만 구글은 고맙게도 추적데이터를 개발자가 직접 서비스 할 수 있게 <strong>GoogleAnalytics Report API</strong> 서비스를 제공하고 있습니다.</p>
+
+<p>이번 글에서는 바로 java로 개발된 서버에서 <strong>GoogleAnalytics Report API</strong> 를 어떻게 연계하는지에 대해 공유해보겠습니다.</p>
+
+<p><br /></p>
+<ol>
+  <li>
+    <p>우선 Google Play Console페이지로 이동하여 아래와 같은 순서로 프로젝트를 생성.
+(<em>GoogleAnalytics서비스와 GoogleAnalytics Report API는 다른 서비스이며 GoogleAnalytics Report API는 GoogleAnalytics의 데이터를 조회하기 위한 인터페이스</em>)
+<img src="https://user-images.githubusercontent.com/25237661/44958518-6d26bb00-af1c-11e8-8c9d-86c173c277e6.png" alt="이미지삽입" /></p>
+  </li>
+  <li>
+    <p>좌측에 라이브러리 메뉴에 들어가서 <strong>Google Analytics Reporting API</strong> 를 찾아서 사용함으로 설정.</p>
+  </li>
+  <li>
+    <p>GoogleAnalytics Reporting API 사용을 위한 API 인증정보 생성. (<strong>추후 Google Analytics 콘솔에서 데이터조회 권한을 부여할 때 사용됨</strong>)
+아래와 같이 서비스 계정관리를 클릭하여 프로젝트 서비스계정을 발급하는 페이지로 이동하여 서비스 계정 발급
+(<em>발급받는 과정중 마지막에 <strong>json파일을 제공해주는데 반드시! 잘! 갖고 있어야 합니다.</strong></em>)
+<img src="https://user-images.githubusercontent.com/25237661/44958519-6d26bb00-af1c-11e8-9bff-b4844d6fffd9.png" alt="이미지삽입" /></p>
+  </li>
+  <li>
+    <p>서비스 계정을 발급받으면 생성되는 이메일 주소를 복사합니다.
+<img src="https://user-images.githubusercontent.com/25237661/44958520-6d26bb00-af1c-11e8-8419-ed4c76bc35f4.png" alt="이미지삽입" /></p>
+  </li>
+  <li>
+    <p>아래와 같이 GoogleAnalytics콘솔로 돌아가서 데이터 조회 <strong>권한을 서비스 계정에 부여</strong>합니다.
+<img src="https://user-images.githubusercontent.com/25237661/44958522-6dbf5180-af1c-11e8-9c06-08fc9ba05087.png" alt="이미지삽입" /></p>
+
+    <p>이렇게 <strong>GoogleAnalytics</strong> 와 <strong>GoogleAnalytics Report API</strong> 연계는 마무리가 됩니다.</p>
+  </li>
+  <li>
+    <p>소스레벨에서  Report API 사용하기</p>
+
+    <p><strong>구글에서 제공하는 <a href="https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-java">API가이드</a>를 간략하게 요약해볼게요</strong>
+ <br /></p>
+
+    <ol>
+      <li>
+        <p><strong>ReportRequest클래스를 이용하여 요청 쿼리 파라미터를 작성</strong> (아래는 예시입니다.)</p>
+
+        <p><a href="https://ga-dev-tools.appspot.com/query-explorer/">요청 파라미터 작성 예제 사이트</a></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">ReportRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReportRequest</span><span class="o">()</span>
+     <span class="o">.</span><span class="na">setViewId</span><span class="o">(</span><span class="nc">GAHelper</span><span class="o">.</span><span class="na">VIEW_ID</span><span class="o">)</span> <span class="c1">// GoogleAnalytics View Id</span>
+     <span class="o">.</span><span class="na">setDateRanges</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createDateRange</span><span class="o">(</span><span class="n">startDate</span><span class="o">,</span> <span class="n">endDate</span><span class="o">))</span> <span class="c1">// 데이터 조회 기간</span>
+     <span class="o">.</span><span class="na">setMetrics</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createMetric</span><span class="o">())</span> <span class="c1">// 어떤 통계를 뽑을지</span>
+     <span class="o">.</span><span class="na">setDimensions</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createDimension</span><span class="o">())</span> <span class="c1">// 통계를 어떤 관점에서 바라볼지</span>
+     <span class="o">.</span><span class="na">setIncludeEmptyRows</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="c1">// 데이터가 없는 행도 포함 시킬 것인지.</span>
+</code></pre></div>        </div>
+
+        <p><em>View ID는 아래처럼 GoogleAnalytics에서 확인 할 수 있어요.</em>
+ <img src="https://user-images.githubusercontent.com/25237661/45264558-875f1c80-b479-11e8-8897-7343801e2a2f.png" alt="view_id" /></p>
+      </li>
+      <li>
+        <p><strong>사전에 발급받은 json파일을 read하여 유효한 사용자인지 검증 후 구글로부터 해당 API에 대한 액세스 토큰을 발급 받습니다.</strong></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">HttpTransport</span> <span class="n">httpTransport</span> <span class="o">=</span> <span class="nc">GoogleNetHttpTransport</span><span class="o">.</span><span class="na">newTrustedTransport</span><span class="o">();</span>
+ 		<span class="nc">GoogleCredential</span> <span class="n">credential</span> <span class="o">=</span> <span class="nc">GoogleCredential</span><span class="o">.</span><span class="na">fromStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">))</span>
+ 				<span class="o">.</span><span class="na">createScoped</span><span class="o">(</span><span class="nc">AnalyticsReportingScopes</span><span class="o">.</span><span class="na">all</span><span class="o">());</span>
+ <span class="nc">AnalyticsReporting</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">httpTransport</span><span class="o">,</span> <span class="no">GSON_FACTORY</span><span class="o">,</span> <span class="n">credential</span><span class="o">)</span>
+ 				<span class="o">.</span><span class="na">setApplicationName</span><span class="o">(</span><span class="no">APPLICATION_NAME</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>요청 파라미터를 set하여 API를 호출하고 응답을 받습니다.</strong></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">GetReportsRequest</span> <span class="n">getReport</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GetReportsRequest</span><span class="o">().</span><span class="na">setReportRequests</span><span class="o">(</span><span class="n">requests</span><span class="o">);</span>
+ <span class="nc">GetReportsResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">reports</span><span class="o">().</span><span class="na">batchGet</span><span class="o">(</span><span class="n">getReport</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+</code></pre></div>        </div>
+
+        <p><img src="https://user-images.githubusercontent.com/25237661/44958517-6d26bb00-af1c-11e8-9495-b1ac8185c9af.png" alt="ga_report_api_07" /></p>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>필자의 경우는 특정기간에 사용자별, 브라우저별 등등 통계 타입이 사전에 정의가 되어 있었기에 추후 확장성을 고려하여 API 호출 파라미터를 작성하기 편하도록 아래와 같은 구조를 기반으로 작업을 진행하였습니다.</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/25237661/45264404-f129f700-b476-11e8-8e48-608b52494258.PNG" alt="package" /></p>
+
+<p><br /></p>
+
+<h4 id="gavojava">GAVo.java</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * GoogleAnalytics VO
+ * @author JH
+ * @since 2018.08.21
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GAVo</span><span class="o">{</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">start</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">end</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">type</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getStart</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">start</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStart</span><span class="o">(</span><span class="nc">String</span> <span class="n">start</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getEnd</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">end</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setEnd</span><span class="o">(</span><span class="nc">String</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * set HelperEnumCode &lt;p&gt;
+   * 1 : 방문자 &lt;p&gt;
+   * 2 : 총 페이지뷰 &lt;p&gt;
+   * 3 : 브라우저별 &lt;p&gt;
+   * 4 : 모니터 해상도별 &lt;p&gt;
+   * 5 : 이전 접속 사이트 &lt;p&gt;
+   * 6 : 검색엔진 단어별 &lt;p&gt;
+   * 7 : 가장 많이본 사이트 &lt;p&gt;
+   * @param type
+   */</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setType</span><span class="o">(</span><span class="kt">int</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * @return type에 맞는 GAHelper.Type 반환
+   */</span>
+  <span class="kd">public</span> <span class="nc">GAHelper</span> <span class="nf">getHelper</span><span class="o">(){</span>
+    <span class="k">switch</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">type</span><span class="o">){</span>
+      <span class="k">case</span> <span class="mi">1</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">VISIT_USER</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">2</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">TOTAL_VIEW_COUNT</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">3</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">BROWSER</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">4</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">RESOLUTION</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">5</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">REFFER</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">6</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">KEYWORD</span><span class="o">;</span>
+      <span class="k">case</span> <span class="mi">7</span> <span class="o">:</span> <span class="k">return</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">PAGE_PATH</span><span class="o">;</span>
+      <span class="k">default</span> <span class="o">:</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="garequesterjava">GARequester.java</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * GA Reporting API Request Creator
+ * @author JH
+ * @since 2018.08.21
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GARequester</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReportRequest</span><span class="o">&gt;</span> <span class="n">requests</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">File</span> <span class="n">file</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="nf">GARequester</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReportRequest</span><span class="o">&gt;</span> <span class="n">requests</span><span class="o">,</span> <span class="nc">File</span> <span class="n">file</span><span class="o">){</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">requests</span> <span class="o">=</span> <span class="n">requests</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">GetReportsResponse</span> <span class="nf">request</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span><span class="o">,</span> <span class="nc">IOException</span><span class="o">{</span>
+    <span class="nc">AnalyticsReporting</span> <span class="n">service</span> <span class="o">=</span> <span class="nc">GAHelper</span><span class="o">.</span><span class="na">initializeAnalyticsReporting</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="nc">GetReportsRequest</span> <span class="n">getReport</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GetReportsRequest</span><span class="o">().</span><span class="na">setReportRequests</span><span class="o">(</span><span class="n">requests</span><span class="o">);</span>
+    <span class="nc">GetReportsResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">reports</span><span class="o">().</span><span class="na">batchGet</span><span class="o">(</span><span class="n">getReport</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * GARequester Builder
+   * @author JH
+   * @since 2018.08.21
+   */</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span><span class="o">{</span>
+
+    <span class="nc">String</span> <span class="n">startDate</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">endDate</span><span class="o">;</span>
+    <span class="nc">GAHelper</span> <span class="n">helper</span><span class="o">;</span>
+    <span class="nc">File</span> <span class="n">file</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">setStartDate</span><span class="o">(</span><span class="nc">String</span> <span class="n">startDate</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">startDate</span> <span class="o">=</span> <span class="n">startDate</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">setEndDate</span><span class="o">(</span><span class="nc">String</span> <span class="n">endDate</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">endDate</span> <span class="o">=</span> <span class="n">endDate</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">setHelper</span><span class="o">(</span><span class="nc">GAHelper</span> <span class="n">helper</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">helper</span> <span class="o">=</span> <span class="n">helper</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">setFile</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">GARequester</span> <span class="nf">build</span><span class="o">(){</span>
+      <span class="nc">ReportRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReportRequest</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">setViewId</span><span class="o">(</span><span class="nc">GAHelper</span><span class="o">.</span><span class="na">VIEW_ID</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">setDateRanges</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createDateRange</span><span class="o">(</span><span class="n">startDate</span><span class="o">,</span> <span class="n">endDate</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">setMetrics</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createMetric</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">setDimensions</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">helper</span><span class="o">.</span><span class="na">createDimension</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">setIncludeEmptyRows</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">GARequester</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">request</span><span class="o">),</span> <span class="n">file</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="gahelperjava">GAHelper.java</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * GA Helper &lt;p&gt;
+ * 조회타입에 맞게 파라미터 미리 정의 &lt;p&gt;
+ * {@link https://developers.google.com/analytics/devguides/reporting/core/v4}
+ *
+ * @author JH
+ * @since 2018.08.21
+ */</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">GAHelper</span> <span class="o">{</span>
+
+  <span class="no">VISIT_USER</span><span class="o">(</span><span class="s">"ga:sessions"</span><span class="o">,</span> <span class="s">"ga:date"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"user"</span><span class="o">),</span>
+  <span class="no">TOTAL_VIEW_COUNT</span><span class="o">(</span><span class="s">"ga:pageviews"</span><span class="o">,</span> <span class="s">"ga:date"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"totalViewCount"</span><span class="o">),</span>
+  <span class="no">BROWSER</span><span class="o">(</span><span class="s">"ga:sessions"</span><span class="o">,</span> <span class="s">"ga:browser"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"browser"</span><span class="o">),</span>
+  <span class="no">RESOLUTION</span><span class="o">(</span><span class="s">"ga:sessions"</span><span class="o">,</span><span class="s">"ga:screenResolution"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"resolution"</span><span class="o">),</span>
+  <span class="no">REFFER</span><span class="o">(</span><span class="s">"ga:sessions"</span><span class="o">,</span> <span class="s">"ga:keyword"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"reffer"</span><span class="o">),</span>
+  <span class="no">KEYWORD</span><span class="o">(</span><span class="s">"ga:sessions"</span><span class="o">,</span> <span class="s">"ga:fullReferrer"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"keyword"</span><span class="o">),</span>
+  <span class="no">PAGE_PATH</span><span class="o">(</span><span class="s">"ga:users"</span><span class="o">,</span> <span class="s">"ga:pagePath"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="s">"pagePath"</span><span class="o">);</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">metrics</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">dimensions</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">filter</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">alias</span><span class="o">;</span>
+
+  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">APPLICATION_NAME</span> <span class="o">=</span> <span class="s">"DEMO"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">GsonFactory</span> <span class="no">GSON_FACTORY</span> <span class="o">=</span> <span class="nc">GsonFactory</span><span class="o">.</span><span class="na">getDefaultInstance</span><span class="o">();</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">VIEW_ID</span> <span class="o">=</span> <span class="s">"DEMO"</span><span class="o">;</span>
+
+  <span class="nc">GAHelper</span><span class="o">(</span><span class="nc">String</span> <span class="n">metrics</span><span class="o">,</span> <span class="nc">String</span> <span class="n">dimensions</span><span class="o">,</span> <span class="nc">String</span> <span class="n">filter</span><span class="o">,</span> <span class="nc">String</span> <span class="n">alias</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">metrics</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">dimensions</span> <span class="o">=</span> <span class="n">dimensions</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">filter</span> <span class="o">=</span> <span class="n">filter</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">alias</span> <span class="o">=</span> <span class="n">alias</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * QueryParameter DateRange
+   * @param start
+   * @param end
+   * @return dateRangeList
+   */</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">DateRange</span><span class="o">&gt;</span> <span class="nf">createDateRange</span><span class="o">(</span><span class="nc">String</span> <span class="n">start</span><span class="o">,</span> <span class="nc">String</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * QueryParameter Metric 초기화
+   * @return metricList
+   */</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Metric</span><span class="o">&gt;</span> <span class="nf">createMetric</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * QueryParameter Dimension 초기화
+   * @return dimenssionList
+   */</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Dimension</span><span class="o">&gt;</span> <span class="nf">createDimension</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * GA Reporting API 사용권한 검증
+   * @return AnalyticsReporting
+   * @throws GeneralSecurityException
+   * @throws IOException
+   */</span>
+  <span class="kd">static</span> <span class="nc">AnalyticsReporting</span> <span class="nf">initializeAnalyticsReporting</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">GeneralSecurityException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+
+    <span class="nc">HttpTransport</span> <span class="n">httpTransport</span> <span class="o">=</span> <span class="nc">GoogleNetHttpTransport</span><span class="o">.</span><span class="na">newTrustedTransport</span><span class="o">();</span>
+    <span class="nc">GoogleCredential</span> <span class="n">credential</span> <span class="o">=</span> <span class="nc">GoogleCredential</span><span class="o">.</span><span class="na">fromStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">))</span>
+    		<span class="o">.</span><span class="na">createScoped</span><span class="o">(</span><span class="nc">AnalyticsReportingScopes</span><span class="o">.</span><span class="na">all</span><span class="o">());</span>
+
+    <span class="c1">// Construct the Analytics Reporting service object.</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">AnalyticsReporting</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">httpTransport</span><span class="o">,</span> <span class="no">GSON_FACTORY</span><span class="o">,</span> <span class="n">credential</span><span class="o">)</span>
+    		<span class="o">.</span><span class="na">setApplicationName</span><span class="o">(</span><span class="no">APPLICATION_NAME</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>이번글은 여기서 마무리 하겠습니다 ~</strong></p>
+:ET

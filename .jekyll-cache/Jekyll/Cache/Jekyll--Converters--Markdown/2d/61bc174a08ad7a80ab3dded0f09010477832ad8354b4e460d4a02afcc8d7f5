@@ -1,0 +1,324 @@
+I"yj<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Interger</span><span class="o">&gt;</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="nc">List</span> <span class="n">list2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p>우리는 위와같이 꺽쇠안에 클래스 타입이 명시된 패턴을 자주 발견할 수 있다.</p>
+
+<p>이걸 <strong>제네릭(Generic)</strong> 이라고 부르며, 제네릭 파라미터는 꺽쇠안에 포함하여 전달한다.</p>
+
+<p>제네릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다.</p>
+
+<h1 id="java에서-제네릭이란">JAVA에서 제네릭이란?</h1>
+
+<ul>
+  <li><strong>파라미터 타입이나 리턴 타입에 대한 정의를 외부로 미룬다</strong></li>
+  <li><strong>타입에 대해 유연성과 안정성을 확보한다</strong></li>
+  <li><strong><u>런타임 환경에 아무런 영향이 없는 컴파일 시점의 전처리 기술이다</u></strong></li>
+</ul>
+
+<blockquote>
+  <p><strong>타입을 유연하게 처리하며, 런타임에 발생할 수 있는 타입에러를 컴파일전에 검출한다.</strong></p>
+</blockquote>
+
+<hr />
+
+<p><br />
+예시로 아래와 같이 하나의 제네릭 파라미터를 전달받는 클래스를 정의해보자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ *
+ * @param &lt;T&gt; 클래스 초기화 시 한 가지의 클래스 타입을 제네릭 파라미터로 받는다
+ */</span>
+<span class="kd">class</span> <span class="nc">Sample</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="no">T</span> <span class="n">data</span><span class="o">;</span> <span class="c1">// 데이터의 타입은 제네릭 T</span>
+
+    <span class="cm">/**
+     *
+     * @param data 파라미터 타입은 클래스 초기화 시 지정한 타입과 동일하다.
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setData</span><span class="o">(</span><span class="no">T</span> <span class="n">data</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     *
+     * @return 리턴 타입은 클래스 초기화 시 지정한 타입과 동일하다.
+     */</span>
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">getData</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br />
+그리고 Sample클래스를 초기화시키면서 임의의 클래스를 제네릭 파라미터로 전달하여 Sample클래스의 T에 대한 타입을 지정해보자</p>
+
+<p><img src="https://user-images.githubusercontent.com/25237661/51187783-ecdb8200-191f-11e9-8498-8749bfbb9ef2.jpg" alt="generic_sample1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/25237661/51187784-ecdb8200-191f-11e9-83e8-a8af352164e2.jpg" alt="generic_sample2" /></p>
+
+<p>이처럼 제네릭 타입으로 어떤 클래스를 전달했냐에 따라서 메소드의 파라미터, 혹은 리턴타입이 제네릭 파라미터로 전달받은 클래스 타입으로 유연하게 바뀌며 동시에 강제성을 갖게 해주는 부분을 확인할 수 있다.
+이로써 Sample클래스는 setData메소드나 getData메소드에 여러가지 타입을 이용할 수 있지만, <strong>제네릭 파라미터에 의해 타입이 고정되기 때문에 안정성이 확보되는 것을 확인 할 수 있다.</strong></p>
+
+<p><br />
+만약 Sample클래스에 대응되는 클래스를 제네릭 타입없이 구현하게되면 아래처럼 될것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">AnotherSample</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Object</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="cm">/**
+     *
+     * @param data 모든 타입을 파라미터로 받기위해 파라미터 타입을 최상위 객체인 Object로 정의한다.
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setData</span><span class="o">(</span><span class="nc">Object</span> <span class="n">data</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">getData</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br />
+AnotherSample클래스를 실제 사용할때는 아래의 예시처럼 Sample클래스와 다르게 캐스팅하느라 정신없고, 어떤 타입이 사용되었는지 <u>개발자가 직접 소스를 한줄 한줄 읽어가며 파약해야 하는 안티패턴을 가진 코드가 탄생하게 된다.</u></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Sample</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sample</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Sample</span><span class="o">&lt;&gt;();</span>
+<span class="n">sample</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+
+<span class="nc">AnotherSample</span> <span class="n">integerSample</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnotherSample</span><span class="o">();</span>
+<span class="n">integerSample</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">integerSample</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+
+<span class="nc">AnotherSample</span> <span class="n">stringSample</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnotherSample</span><span class="o">();</span>
+<span class="n">stringSample</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">integerSample</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<h1 id="제네릭의-특징-및-사용법">제네릭의 특징 및 사용법</h1>
+
+<ul>
+  <li><strong>클래스 혹은 메소드에 선언할 수 있다.</strong></li>
+  <li><strong>동시에 여러 타입을 선언할 수 있다.</strong></li>
+  <li><strong>와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.</strong></li>
+  <li><strong>제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></li>
+</ul>
+
+<blockquote>
+  <p><strong>클래스 혹은 메소드에 선언할 수 있다.</strong></p>
+</blockquote>
+
+<p>제네릭은 <u>두가지 방법</u>으로 선언된다.</p>
+
+<ol>
+  <li>
+    <p><strong>클래스에 제네릭 파라미터를 선언하는 방법</strong> <em>(클래스 인스턴스화 시점에서 제네릭 파라미터를 통해 타입 전달)</em></p>
+
+    <p>인스턴스애서 타입을 공유할 경우에 사용되며, 컬렉션에서 자주볼수 있는 유형이다.</p>
+
+    <p>사용법은 클래스 우측에 제네릭 파라미터를 선언한다.</p>
+
+    <p>예시)</p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">class</span> <span class="nc">Sample</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+   <span class="kd">private</span> <span class="no">T</span> <span class="n">anonyTypeData</span><span class="o">;</span>
+ <span class="o">}</span>    
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>메소드에 제네릭 파라미터 선언하는 방법</strong> <em>(메소드 수행 시점에서 파라미터 타입과 비교하여 타입 전달)</em></p>
+
+    <p>제네릭 타입이 메소드 호출시점에 결정되야 할 경우 사용되며, 파라미터 타입에 따라 제네릭 타입이 결정되기 때문에 다이나믹한 처리를 가능케 한다.</p>
+
+    <p>사용법은 메소드의 반환타입 앞부분에 제네릭 파라미터를 선언한다.</p>
+
+    <p>예시)</p>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
+  *
+  * @param supplier java8의 함수형 인터페이스중 하나로 구현시점에 리턴값을 결정하며 타입이 정의된다.
+  * @param &lt;T&gt; test2메소드 호출시 전달받을 타입 파라미터로 supplier의 반환타입이자 test2의 반환타입으로 정의한다.
+  * @return
+  */</span>
+ <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">test2</span><span class="o">(</span><span class="nc">Supplier</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">supplier</span><span class="o">){</span>
+   <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"supplier 인터페이스의 반환타입에 따라서 test2의 반환타입이 결졍된다."</span><span class="o">);</span>
+   <span class="k">return</span> <span class="n">supplier</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>동시에 여러 타입을 선언할 수 있다.</strong></p>
+</blockquote>
+
+<p>제네릭 파라미터를 정의하는곳에 <u>콤마를 기준으로 여러 타입을 선언</u>하여 사용이 가능하다</p>
+
+<p>예시)</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ *
+ * @param p Function 메소드에서 소비될 P타입의 인자이다.
+ * @param function Function 제네릭 인자의 첫번째 타입의 파라미터를 소비하여 두번째 타입의 리턴값을 반환한다.
+ * @param &lt;P&gt; Function 메소드의 소비 파라미터 타입으로 정의한다.
+ * @param &lt;R&gt; Function 메소드의 리턴 타입으로 정의한다. test메소드의 리턴타입으로 정의한다.
+ * @return
+ */</span>
+<span class="kd">public</span> <span class="o">&lt;</span><span class="no">P</span><span class="o">,</span> <span class="no">R</span><span class="o">&gt;</span> <span class="no">R</span> <span class="nf">test</span><span class="o">(</span><span class="no">P</span> <span class="n">p</span><span class="o">,</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="no">P</span><span class="o">,</span> <span class="no">R</span><span class="o">&gt;</span> <span class="n">function</span><span class="o">){</span>
+    <span class="k">return</span> <span class="n">function</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">p</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">AnonyMap</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;{</span>
+    <span class="o">....</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<blockquote>
+  <p><strong>와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.</strong></p>
+</blockquote>
+
+<p><strong>와일드 카드는 대입연산 수행시 유연한 처리를 돕는다.</strong></p>
+
+<p>JAVA 컴파일러는 대입연산을 수행할 때 left-value의 제네릭타입과 right-value의 제네릭타입이 정확하게 일치하지 않을 경우 컴파일 에러를 발생시킨다. 하지만, 와일드 카드를 사용한다면 컴파일러가 유연하게 대처하도록 할 수 있다.</p>
+
+<p>예시)</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+  <span class="n">method1</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 제네릭 타입이 일치하지 않기 때문에 컴파일 에러 발생</span>
+  <span class="n">method2</span><span class="o">(</span><span class="n">example</span><span class="o">);</span> <span class="c1">// 모든 제네릭 타입을 허용하기 때문에 컴파일 에러 없음</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제네릭타입으로 Object만 허용한다.</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;?&gt;</span> <span class="n">param</span><span class="o">){</span> <span class="c1">// List의 제네릭타입으로 모든 타입을 허용한다.</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>method2처럼 제네릭 타입을 와일드 카드로 모든 타입에 대하여 허용하게 될 경우 param의 제네릭은 최상위 클래스인 Object로 정의되기 때문에 메소드 내부에서 특정 타입으로 캐스팅하여야 된다는 단점이 존재한다. 그래서 JAVA는 <u>제네릭 파라미터 대입 연산시 left-value와 right-value간의 캐스팅</u>이 가능하도록 <strong>super</strong> 와 <strong>extends</strong> 라는 키워드로 지원하고 있다.
+<br /></p>
+
+<blockquote>
+  <p><strong>제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.</strong></p>
+</blockquote>
+
+<ol>
+  <li>
+    <p><strong>제네릭 타입 정의시 상속관계를 명시하는 방법</strong> (와일드카드를 사용한다)</p>
+
+    <p>예시)</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ <span class="c1">// List의 제네릭 인자를 Runnable을 상속받은 모든 타입에 대하여 허용하도록 정의</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method4</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Runnable</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">){</span>
+     <span class="k">for</span><span class="o">(</span><span class="nc">Runnable</span> <span class="n">runnable</span> <span class="o">:</span> <span class="n">param</span><span class="o">){</span>
+         <span class="n">runnable</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+
+ <span class="nd">@FunctionalInterface</span>
+ <span class="kd">interface</span> <span class="nc">RunnableWrapp1</span> <span class="kd">extends</span> <span class="nc">Runnable</span> <span class="o">{</span>
+     <span class="kt">void</span> <span class="nf">_run</span><span class="o">();</span>
+     <span class="nd">@Override</span>
+     <span class="k">default</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====== BEFORE ======"</span><span class="o">);</span>
+         <span class="n">_run</span><span class="o">();</span>
+         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====== AFTER  ======"</span><span class="o">);</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+
+ <span class="nd">@Test</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test4</span><span class="o">(){</span>
+     <span class="nc">List</span><span class="o">&lt;</span><span class="nc">RunnableWrapp1</span><span class="o">&gt;</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+     <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(()-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"run1"</span><span class="o">));</span>
+     <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(()-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"run2"</span><span class="o">));</span>
+     <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(()-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"run3"</span><span class="o">));</span>
+     <span class="n">method4</span><span class="o">(</span><span class="n">list1</span><span class="o">);</span>
+     <span class="cm">/**********************
+      * ====== BEFORE ======
+      * run1
+      * ====== AFTER  ======
+      * ====== BEFORE ======
+      * run2
+      * ====== AFTER  ======
+      * ====== BEFORE ======
+      * run3
+      * ====== AFTER  ======
+      **********************/</span>
+ <span class="o">}</span>
+
+
+ <span class="kd">class</span> <span class="nc">AnotherSample</span> <span class="o">{}</span>
+
+ <span class="kd">class</span> <span class="nc">AnotherSampleChild</span> <span class="kd">extends</span> <span class="nc">AnotherSample</span> <span class="o">{}</span>
+
+ <span class="kd">class</span> <span class="nc">AnotherSampleChildOfChild</span> <span class="kd">extends</span> <span class="nc">AnotherSampleChild</span> <span class="o">{}</span>
+
+   <span class="c1">// List의 제네릭 인자를 AnotherSampleChild 클래스의 상위클래스만 허용토록 정의</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">genericSample</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">AnotherSampleChild</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">){</span>
+       <span class="cm">/****************************************************************************************
+        * list 의 제네릭 와일드카드는 AnotherSampleChild 클래스의 상위 클래스이기 때문에
+        * JAVA 컴파일러가 타입을 특정할 수 없기 때문에 list의 반환 요소타입은 Object로 추론한다.
+        * **************************************************************************************/</span>
+       <span class="nc">Object</span> <span class="n">a</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">AnotherSampleChild</span><span class="o">());</span>
+       <span class="nc">AnotherSampleChild</span> <span class="n">b</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> <span class="c1">// 컴파일 에러 발생</span>
+   <span class="o">}</span>
+
+ <span class="nd">@Test</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test5</span><span class="o">(){</span>
+   <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnotherSample</span><span class="o">&gt;</span> <span class="n">sample1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+   <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnotherSampleChild</span><span class="o">&gt;</span> <span class="n">sample2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+   <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AnotherSampleChildOfChild</span><span class="o">&gt;</span> <span class="n">sample3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+   <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Runnable</span><span class="o">&gt;</span> <span class="n">sample4</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+   <span class="n">genericSample</span><span class="o">(</span><span class="n">sample1</span><span class="o">);</span>
+   <span class="n">genericSample</span><span class="o">(</span><span class="n">sample2</span><span class="o">);</span>
+   <span class="n">genericSample</span><span class="o">(</span><span class="n">sample3</span><span class="o">);</span> <span class="c1">// sample3의 리스트 타입은 AnotherSampleChildOfChild 이며, AnotherSampleChild의 상위 클래스가 아니기 때문에 컴파일 에러가 발생한다.</span>
+   <span class="n">genericSample</span><span class="o">(</span><span class="n">sample4</span><span class="o">);</span> <span class="c1">// sample4의 리스트 타입은 Runnable 이며, 마찬가지로 AnotherSampleChild의의 상위 클래스가 아니기 때문에 컴파일 에러가 발생한다.</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+    <p><br /></p>
+  </li>
+  <li>
+    <p><strong>제네릭 타입 선언시 상속관계를 명시하는 방법</strong></p>
+
+    <p>예시)</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
+  *
+  * @param number T 타입의 인자
+  * @param &lt;T&gt; Number를 상속받은 어떤 타입을 T로 정의한다.
+  */</span>
+ <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">Number</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">test6</span><span class="o">(</span><span class="no">T</span> <span class="n">number</span><span class="o">){</span>
+     <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">.</span><span class="na">intValue</span><span class="o">());</span>
+ <span class="o">}</span>
+
+ <span class="nd">@Test</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test6</span><span class="o">(){</span>
+     <span class="n">test6</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+     <span class="n">test6</span><span class="o">(</span><span class="mf">200.912</span><span class="o">);</span>
+     <span class="n">test6</span><span class="o">(</span><span class="mi">100L</span><span class="o">);</span>
+     <span class="n">test6</span><span class="o">(</span><span class="nc">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">1234.948</span><span class="o">));</span>
+     <span class="cm">/*****************
+      * 100
+      * 200
+      * 100
+      * 1234
+      *****************/</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>여기까지 자주 쓰이지만 지나치기 쉬운 JAVA의 제네릭에 대하여 알아보았다.</p>
+
+<p>제네릭 타입의 <strong>선언</strong> 과 <strong>정의</strong> 를 정확하게 구분한다면 어렵지 않게 제네릭 타입을 활용 할 수 있을 것 같다.</p>
+:ET

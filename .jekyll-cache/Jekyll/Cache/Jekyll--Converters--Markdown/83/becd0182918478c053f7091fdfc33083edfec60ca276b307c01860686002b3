@@ -1,0 +1,87 @@
+I"w<p>지킬 패키지로 작성된 블로그를 깃허브에 배포하는 방법에는 두 가지가 있습니다.</p>
+
+<ul>
+  <li>
+    <p>master 브랜치로 빌드전 소스를 commit - push 하기</p>
+  </li>
+  <li>
+    <p>master 브랜치로 빌드완료된 정적 페이지 소스를 commit - push 하기</p>
+  </li>
+</ul>
+
+<p>원래는 첫번째 방법으로 배포를 수행하다가 불편한점이 한 두가지가 아니여서, 두번째 방법으로 배포하는것으로 방법을 변경했습니다.</p>
+
+<ol>
+  <li>
+    <p><strong>root경로에 Rakefile이 존재한다면 아래와 같이 작성해주세요. (<em>Rakefile이 없다면 생성후 진행해주세요.</em>)</strong></p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">require</span> <span class="s2">"rubygems"</span>
+ <span class="nb">require</span> <span class="s2">"tmpdir"</span>
+
+ <span class="nb">require</span> <span class="s2">"bundler/setup"</span>
+ <span class="nb">require</span> <span class="s2">"jekyll"</span>
+
+
+ <span class="c1"># Change your GitHub reponame</span>
+ <span class="no">GITHUB_REPONAME</span> <span class="o">=</span> <span class="s2">"JeHuiPark/JeHuiPark.github.io"</span>
+ <span class="c1"># 운영환경 빌드 아웃풋 경로</span>
+ <span class="no">PROD_DESTINATION</span> <span class="o">=</span> <span class="s2">"_site_prod"</span>
+
+ <span class="nb">puts</span> <span class="s2">"레파지토리 경로 = https://github.com/</span><span class="si">#{</span><span class="no">GITHUB_REPONAME</span><span class="si">}</span><span class="s2">"</span>
+ <span class="nb">puts</span> <span class="s2">"브랜치명을 입력해주세요"</span>
+ <span class="n">branch</span> <span class="o">=</span> <span class="vg">$stdin</span><span class="p">.</span><span class="nf">gets</span><span class="p">.</span><span class="nf">chomp</span>
+ <span class="nb">puts</span> <span class="s2">"branch name = </span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="s2">"</span>
+ <span class="nb">puts</span> <span class="s2">"계속 진행하시려면 아무키나 입력해주세요"</span>
+ <span class="nb">system</span> <span class="s2">"pause"</span>
+
+ <span class="n">namespace</span> <span class="ss">:site</span> <span class="k">do</span>
+   <span class="n">desc</span> <span class="s2">"Generate blog files"</span>
+   <span class="n">task</span> <span class="ss">:generate</span> <span class="k">do</span>
+     <span class="no">Jekyll</span><span class="o">::</span><span class="no">Site</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Jekyll</span><span class="p">.</span><span class="nf">configuration</span><span class="p">({</span>
+       <span class="s2">"source"</span>      <span class="o">=&gt;</span> <span class="s2">"."</span><span class="p">,</span>
+       <span class="s2">"destination"</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">#{</span><span class="no">PROD_DESTINATION</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+       <span class="s2">"mode"</span><span class="o">=&gt;</span> <span class="s2">"production"</span>
+     <span class="p">})).</span><span class="nf">process</span>
+   <span class="k">end</span>
+
+
+   <span class="n">desc</span> <span class="s2">"Generate and publish blog"</span>
+
+   <span class="n">task</span> <span class="ss">:publish</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:generate</span><span class="p">]</span> <span class="k">do</span>
+     <span class="no">Dir</span><span class="p">.</span><span class="nf">mktmpdir</span> <span class="k">do</span> <span class="o">|</span><span class="n">tmp</span><span class="o">|</span>
+       <span class="n">cp_r</span> <span class="s2">"</span><span class="si">#{</span><span class="no">PROD_DESTINATION</span><span class="si">}</span><span class="s2">/."</span><span class="p">,</span> <span class="n">tmp</span>
+
+       <span class="n">pwd</span> <span class="o">=</span> <span class="no">Dir</span><span class="p">.</span><span class="nf">pwd</span>
+       <span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span> <span class="n">tmp</span>
+
+       <span class="nb">system</span> <span class="s2">"git init"</span>
+       <span class="nb">system</span> <span class="s2">"git add ."</span>
+       <span class="n">message</span> <span class="o">=</span> <span class="s2">"Site updated at </span><span class="si">#{</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">utc</span><span class="si">}</span><span class="s2">"</span>
+       <span class="nb">system</span> <span class="s2">"git commit -m </span><span class="si">#{</span><span class="n">message</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2">"</span>
+       <span class="nb">system</span> <span class="s2">"git remote add origin https://github.com/</span><span class="si">#{</span><span class="no">GITHUB_REPONAME</span><span class="si">}</span><span class="s2">.git"</span>
+       <span class="nb">system</span> <span class="s2">"git push origin master:refs/heads/master --force"</span>
+       <span class="nb">system</span> <span class="s2">"pause"</span>
+
+       <span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span> <span class="n">pwd</span>
+     <span class="k">end</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>아래와 같이 batch파일을 작성한 후 저장합니다.</strong></p>
+
+    <div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code> @echo <span class="na">off</span>
+ <span class="nb">chcp</span> <span class="m">65001</span>
+ :: <span class="kd">batch</span> 파일 위치에 따라 아래 라인을 수정해주세요.
+ <span class="nb">cd</span> <span class="kd">JeHuiPark</span>.github.io
+ <span class="kd">rake</span> <span class="kd">site</span><span class="nl">:publish</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>batch 파일을 실행후 아래와 같이 진행</strong></p>
+
+    <p><img src="https://user-images.githubusercontent.com/25237661/51084921-67b46980-1775-11e9-91e9-4136de6f6f27.jpg" alt="publ_step1" /></p>
+  </li>
+</ol>
+:ET
