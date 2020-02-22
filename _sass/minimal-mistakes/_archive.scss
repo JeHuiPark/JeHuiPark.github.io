@@ -2,19 +2,44 @@
    ARCHIVE
    ========================================================================== */
 
+$toc-width: 17%;
+
+ul#markdown-toc {
+  position: fixed;
+  top: 76px;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  z-index: 9999;
+  font-size: 0.9em;
+  border: 0px solid;
+  padding: 10px;
+  padding-left: 30px;
+
+  @include breakpoint($large) {
+    width: $toc-width;
+  }
+
+  @include breakpoint($x-large) {
+    width: $toc-width;
+  }
+}
+
 .archive {
   margin-top: 1em;
   margin-bottom: 2em;
 
   @include breakpoint($large) {
-    float: right;
+    float: left;
     width: calc(100% - #{$right-sidebar-width-narrow});
     padding-right: $right-sidebar-width-narrow;
+    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width-narrow});
   }
 
   @include breakpoint($x-large) {
     width: calc(100% - #{$right-sidebar-width});
     padding-right: $right-sidebar-width;
+    max-width: calc(100% - #{$toc-width} - 5% - #{$right-sidebar-width});
   }
 }
 
