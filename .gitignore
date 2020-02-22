@@ -1,0 +1,18 @@
+*.gem
+*.sublime-project
+*.sublime-workspace
+.bundle
+.DS_Store
+.jekyll-metadata
+.sass-cache
+_asset_bundler_cache
+_site
+_site_prod
+codekit-config.json
+example/_site
+node_modules
+npm-debug.log*
+.jekyll-cache
+
+# 루비 모듈 캐싱 디렉토리 #
+.cache
