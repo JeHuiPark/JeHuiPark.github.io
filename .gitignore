@@ -10,7 +10,6 @@ _site
 _site_prod
 codekit-config.json
 example/_site
-Gemfile.lock
 node_modules
 npm-debug.log*
 .jekyll-cache
