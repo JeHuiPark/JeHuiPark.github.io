@@ -11,11 +11,6 @@ GITHUB_USERNAME = "JeHuiPark"
 # 운영환경 빌드 아웃풋 경로
 PROD_DESTINATION = "_site_prod"
 
-puts "레파지토리 경로 = https://github.com/#{GITHUB_USERNAME}/#{GITHUB_REPONAME}"
-puts "브랜치명을 입력해주세요"
-branch = $stdin.gets.chomp
-puts "branch name = #{branch}"
-
 namespace :site do
   desc "Generate blog files"
   task :generate do
@@ -32,6 +27,11 @@ namespace :site do
   desc "Generate and publish blog"
 
   task :publish => [:generate] do
+    puts "브랜치명을 입력해주세요"
+    branch = $stdin.gets.chomp
+    puts "branch name = #{branch}"
+    puts "레파지토리 경로 = https://github.com/#{GITHUB_USERNAME}/#{GITHUB_REPONAME}"
+    
     Dir.mktmpdir do |tmp|
       cp_r "#{PROD_DESTINATION}/.", tmp
 
