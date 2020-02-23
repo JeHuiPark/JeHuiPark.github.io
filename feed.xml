@@ -6,9 +6,115 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 23 Feb 2020 18:41:13 +0900</pubDate>
-    <lastBuildDate>Sun, 23 Feb 2020 18:41:13 +0900</lastBuildDate>
+    <pubDate>Sun, 23 Feb 2020 20:50:43 +0900</pubDate>
+    <lastBuildDate>Sun, 23 Feb 2020 20:50:43 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Github 다중계정 관리</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#깃헙-계정이-여러개일-땐-어떻게-해야할까&quot; id=&quot;markdown-toc-깃헙-계정이-여러개일-땐-어떻게-해야할까&quot;&gt;깃헙 계정이 여러개일 땐 어떻게 해야할까?&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh-키-생성&quot; id=&quot;markdown-toc-ssh-키-생성&quot;&gt;ssh 키 생성&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh-공개키를-깃헙-설정에-추가&quot; id=&quot;markdown-toc-ssh-공개키를-깃헙-설정에-추가&quot;&gt;ssh 공개키를 깃헙 설정에 추가&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh-비공개키를-ssh-agent에-등록&quot; id=&quot;markdown-toc-ssh-비공개키를-ssh-agent에-등록&quot;&gt;ssh 비공개키를 ssh-agent에 등록&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh-agent-설정에-github-호스트-추가&quot; id=&quot;markdown-toc-ssh-agent-설정에-github-호스트-추가&quot;&gt;ssh-agent 설정에 Github 호스트 추가&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#remote-저장소-등록&quot; id=&quot;markdown-toc-remote-저장소-등록&quot;&gt;remote 저장소 등록&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#무엇이-다른가&quot; id=&quot;markdown-toc-무엇이-다른가&quot;&gt;무엇이 다른가?&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참조&quot; id=&quot;markdown-toc-참조&quot;&gt;참조&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;깃헙-계정이-여러개일-땐-어떻게-해야할까&quot;&gt;깃헙 계정이 여러개일 땐 어떻게 해야할까?&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Basic Credentials&lt;/code&gt; 방식을 이용할 할 때는 레파지토리별로 로그인이 가능하기 때문에 별문제가 되지 않는다.&lt;br /&gt;
+하지만, ssh 방식을 이용하게 된다면?? 아래와 같이 추가적인 작업이 필요하다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;ssh 키 생성&lt;/li&gt;
+  &lt;li&gt;ssh 공개키를 깃헙 설정에 추가&lt;/li&gt;
+  &lt;li&gt;ssh 비공개키를 ssh-agent에 등록&lt;/li&gt;
+  &lt;li&gt;ssh-agent 설정에 Github 호스트 추가&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;ssh-키-생성&quot;&gt;ssh 키 생성&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa -C &quot;pjh2359@gmail.com&quot; -f ~/.ssh/example_key&lt;/code&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110717-eb2cd380-5674-11ea-91fb-a8d09dae6e6b.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;example_key&lt;/code&gt; 와 &lt;code class=&quot;highlighter-rouge&quot;&gt;example_key.pub&lt;/code&gt; 이 생성된다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110735-419a1200-5675-11ea-8c7a-9cd6ec51e514.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+각각 &lt;code class=&quot;highlighter-rouge&quot;&gt;비공개키&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;공개키&lt;/code&gt;로 이해하면 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;ssh-공개키를-깃헙-설정에-추가&quot;&gt;ssh 공개키를 깃헙 설정에 추가&lt;/h3&gt;
+&lt;p&gt;우선 두가지 방법이 있는듯 하다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;계정 설정에서 ssh 키 추가하기&lt;/li&gt;
+  &lt;li&gt;레파지토리 설정에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;deploy key&lt;/code&gt; 설정하기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;나는 두가지 계정 설정에 ssh 키를 추가하는 방법을 선택하여 진행했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110801-ff250500-5675-11ea-8abf-2bfa5cbb37bc.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110827-4a3f1800-5676-11ea-8bef-60f11f2452bf.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110840-85414b80-5676-11ea-8540-c5c9a0281753.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;제목은 편하게 작성하고, &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt;입력란에 미리 복사해둔 공개키를 붙여놓고 저장한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;ssh-비공개키를-ssh-agent에-등록&quot;&gt;ssh 비공개키를 ssh-agent에 등록&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-add example_key&lt;/code&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75110921-92ab0580-5677-11ea-8376-b5da817c72c9.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ssh-agent-설정에-github-호스트-추가&quot;&gt;ssh-agent 설정에 Github 호스트 추가&lt;/h3&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.ssh
+vi config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;config&lt;/code&gt;&lt;/strong&gt; 파일 작성 (ssh-agent 설정파일)&lt;/p&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 회사계정&lt;/span&gt;
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile another_key
+&lt;span class=&quot;c&quot;&gt;# 개인계정&lt;/span&gt;
+Host github-jehuipark
+    HostName github.com
+    User git
+    IdentityFile example_key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;remote-저장소-등록&quot;&gt;remote 저장소 등록&lt;/h2&gt;
+&lt;p&gt;ssh 인증방식을 이용할 때는 원격 저장소 위치를 ssh 규격에 맞추어 작성하게 된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;회사계정으로 접근가능한 레파지토리를 등록하자&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;git remote add ${remote-name} git@github.com:${github-username}/${github-reponame}&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;개인계정으로 접근가능한 레파지토리를 등록하자&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;git remote add ${remote-name} git@github-jehuipark:${github-username}/${github-reponame}&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;무엇이-다른가&quot;&gt;무엇이 다른가?&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git@github.com&lt;/code&gt;: github.com 으로 포워딩 하며, &lt;code class=&quot;highlighter-rouge&quot;&gt;another_key&lt;/code&gt; 키를 사용하도록 한다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;git@github-jehuipark.com&lt;/code&gt;: github.com 으로 포워딩 하며, &lt;code class=&quot;highlighter-rouge&quot;&gt;example_key&lt;/code&gt; 키를 사용하도록 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;참조&quot;&gt;참조&lt;/h2&gt;
+&lt;blockquote&gt;
+
+  &lt;p&gt;https://medium.com/@therajanmaurya/git-push-pull-with-two-different-account-and-two-different-user-on-same-machine-a85f9ee7ec61&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sun, 23 Feb 2020 11:42:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/note/github-multiple-accounts-manage</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/note/github-multiple-accounts-manage</guid>
+        
+        <category>ssh</category>
+        
+        
+        <category>note</category>
+        
+      </item>
     
       <item>
         <title>GitHub 블로그 개발 환경을 Docker로 구성하자</title>
@@ -1444,106 +1550,6 @@ AnotherSample클래스를 실제 사용할때는 아래의 예시처럼 Sample�
         
         
         <category>java</category>
-        
-      </item>
-    
-      <item>
-        <title>지킬 블로그를 깃헙 페이지로 배포하기</title>
-        <description>&lt;p&gt;지킬 패키지로 작성된 블로그를 깃허브에 배포하는 방법에는 두 가지가 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;master 브랜치로 빌드전 소스를 commit - push 하기&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;master 브랜치로 빌드완료된 정적 페이지 소스를 commit - push 하기&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;원래는 첫번째 방법으로 배포를 수행하다가 불편한점이 한 두가지가 아니여서, 두번째 방법으로 배포하는것으로 방법을 변경했습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;root경로에 Rakefile이 존재한다면 아래와 같이 작성해주세요. (&lt;em&gt;Rakefile이 없다면 생성후 진행해주세요.&lt;/em&gt;)&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rubygems&quot;&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tmpdir&quot;&lt;/span&gt;
-
- &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;bundler/setup&quot;&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll&quot;&lt;/span&gt;
-
-
- &lt;span class=&quot;c1&quot;&gt;# Change your GitHub reponame&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;GITHUB_REPONAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;JeHuiPark/JeHuiPark.github.io&quot;&lt;/span&gt;
- &lt;span class=&quot;c1&quot;&gt;# 운영환경 빌드 아웃풋 경로&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;PROD_DESTINATION&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;_site_prod&quot;&lt;/span&gt;
-
- &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;레파지토리 경로 = https://github.com/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GITHUB_REPONAME&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;브랜치명을 입력해주세요&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;$stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chomp&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;branch name = &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;계속 진행하시려면 아무키나 입력해주세요&quot;&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pause&quot;&lt;/span&gt;
-
- &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:site&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Generate blog files&quot;&lt;/span&gt;
-   &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:generate&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-     &lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Site&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-       &lt;span class=&quot;s2&quot;&gt;&quot;source&quot;&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-       &lt;span class=&quot;s2&quot;&gt;&quot;destination&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PROD_DESTINATION&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-       &lt;span class=&quot;s2&quot;&gt;&quot;mode&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;production&quot;&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;})).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-
-   &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Generate and publish blog&quot;&lt;/span&gt;
-
-   &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:publish&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-     &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mktmpdir&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;cp_r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PROD_DESTINATION&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;
-
-       &lt;span class=&quot;n&quot;&gt;pwd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pwd&lt;/span&gt;
-       &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chdir&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;
-
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git init&quot;&lt;/span&gt;
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git add .&quot;&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Site updated at &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;utc&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git commit -m &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;inspect&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git remote add origin https://github.com/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GITHUB_REPONAME&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.git&quot;&lt;/span&gt;
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;git push origin master:refs/heads/master --force&quot;&lt;/span&gt;
-       &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pause&quot;&lt;/span&gt;
-
-       &lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chdir&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwd&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;아래와 같이 batch파일을 작성한 후 저장합니다.&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-batch highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; @echo &lt;span class=&quot;na&quot;&gt;off&lt;/span&gt;
- &lt;span class=&quot;nb&quot;&gt;chcp&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;65001&lt;/span&gt;
- :: &lt;span class=&quot;kd&quot;&gt;batch&lt;/span&gt; 파일 위치에 따라 아래 라인을 수정해주세요.
- &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;JeHuiPark&lt;/span&gt;.github.io
- &lt;span class=&quot;kd&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;:publish&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;batch 파일을 실행후 아래와 같이 진행&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51084921-67b46980-1775-11e9-91e9-4136de6f6f27.jpg&quot; alt=&quot;publ_step1&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Sun, 13 Jan 2019 20:50:21 +0900</pubDate>
-        <link>https://jehuipark.github.io/blog/blog-publish</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/blog/blog-publish</guid>
-        
-        <category>jekyll</category>
-        
-        
-        <category>blog</category>
         
       </item>
     

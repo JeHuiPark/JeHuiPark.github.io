@@ -93,4 +93,9 @@ var store = [{
         "excerpt":"블로그를 방치했던 가장 큰 이유 환경 구성이 귀찮았던 이유 내 블로그 살리자 계획 실행 (고군분투기) 보너스 마치며 앞으로 할 일 몇 가지 이유로 나는 이 블로그를 거의 1년간 방치하고 있었다. (사실 핑계) 2019년 06월 이직 지킬 블로그 개발환경 구성이 너무나 귀찮다 올바른 객체지향 설계를 위한 개념 잡기에 몰두 블로그를 방치했던...","categories": ["blog"],
         "tags": ["jekyll"],
         "url": "https://jehuipark.github.io/blog/blog-env-setting-with-docker",
+        "teaser":null},{
+        "title": "Github 다중계정 관리",
+        "excerpt":"깃헙 계정이 여러개일 땐 어떻게 해야할까? ssh 키 생성 ssh 공개키를 깃헙 설정에 추가 ssh 비공개키를 ssh-agent에 등록 ssh-agent 설정에 Github 호스트 추가 remote 저장소 등록 무엇이 다른가? 참조 깃헙 계정이 여러개일 땐 어떻게 해야할까? Basic Credentials 방식을 이용할 할 때는 레파지토리별로 로그인이 가능하기 때문에 별문제가 되지 않는다. 하지만, ssh...","categories": ["note"],
+        "tags": ["ssh"],
+        "url": "https://jehuipark.github.io/note/github-multiple-accounts-manage",
         "teaser":null}]
