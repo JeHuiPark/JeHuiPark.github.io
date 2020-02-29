@@ -1,6 +1,6 @@
 ---
 layout: posts
-title:  "GitHub 블로그 개발 환경을 Docker로 구성하자"
+title:  "Github 블로그 개발 환경을 Docker로 구성하자"
 date:   2020-02-16 16:26:00 +0900
 comments: true
 categories: blog
