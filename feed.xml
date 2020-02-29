@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 23 Feb 2020 20:50:43 +0900</pubDate>
-    <lastBuildDate>Sun, 23 Feb 2020 20:50:43 +0900</lastBuildDate>
+    <pubDate>Sat, 29 Feb 2020 19:27:45 +0900</pubDate>
+    <lastBuildDate>Sat, 29 Feb 2020 19:27:45 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -117,7 +117,7 @@ Host github-jehuipark
       </item>
     
       <item>
-        <title>GitHub 블로그 개발 환경을 Docker로 구성하자</title>
+        <title>Github 블로그 개발 환경을 Docker로 구성하자</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#블로그를-방치했던-가장-큰-이유&quot; id=&quot;markdown-toc-블로그를-방치했던-가장-큰-이유&quot;&gt;블로그를 방치했던 가장 큰 이유&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#환경-구성이-귀찮았던-이유&quot; id=&quot;markdown-toc-환경-구성이-귀찮았던-이유&quot;&gt;환경 구성이 귀찮았던 이유&lt;/a&gt;&lt;/li&gt;
@@ -533,6 +533,10 @@ worker.print();
     &lt;tr&gt;
       &lt;td&gt;GOF의 디자인패턴&lt;/td&gt;
       &lt;td&gt;이거보는거 추천&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;켄트 벡의 구현 패턴&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
