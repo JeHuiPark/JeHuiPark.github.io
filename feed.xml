@@ -6,170 +6,9 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 29 Feb 2020 22:28:25 +0900</pubDate>
-    <lastBuildDate>Sat, 29 Feb 2020 22:28:25 +0900</lastBuildDate>
+    <pubDate>Sat, 29 Feb 2020 22:33:16 +0900</pubDate>
+    <lastBuildDate>Sat, 29 Feb 2020 22:33:16 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
-    
-      <item>
-        <title>Github Action 을 이용하여 Github 블로그 배포하기</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#시작하기-전에&quot; id=&quot;markdown-toc-시작하기-전에&quot;&gt;시작하기 전에&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#github-action-이-딱이네&quot; id=&quot;markdown-toc-github-action-이-딱이네&quot;&gt;Github Action 이 딱이네&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-은&quot; id=&quot;markdown-toc-github-action-은&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 은&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#github-action-을-만들어보자&quot; id=&quot;markdown-toc-github-action-을-만들어보자&quot;&gt;Github Action 을 만들어보자&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-생성&quot; id=&quot;markdown-toc-github-action-생성&quot;&gt;Github Action 생성&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-몸빵으로-배우기&quot; id=&quot;markdown-toc-github-action-몸빵으로-배우기&quot;&gt;Github Action 몸빵으로 배우기&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#완성된-github-action-dsl&quot; id=&quot;markdown-toc-완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;시작하기-전에&quot;&gt;시작하기 전에&lt;/h2&gt;
-
-&lt;p&gt;Github Action을 이용하기 전에 나는 블로그를 이런식으로 운영하고 있었다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;블로그의 빌드방식을 github 의존 방식이 아닌 로컬 빌드방식을 이용&lt;/li&gt;
-  &lt;li&gt;블로그를 배포하는 방법으로 루비 Rakefile 스크립트 이용&lt;/li&gt;
-  &lt;li&gt;블로그 개발환경을 도커로 구성
-    &lt;blockquote&gt;
-
-      &lt;p&gt;&lt;a href=&quot;https://jehuipark.github.io/blog/blog-publish&quot;&gt;배포 자동화&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://jehuipark.github.io/blog/blog-env-setting-with-docker&quot;&gt;블로그 개발환경 도커로 구성하기&lt;/a&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;블로그 개발환경을 도커 구성으로 변경하면서, 기존 배포방식에 문제가 발생 하면서 문제점이 보이기 시작했다.&lt;/p&gt;
-
-&lt;p&gt;배포를 Rakefile 태스크에 의존하다 보니, 배포 또한 도커를 이용하게 되었는데 컨테이너 환경에서는 github 에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt; 하기 위한 권한이 없기 때문에 아래와 같은 추가적인 작업이 필요한 상황이 발생한 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;basic credentials 으로 직접 로그인 - &lt;strong&gt;귀찮음&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;컨테이너에 ssh 설정 - &lt;strong&gt;배포환경이 달라질 때 마다 설정을 해줘야 함&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;결정적으로 나는 &lt;strong&gt;개발환경 구축이 되어 있지 않더라도, 배포가 가능한 환경을 원했다.&lt;/strong&gt;&lt;br /&gt;
-이런 환경이라면, 단순한 수정은 인터넷만 가능하다면 퀵 하게 처리가 가능할 테니까&lt;/p&gt;
-
-&lt;h2 id=&quot;github-action-이-딱이네&quot;&gt;Github Action 이 딱이네&lt;/h2&gt;
-&lt;p&gt;내 요구사항을 처리하기에 딱 좋은 녀석은 얼마전에 회사에서 공유 받은적이 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 이 딱이라고 생각하였다.&lt;br /&gt;
-나도 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 을 사용해본 경험은 없기 때문에, 사전조사를 간략하게 진행 하였다.&lt;/p&gt;
-
-&lt;h3 id=&quot;github-action-은&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 은&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;깃헙 레파지토리에서 발생하는 이벤트를 받아서 처리할 수 있게 인터페이스 제공&lt;/li&gt;
-  &lt;li&gt;레파지토리별 가상 서버를 깃헙에서 제공
-    &lt;ul&gt;
-      &lt;li&gt;자체 호스팅 서버를 이용도 가능&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;깃헙에서 제공하는 가상서버에는 해당 레파지토리에 대한 접근권한 설정이 미리 되어있는 상태&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;GITHUB_TOKEN&lt;/code&gt; 을 이용한다고 한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이 정도의 정보를 갖고 행동으로 옮겼고, 삽질 끝에 배포 자동화 환경을 구축했다.&lt;/p&gt;
-
-&lt;p&gt;배포 과정을 요약하면 이렇다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;work&lt;/code&gt; 브랜치에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;를 한다.&lt;/li&gt;
-  &lt;li&gt;원격지에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;빌드&lt;/code&gt;를 수행한다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;빌드&lt;/code&gt; output을 github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt; 한다. (&lt;strong&gt;배포완료&lt;/strong&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;github-action-을-만들어보자&quot;&gt;Github Action 을 만들어보자&lt;/h2&gt;
-
-&lt;h3 id=&quot;github-action-생성&quot;&gt;Github Action 생성&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75607351-8b816d00-5b39-11ea-9a42-447925b85cbe.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생성 버튼을 누르니 깃헙설정 경로에 &lt;code class=&quot;highlighter-rouge&quot;&gt;yml&lt;/code&gt; 파일이 생성되는 걸 보니 &lt;strong&gt;DSL&lt;/strong&gt; 의 느낌이 온다.
-그래서 &lt;a href=&quot;https://help.github.com/en/actions&quot;&gt;Github Action Help&lt;/a&gt; 레퍼런스를 잠깐 읽었는데 머리도 아프고 역시 몸빵이 최고인 것 같아서 레퍼런스를 켜두고 일단 시작했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://help.github.com/en/actions&quot;&gt;Github Action Help&lt;/a&gt; 어디에선가 발췌한 Hello World 스크립트를 갖고 바로 몸빵을 시작하기로 결정했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Hello World 스크립트&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Greet Everyone&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# This workflow is triggered on pushes to the repository.&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# Job name is Greeting&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Greeting&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# This job runs on Linux&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;# This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Hello world&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;actions/hello-world-javascript-action@v1&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;who-to-greet&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Mona&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Octocat'&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;hello&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;# This step prints an output (time) from the previous step's action.&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Echo the greeting's time&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo 'The time was $.'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;github-action-몸빵으로-배우기&quot;&gt;Github Action 몸빵으로 배우기&lt;/h3&gt;
-
-&lt;p&gt;깃헙 액션을 몸빵으로 체득하다 보면 커밋 히스토리가 지저분해질게 뻔히 보여서 일단 리모트 &lt;strong&gt;브랜치를 분리&lt;/strong&gt;하는 작업을 먼저 진행 하였다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;work-flow-test 브랜치 생성&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;분리된 브랜치에서 깃헙액션 DSL 을 생성하고, 사전에 찾아뒀던 Hello World 스크립트를 저장하였다.&lt;br /&gt;
-저장하는 순간 github 에 push 이벤트가 발생하였고, 아래와 같이 깃헙 액션 실행결과를 확인할 수 있었다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75607494-20389a80-5b3b-11ea-901c-e98d3204e967.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;깃헙액션의 실행결과를 눈으로 확인하고 나서 바로 든 생각은 &lt;em&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;신기하네 약간 도커같은 느낌인걸?&lt;/code&gt;&lt;/em&gt; 이였다.&lt;/p&gt;
-
-&lt;p&gt;그리고 job 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 을 하나씩 단계별로 구성하면 내가 하려던 작업을 충분히 할 수 있겠다고 직감했고 깃헙 액션을 조금씩 채워나가기 시작했다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;소스 체크아웃 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기
-이런저런 삽질을 해보다가 이정도는 이미 만들어져 있지 않을까 해서 찾아보니 &lt;a href=&quot;https://github.com/actions/checkout&quot;&gt;깃헙에서 제공&lt;/a&gt;하고 있어서 그걸 사용했다.&lt;/li&gt;
-  &lt;li&gt;ruby 설치하기 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기
-지킬 블로그는 ruby 패키지에 의존하여 동작하기 때문에 필수적으로 필요한 요소이다.&lt;br /&gt;
-이것도 &lt;a href=&quot;https://github.com/actions/setup-ruby&quot;&gt;깃헙에서 제공&lt;/a&gt;한다.&lt;/li&gt;
-  &lt;li&gt;gem 설치하기 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-지킬 블로그에 빌드에 필요한 gem 을 설치해야 한다. (내 로컬과 동일하게)&lt;br /&gt;
-여기서 삽질을 좀 했다.
-    &lt;ol&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;이 존재하지 않아서 gem 설치가 순서대로 되지 않아서 오류 발생&lt;/li&gt;
-      &lt;li&gt;젬 디펜던시 설치가 너무 오래 걸림 (액션이 돌때마다 새로 설치)&lt;br /&gt;
- 이에 대한 솔루션도 &lt;a href=&quot;https://github.com/actions/cache&quot;&gt;깃헙에서 제공&lt;/a&gt;하고 있어서 몇번 삽질 후에 성공적으로 적용하였다.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;블로그 빌드 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-&lt;a href=&quot;https://github.com/actions/cache&quot;&gt;기존에 프로덕션 배포시 사용하던 Rakefile을 일부 활용&lt;/a&gt;하였다. &lt;code class=&quot;highlighter-rouge&quot;&gt;rake site:generate&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;블로그 배포 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-쉘 스크립트 작성에 능숙치 못해서 여기에서 가장 많은 시간을 소요했다&lt;br /&gt;
-대충 요악하면 여기에서 진행하려고 하던 작업은 이렇다.
-    &lt;ol&gt;
-      &lt;li&gt;블로그 빌드 결과물을 임시 디렉토리로 이동&lt;/li&gt;
-      &lt;li&gt;작업 브랜치를 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치로 이동&lt;/li&gt;
-      &lt;li&gt;블로그 빌드 결과물 적용&lt;/li&gt;
-      &lt;li&gt;변경사항 &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt; 내용을 github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치로 push&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/h2&gt;
-
-&lt;p&gt;내가 삽질하면서 작성한 Github Action DSL 은 &lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3&quot;&gt;여기서&lt;/a&gt; 확인할 수 있다.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 29 Feb 2020 22:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/blog-publish-with-github-action</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/blog-publish-with-github-action</guid>
-        
-        <category>github</category>
-        
-        
-        <category>note</category>
-        
-      </item>
     
       <item>
         <title>Github 다중계정 관리</title>
@@ -1378,6 +1217,343 @@ layout: null
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>[JAVA] 제네릭(Generic)이란</title>
+        <description>&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Interger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;우리는 위와같이 꺽쇠안에 클래스 타입이 명시된 패턴을 자주 발견할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이걸 &lt;strong&gt;제네릭(Generic)&lt;/strong&gt; 이라고 부르며, 제네릭 파라미터는 꺽쇠안에 포함하여 전달한다.&lt;/p&gt;
+
+&lt;p&gt;제네릭이 하는게 무엇이고, 왜 사용할까? 라는 물음에서 시작하되어 포스팅을 시작한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;java에서-제네릭이란&quot;&gt;JAVA에서 제네릭이란?&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;파라미터 타입이나 리턴 타입에 대한 정의를 외부로 미룬다&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;타입에 대해 유연성과 안정성을 확보한다&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;u&gt;런타임 환경에 아무런 영향이 없는 컴파일 시점의 전처리 기술이다&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;타입을 유연하게 처리하며, 런타임에 발생할 수 있는 타입에러를 컴파일전에 검출한다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;
+예시로 아래와 같이 하나의 제네릭 파라미터를 전달받는 클래스를 정의해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**
+ *
+ * @param &amp;lt;T&amp;gt; 클래스 초기화 시 한 가지의 클래스 타입을 제네릭 파라미터로 받는다
+ */&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 데이터의 타입은 제네릭 T&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/**
+     *
+     * @param data 파라미터 타입은 클래스 초기화 시 지정한 타입과 동일하다.
+     */&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/**
+     *
+     * @return 리턴 타입은 클래스 초기화 시 지정한 타입과 동일하다.
+     */&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+그리고 Sample클래스를 초기화시키면서 임의의 클래스를 제네릭 파라미터로 전달하여 Sample클래스의 T에 대한 타입을 지정해보자&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51187783-ecdb8200-191f-11e9-8498-8749bfbb9ef2.jpg&quot; alt=&quot;generic_sample1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51187784-ecdb8200-191f-11e9-83e8-a8af352164e2.jpg&quot; alt=&quot;generic_sample2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이처럼 제네릭 타입으로 어떤 클래스를 전달했냐에 따라서 메소드의 파라미터, 혹은 리턴타입이 제네릭 파라미터로 전달받은 클래스 타입으로 유연하게 바뀌며 동시에 강제성을 갖게 해주는 부분을 확인할 수 있다.
+이로써 Sample클래스는 setData메소드나 getData메소드에 여러가지 타입을 이용할 수 있지만, &lt;strong&gt;제네릭 파라미터에 의해 타입이 고정되기 때문에 안정성이 확보되는 것을 확인 할 수 있다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+만약 Sample클래스에 대응되는 클래스를 제네릭 타입없이 구현하게되면 아래처럼 될것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/**
+     *
+     * @param data 모든 타입을 파라미터로 받기위해 파라미터 타입을 최상위 객체인 Object로 정의한다.
+     */&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+AnotherSample클래스를 실제 사용할때는 아래의 예시처럼 Sample클래스와 다르게 캐스팅하느라 정신없고, 어떤 타입이 사용되었는지 &lt;u&gt;개발자가 직접 소스를 한줄 한줄 읽어가며 파약해야 하는 안티패턴을 가진 코드가 탄생하게 된다.&lt;/u&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerSample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;integerSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stringSample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;stringSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;제네릭의-특징-및-사용법&quot;&gt;제네릭의 특징 및 사용법&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;클래스 혹은 메소드에 선언할 수 있다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;동시에 여러 타입을 선언할 수 있다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;클래스 혹은 메소드에 선언할 수 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;제네릭은 &lt;u&gt;두가지 방법&lt;/u&gt;으로 선언된다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;클래스에 제네릭 파라미터를 선언하는 방법&lt;/strong&gt; &lt;em&gt;(클래스 인스턴스화 시점에서 제네릭 파라미터를 통해 타입 전달)&lt;/em&gt;&lt;/p&gt;
+
+    &lt;p&gt;인스턴스애서 타입을 공유할 경우에 사용되며, 컬렉션에서 자주볼수 있는 유형이다.&lt;/p&gt;
+
+    &lt;p&gt;사용법은 클래스 우측에 제네릭 파라미터를 선언한다.&lt;/p&gt;
+
+    &lt;p&gt;예시)&lt;/p&gt;
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;anonyTypeData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;메소드에 제네릭 파라미터 선언하는 방법&lt;/strong&gt; &lt;em&gt;(메소드 수행 시점에서 파라미터 타입과 비교하여 타입 전달)&lt;/em&gt;&lt;/p&gt;
+
+    &lt;p&gt;제네릭 타입이 메소드 호출시점에 결정되야 할 경우 사용되며, 파라미터 타입에 따라 제네릭 타입이 결정되기 때문에 다이나믹한 처리를 가능케 한다.&lt;/p&gt;
+
+    &lt;p&gt;사용법은 메소드의 반환타입 앞부분에 제네릭 파라미터를 선언한다.&lt;/p&gt;
+
+    &lt;p&gt;예시)&lt;/p&gt;
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;cm&quot;&gt;/**
+  *
+  * @param supplier java8의 함수형 인터페이스중 하나로 구현시점에 리턴값을 결정하며 타입이 정의된다.
+  * @param &amp;lt;T&amp;gt; test2메소드 호출시 전달받을 타입 파라미터로 supplier의 반환타입이자 test2의 반환타입으로 정의한다.
+  * @return
+  */&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Supplier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;supplier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;supplier 인터페이스의 반환타입에 따라서 test2의 반환타입이 결졍된다.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;supplier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;동시에 여러 타입을 선언할 수 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;제네릭 파라미터를 정의하는곳에 &lt;u&gt;콤마를 기준으로 여러 타입을 선언&lt;/u&gt;하여 사용이 가능하다&lt;/p&gt;
+
+&lt;p&gt;예시)&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**
+ *
+ * @param p Function 메소드에서 소비될 P타입의 인자이다.
+ * @param function Function 제네릭 인자의 첫번째 타입의 파라미터를 소비하여 두번째 타입의 리턴값을 반환한다.
+ * @param &amp;lt;P&amp;gt; Function 메소드의 소비 파라미터 타입으로 정의한다.
+ * @param &amp;lt;R&amp;gt; Function 메소드의 리턴 타입으로 정의한다. test메소드의 리턴타입으로 정의한다.
+ * @return
+ */&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnonyMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;....&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;와일드 카드를 이용하여 타입에 대하여 유연한 처리를 가능케 한다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;와일드 카드는 대입연산 수행시 유연한 처리를 돕는다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;JAVA 컴파일러는 대입연산을 수행할 때 left-value의 제네릭타입과 right-value의 제네릭타입이 정확하게 일치하지 않을 경우 컴파일 에러를 발생시킨다. 하지만, 와일드 카드를 사용한다면 컴파일러가 유연하게 대처하도록 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;예시)&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;method1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 제네릭 타입이 일치하지 않기 때문에 컴파일 에러 발생&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;method2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 모든 제네릭 타입을 허용하기 때문에 컴파일 에러 없음&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// List의 제네릭타입으로 Object만 허용한다.&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// List의 제네릭타입으로 모든 타입을 허용한다.&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;method2처럼 제네릭 타입을 와일드 카드로 모든 타입에 대하여 허용하게 될 경우 param의 제네릭은 최상위 클래스인 Object로 정의되기 때문에 메소드 내부에서 특정 타입으로 캐스팅하여야 된다는 단점이 존재한다. 그래서 JAVA는 &lt;u&gt;제네릭 파라미터 대입 연산시 left-value와 right-value간의 캐스팅&lt;/u&gt;이 가능하도록 &lt;strong&gt;super&lt;/strong&gt; 와 &lt;strong&gt;extends&lt;/strong&gt; 라는 키워드로 지원하고 있다.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;제네릭 선언 및 정의시에 타입의 상속관계를 지정할 수 있다.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;제네릭 타입 정의시 상속관계를 명시하는 방법&lt;/strong&gt; (와일드카드를 사용한다)&lt;/p&gt;
+
+    &lt;p&gt;예시)&lt;/p&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+ &lt;span class=&quot;c1&quot;&gt;// List의 제네릭 인자를 Runnable을 상속받은 모든 타입에 대하여 허용하도록 정의&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Runnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;runnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+ &lt;span class=&quot;nd&quot;&gt;@FunctionalInterface&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RunnableWrapp1&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;====== BEFORE ======&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;_run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+         &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;====== AFTER  ======&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+ &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+     &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RunnableWrapp1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;run1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;run2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;run3&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;method4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;cm&quot;&gt;/**********************
+      * ====== BEFORE ======
+      * run1
+      * ====== AFTER  ======
+      * ====== BEFORE ======
+      * run2
+      * ====== AFTER  ======
+      * ====== BEFORE ======
+      * run3
+      * ====== AFTER  ======
+      **********************/&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+ &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+
+ &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+
+ &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSampleChildOfChild&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+
+   &lt;span class=&quot;c1&quot;&gt;// List의 제네릭 인자를 AnotherSampleChild 클래스의 상위클래스만 허용토록 정의&lt;/span&gt;
+   &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;genericSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+       &lt;span class=&quot;cm&quot;&gt;/****************************************************************************************
+        * list 의 제네릭 와일드카드는 AnotherSampleChild 클래스의 상위 클래스이기 때문에
+        * JAVA 컴파일러가 타입을 특정할 수 없기 때문에 list의 반환 요소타입은 Object로 추론한다.
+        * **************************************************************************************/&lt;/span&gt;
+       &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+       &lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 컴파일 에러 발생&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+ &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AnotherSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AnotherSampleChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;AnotherSampleChildOfChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Runnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sample4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+   &lt;span class=&quot;n&quot;&gt;genericSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;genericSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;genericSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// sample3의 리스트 타입은 AnotherSampleChildOfChild 이며, AnotherSampleChild의 상위 클래스가 아니기 때문에 컴파일 에러가 발생한다.&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;genericSample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sample4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// sample4의 리스트 타입은 Runnable 이며, 마찬가지로 AnotherSampleChild의의 상위 클래스가 아니기 때문에 컴파일 에러가 발생한다.&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;제네릭 타입 선언시 상속관계를 명시하는 방법&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;예시)&lt;/p&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;cm&quot;&gt;/**
+  *
+  * @param number T 타입의 인자
+  * @param &amp;lt;T&amp;gt; Number를 상속받은 어떤 타입을 T로 정의한다.
+  */&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+     &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;intValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+ &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;200.912&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;test6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;BigDecimal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1234.948&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     &lt;span class=&quot;cm&quot;&gt;/*****************
+      * 100
+      * 200
+      * 100
+      * 1234
+      *****************/&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;여기까지 자주 쓰이지만 지나치기 쉬운 JAVA의 제네릭에 대하여 알아보았다.&lt;/p&gt;
+
+&lt;p&gt;제네릭 타입의 &lt;strong&gt;선언&lt;/strong&gt; 과 &lt;strong&gt;정의&lt;/strong&gt; 를 정확하게 구분한다면 어렵지 않게 제네릭 타입을 활용 할 수 있을 것 같다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 14 Jan 2019 00:45:21 +0900</pubDate>
+        <link>https://jehuipark.github.io/java/java-generic</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/java/java-generic</guid>
+        
+        <category>generic</category>
+        
+        
+        <category>java</category>
         
       </item>
     
