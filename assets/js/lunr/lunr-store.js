@@ -98,4 +98,9 @@ var store = [{
         "excerpt":"깃헙 계정이 여러개일 땐 어떻게 해야할까? ssh 키 생성 ssh 공개키를 깃헙 설정에 추가 ssh 비공개키를 ssh-agent에 등록 ssh-agent 설정에 Github 호스트 추가 remote 저장소 등록 무엇이 다른가? 참조 깃헙 계정이 여러개일 땐 어떻게 해야할까? Basic Credentials 방식을 이용할 할 때는 레파지토리별로 로그인이 가능하기 때문에 별문제가 되지 않는다. 하지만, ssh...","categories": ["note"],
         "tags": ["ssh"],
         "url": "https://jehuipark.github.io/note/github-multiple-accounts-manage",
+        "teaser":null},{
+        "title": "Github Action 을 이용하여 Github 블로그 배포하기",
+        "excerpt":"시작하기 전에 Github Action 이 딱이네 Github Action 은 Github Action 을 만들어보자 Github Action 생성 Github Action 몸빵으로 배우기 완성된 Github Action DSL 시작하기 전에 Github Action을 이용하기 전에 나는 블로그를 이런식으로 운영하고 있었다. 블로그의 빌드방식을 github 의존 방식이 아닌 로컬 빌드방식을 이용 블로그를 배포하는 방법으로 루비 Rakefile 스크립트...","categories": ["note"],
+        "tags": ["github"],
+        "url": "https://jehuipark.github.io/note/blog-publish-with-github-action",
         "teaser":null}]
