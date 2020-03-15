@@ -6,9 +6,165 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 29 Feb 2020 22:36:07 +0900</pubDate>
-    <lastBuildDate>Sat, 29 Feb 2020 22:36:07 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 19:56:41 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 19:56:41 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>3항 연산자와 Unboxing 그리고 NullPointException</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#떡밥&quot; id=&quot;markdown-toc-떡밥&quot;&gt;떡밥&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#왜-nullpointexception-&quot; id=&quot;markdown-toc-왜-nullpointexception-&quot;&gt;왜 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; ?&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#어떻게-알아내었는가&quot; id=&quot;markdown-toc-어떻게-알아내었는가&quot;&gt;어떻게 알아내었는가&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#unboxing-의-동작방식이-궁금해&quot; id=&quot;markdown-toc-unboxing-의-동작방식이-궁금해&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 의 동작방식이 궁금해&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#후기&quot; id=&quot;markdown-toc-후기&quot;&gt;후기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;떡밥&quot;&gt;떡밥&lt;/h2&gt;
+
+&lt;p&gt;얼마전에 팀 내에서 재밌는 이슈가 나왔다.&lt;br /&gt;
+대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;exampleMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booleanExpression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primitiveValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerObj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;booleanExpression&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; 일 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;integerObj&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 이면 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 오류가 터지는 문제였다.&lt;/p&gt;
+
+&lt;p&gt;언뜻 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;booleanExpression&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; 이면, &lt;code class=&quot;highlighter-rouge&quot;&gt;integerObj&lt;/code&gt; 의 값이 무엇이던 그대로 반환할 것 같은 메소드이지만, 알고보면 그렇지 않다.&lt;/p&gt;
+
+&lt;p&gt;이 오류를 재현하기 위해 간단한 테스트를 작성하고, 실행 해보자&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ex1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;fail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NullPointerException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;예상되는 에러&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;테스트 결과&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698396-bb0da900-66e5-11ea-9b27-9ef98bcbdacd.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;왜-nullpointexception-&quot;&gt;왜 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; ?&lt;/h3&gt;
+
+&lt;p&gt;결론부터 말하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;java&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 과 관련된 이슈였다.&lt;/p&gt;
+
+&lt;p&gt;요악하면 변수 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; 를 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 하는 과정에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointerException&lt;/code&gt; 이 발생한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;어떻게-알아내었는가&quot;&gt;어떻게 알아내었는가&lt;/h4&gt;
+
+&lt;p&gt;머릿속에 여러 생각이 들었다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이펙티브 자바&lt;/code&gt; 책의 한 구절이 떠올랐다.
+    &lt;blockquote&gt;
+      &lt;p&gt;컴파일러로 인해 개발자가 작성한 코드가 예상과 다르게 동작할 수 있다.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointerException&lt;/code&gt; 예외가 발생할 수 있는 포인트가 3항 연산자 이외에는 보이지 않는다.&lt;/li&gt;
+  &lt;li&gt;3항 연산자의 2항의 반환 타입이 &lt;code class=&quot;highlighter-rouge&quot;&gt;primitive&lt;/code&gt; 인게 걸린다.&lt;/li&gt;
+  &lt;li&gt;혹시 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 로 초기화 된 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; 를 언박싱 하려고 하니?&lt;/li&gt;
+  &lt;li&gt;만약 2항의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;boxing object&lt;/code&gt; 이면 에러없이 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 을 반환할까?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;나름의 정보를 종합하여, 한가지 가설을 세우고 바로 테스트를 작성해 보았다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ex2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;테스트 결과&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698556-bfd35c80-66e7-11ea-84cb-b4754df909f0.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;내가 세운 가설&lt;/strong&gt;은 이랬다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;2항의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;primitive&lt;/code&gt; 이기 때문에, 3항의 &lt;code class=&quot;highlighter-rouge&quot;&gt;boxing object&lt;/code&gt;가 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt;이 되는 것은 아닐까?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게 나는 테스트 코드를 통해 이번 3항 연산자 떡밥은 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 과 관련이 있다는 것이 증명 되었다고 판단하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;unboxing-의-동작방식이-궁금해&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 의 동작방식이 궁금해&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boxing&lt;/code&gt; 이라던지 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 키워드는 정말 지겹도록 들어봤을 것이며, 이것을 설명하는 것은 주제를 넘어가니 생략한다.&lt;/p&gt;
+
+&lt;p&gt;당시에, 나는 2가지의 키워드가 의미하는 바가 무엇인지는 알고 있었지만, 솔직히 말하면 실제로 어떻게 동작하는지에 대해서는 구체적으로 알고 있는 상태는 아니였다.&lt;/p&gt;
+
+&lt;p&gt;이때의 계기로 나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 이 어떻게 동작하는지 알아보고 싶어져서 &lt;code class=&quot;highlighter-rouge&quot;&gt;바이트 코드&lt;/code&gt; 를 읽어보기로 결정하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698970-c5cb3c80-66eb-11ea-8627-85a41970551e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이미지에 보이는 자바코드 두줄은 바이트 코드로 이렇게 표현되고 있었다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;L0&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;LINENUMBER&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;L0&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;ACONST_NULL&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;ASTORE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;L3&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;LINENUMBER&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;L3&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;ALOAD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;INVOKEVIRTUAL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;intValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;INVOKESTATIC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Ljava&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;ASTORE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;천천히 순서대로 읽어보자. (&lt;a href=&quot;https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html#jvms-6.5.astore&quot;&gt;오라클 문서&lt;/a&gt;와 같이 보면 도움이 된다.)&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LO&lt;/code&gt; 은 자바코드 12번 라인에 대응하는 코드이다.
+    &lt;ol&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ASTORE 1&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 이라는 상수를 &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;에 저장한다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;L3&lt;/code&gt; 은 자바코드 13번 라인에 대응하는 코드이다.
+    &lt;ol&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ALOAD 1&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;에서 객체를 로드 해라. (&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 예상)&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKEVIRTUAL java/lang/Integer.intValue ()I&lt;/code&gt; -&amp;gt; 로드한 객체를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;Integer&lt;/code&gt; 클래스의 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue&lt;/code&gt; 메소드를 실행해라. (&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 참조 상태이므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue()&lt;/code&gt; 메소드를 실행하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 이 발생&lt;/strong&gt;한다.)&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Integer&lt;/code&gt; 클래스의 &lt;code class=&quot;highlighter-rouge&quot;&gt;valueOf&lt;/code&gt;라는 정적 메소드를 실행하면서 I를 넘겨라. 정적 메소드의 반환 타입은 &lt;code class=&quot;highlighter-rouge&quot;&gt;java/lang/Integer&lt;/code&gt; 이다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ASTORE 2&lt;/code&gt; -&amp;gt; 반환값을 &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;에 저장하라&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;바이트 코드에서 보면 13번 라인의 3항 연산자가 삭제된 것을 확인할 수 있는데, 이것은 1항의 값이 컴파일 시점에 이미 결정되어 있기 때문에 실행시점에는 2항의 값이 쓸모없는 값이 되어 버린다 그렇기 때문에, 컴파일러가 최적화한 결과라고 생각하면 되며, 이 글에서 중요하지 않는 부분이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;바이트 코드를 읽어보니 언박싱이 어떻게 동작하는 건지 알 수 있을것 같다.&lt;br /&gt;
+바이트 코드 분석중 2-2 를 확인해보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKEVIRTUAL java/lang/Integer.intValue ()I&lt;/code&gt; 이 부분이 박싱 객체를 언박싱하는 과정으로 보이는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 참조를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue()&lt;/code&gt; 메소드를 실행하려고 시도하니 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 이 발생한 것이였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
+&lt;p&gt;퇴근 직전에 재밌는 떡밥이였다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;이 이슈는 알고보니 아주 유명한 이슈라고 한다.
+    &lt;ul&gt;
+      &lt;li&gt;이것도 자바 스펙중 하나로 오라클에 &lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.25&quot;&gt;오피셜 문서&lt;/a&gt;가 존재한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3항 연산자에 박싱 객체와 언박싱 객체가 공존할 때, 언박싱 객체를 박싱객체로 변환하는 방법도 있을법 하지만, 컴파일러는 언박싱 처리를 하도록 하고 있다. 이유가 뭘까?
+    &lt;ul&gt;
+      &lt;li&gt;그냥 단순히 객체 생성 비용을 아끼기 위해서 일까? 다른 이유가 있을까?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 15 Mar 2020 15:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/java/java-conditional-operator</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/java/java-conditional-operator</guid>
+        
+        <category>java</category>
+        
+        
+        <category>java</category>
+        
+      </item>
     
       <item>
         <title>Github Action 을 이용하여 Github 블로그 배포하기</title>
@@ -1297,87 +1453,6 @@ ex) &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.datasource.url: jdbc:
         <pubDate>Sat, 26 Jan 2019 19:45:21 +0900</pubDate>
         <link>https://jehuipark.github.io/blog/markdown-liquid-escape</link>
         <guid isPermaLink="true">https://jehuipark.github.io/blog/markdown-liquid-escape</guid>
-        
-        <category>jekyll</category>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>지킬 블로그 RSS Feed 설정하기</title>
-        <description>&lt;p&gt;저는 지킬 블로그를 개설하면서 구글 웹마스터와, 네이버 웹마스터 두곳에 현 블로그를 등록하여 검색엔진에 노출되도록 설정했었습니다.&lt;/p&gt;
-
-&lt;p&gt;구글 웹마스터 도구는 무리없이 사이트 등록이 깔끔하게 완료되었지만, 이상하게 NAVER 웹마스터에서만 RSS를 제출하려고 하면 서비스 거부를 당해서 방치;&lt;/p&gt;
-
-&lt;p&gt;지킬 블로그에서 RSS 피드를 생성하는 방법은 두 가지가 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;플러그인 사용&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;RSS 피드 생성문 직접작성&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;저는 편하게 하고싶어서 &lt;strong&gt;jekyll-feed&lt;/strong&gt; 라는 플러그인을 사용하여 피드를 생성하고 있었는데, 이상하게 네이버 웹마스터에서 해당 플러그인으로 생성된 피드에 대하여 서비스를 거부하는 현상이 있어서, 플러그인을 포기하기로 결정했습니다. (&lt;em&gt;개인적인 생각으로는 RSS 버전이슈 같습니다. 피드문서 구조가 달랐거든요&lt;/em&gt;)&lt;/p&gt;
-
-&lt;p&gt;현재상태
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51785372-3cc90d00-219a-11e9-8afa-c70cbb441b76.jpg&quot; alt=&quot;RSS 제출 확인&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;찾아보니 &lt;a href=&quot;https://jekyllcodex.org/without-plugin/rss-feed/&quot;&gt;지킬 코드샘플 사이트에서&lt;/a&gt; 기본 솔루션을 제공해 주고 있었습니다.&lt;/p&gt;
-
-&lt;p&gt;우선 아래처럼 RSS 피드를 생성하는 xml을 작성하고 원하는 이름으로 지킬 프로젝트 루트경로에 위치시킵니다. (기본 feed.xml)&lt;/p&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
-layout: null
----
-&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;rss&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2.0&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:atom=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2005/Atom&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  {% assign feed_path = &quot;/feed.xml&quot; %} &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 피드경로 명시 --&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;channel&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt; {{ site.title | xml_escape }}  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{ site.description | xml_escape }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ site.url }}{{ site.baseurl }}/&lt;span class=&quot;nt&quot;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;atom:link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{ feed_path | prepend: site.baseurl | prepend: site.url }}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;self&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;application/rss+xml&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;pubDate&amp;gt;&lt;/span&gt;{{ site.time | date_to_rfc822 }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pubDate&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;lastBuildDate&amp;gt;&lt;/span&gt;{{ site.time | date_to_rfc822 }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/lastBuildDate&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;generator&amp;gt;&lt;/span&gt;Jekyll v{{ jekyll.version }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generator&amp;gt;&lt;/span&gt;
-    {% for post in site.posts limit:10 %}
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ post.title | xml_escape }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{ post.content | xml_escape }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;pubDate&amp;gt;&lt;/span&gt;{{ post.date | date_to_rfc822 }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pubDate&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ post.url | prepend: site.baseurl | prepend: site.url }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;guid&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;isPermaLink=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.url | prepend: site.baseurl | prepend: site.url }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/guid&amp;gt;&lt;/span&gt;
-        {% for tag in post.tags %}
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;category&amp;gt;&lt;/span&gt;{{ tag | xml_escape }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/category&amp;gt;&lt;/span&gt;
-        {% endfor %}
-        {% for cat in post.categories %}
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;category&amp;gt;&lt;/span&gt;{{ cat | xml_escape }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/category&amp;gt;&lt;/span&gt;
-        {% endfor %}
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
-    {% endfor %}
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/channel&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/rss&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;그후 head에 아래와 같은 태그를 추가시키면 됩니다.&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alternate&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;application/rss+xml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{ site.url }}/feed.xml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{ site.title }} Feed&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;의도한대로 동작하고 있는지 개발자도구(F12)를 실행시켜 확인해보고, feed URL을 체크해봅니다
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51785473-95e57080-219b-11e9-9e01-8435e8952128.jpg&quot; alt=&quot;dev_tool_check&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;정상적으로 동작하고 있는걸 확인했으니 네이버 웹마스터에 RSS 제출을 하겠습니다.
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51785371-3c307680-219a-11e9-99bb-fdfc60634a2b.jpg&quot; alt=&quot;RSS 제출&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/51785529-93374b00-219c-11e9-8fa6-6a1f7dcfa826.jpg&quot; alt=&quot;RSS 제출 확인&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 26 Jan 2019 18:45:21 +0900</pubDate>
-        <link>https://jehuipark.github.io/blog/without-plugin-rss-feed</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/blog/without-plugin-rss-feed</guid>
         
         <category>jekyll</category>
         

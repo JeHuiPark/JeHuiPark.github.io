@@ -103,4 +103,9 @@ var store = [{
         "excerpt":"시작하기 전에 Github Action 이 딱이네 Github Action 은 Github Action 을 만들어보자 Github Action 생성 Github Action 몸빵으로 배우기 완성된 Github Action DSL 깃헙액션 동작 결과 시작하기 전에 Github Action을 이용하기 전에 나는 블로그를 이런식으로 운영하고 있었다. 블로그의 빌드방식을 github 의존 방식이 아닌 로컬 빌드방식을 이용 블로그를 배포하는 방법으로...","categories": ["note"],
         "tags": ["github"],
         "url": "https://jehuipark.github.io/note/blog-publish-with-github-action",
+        "teaser":null},{
+        "title": "3항 연산자와 Unboxing 그리고 NullPointException",
+        "excerpt":"떡밥 왜 NullPointException ? 어떻게 알아내었는가 unboxing 의 동작방식이 궁금해 후기 떡밥 얼마전에 팀 내에서 재밌는 이슈가 나왔다. 대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데. Integer exampleMethod() { return booleanExpression ? primitiveValue : integerObj; } booleanExpression 의 값이 false 일 때, integerObj 의 값이 null 이면 NullPointException 오류가 터지는 문제였다....","categories": ["java"],
+        "tags": ["java"],
+        "url": "https://jehuipark.github.io/java/java-conditional-operator",
         "teaser":null}]
