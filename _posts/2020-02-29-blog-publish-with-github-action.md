@@ -122,6 +122,11 @@ jobs:
 
 내가 삽질하면서 작성한 Github Action DSL 은 [여기서](https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3) 확인할 수 있다.
 
+캐시경로를 상대 경로로 설정 하였던 부분이 **블로그 배포 `step` 만들기** 부분의 작업내용과 충돌하는 부분이 있어서, `cache hit` 를 하지 못하는 이슈가 발생해서 아래와 같은 스텝으로 조치하였다.
+- [캐시 강제업데이트](https://github.com/JeHuiPark/JeHuiPark.github.io/pull/11)
+- [캐시경로 변경](https://github.com/JeHuiPark/JeHuiPark.github.io/pull/13)
+
+
 ## 깃헙액션 동작 결과
 
 ![image](https://user-images.githubusercontent.com/25237661/75608419-9391da80-5b42-11ea-87ed-498fc2f5a657.png)
