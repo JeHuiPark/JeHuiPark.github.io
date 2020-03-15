@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Mar 2020 19:56:41 +0900</pubDate>
-    <lastBuildDate>Sun, 15 Mar 2020 19:56:41 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 20:05:18 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 20:05:18 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -21,6 +21,7 @@
       &lt;li&gt;&lt;a href=&quot;#unboxing-의-동작방식이-궁금해&quot; id=&quot;markdown-toc-unboxing-의-동작방식이-궁금해&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 의 동작방식이 궁금해&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1짤-요약&quot; id=&quot;markdown-toc-1짤-요약&quot;&gt;1짤 요약&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#후기&quot; id=&quot;markdown-toc-후기&quot;&gt;후기&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -139,6 +140,9 @@
 
 &lt;p&gt;바이트 코드를 읽어보니 언박싱이 어떻게 동작하는 건지 알 수 있을것 같다.&lt;br /&gt;
 바이트 코드 분석중 2-2 를 확인해보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKEVIRTUAL java/lang/Integer.intValue ()I&lt;/code&gt; 이 부분이 박싱 객체를 언박싱하는 과정으로 보이는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 참조를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue()&lt;/code&gt; 메소드를 실행하려고 시도하니 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 이 발생한 것이였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;1짤-요약&quot;&gt;1짤 요약&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76700066-e9e04b00-66f6-11ea-9263-1f4f049917a3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
 &lt;p&gt;퇴근 직전에 재밌는 떡밥이였다.&lt;/p&gt;

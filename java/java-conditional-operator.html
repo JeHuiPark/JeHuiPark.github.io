@@ -38,6 +38,7 @@
 <li><a href="#unboxing-%EC%9D%98-%EB%8F%99%EC%9E%91%EB%B0%A9%EC%8B%9D%EC%9D%B4-%EA%B6%81%EA%B8%88%ED%95%B4" id="markdown-toc-unboxing-의-동작방식이-궁금해"><code class="highlighter-rouge">unboxing</code> 의 동작방식이 궁금해</a></li>
 </ul>
 </li>
+<li><a href="#1%EC%A7%A4-%EC%9A%94%EC%95%BD" id="markdown-toc-1짤-요약">1짤 요약</a></li>
 <li><a href="#%ED%9B%84%EA%B8%B0" id="markdown-toc-후기">후기</a></li>
 </ul>
 <h2 id="떡밥">떡밥</h2>
@@ -127,6 +128,8 @@
 </ol>
 <blockquote><p>바이트 코드에서 보면 13번 라인의 3항 연산자가 삭제된 것을 확인할 수 있는데, 이것은 1항의 값이 컴파일 시점에 이미 결정되어 있기 때문에 실행시점에는 2항의 값이 쓸모없는 값이 되어 버린다 그렇기 때문에, 컴파일러가 최적화한 결과라고 생각하면 되며, 이 글에서 중요하지 않는 부분이다.</p></blockquote>
 <p>바이트 코드를 읽어보니 언박싱이 어떻게 동작하는 건지 알 수 있을것 같다.<br> 바이트 코드 분석중 2-2 를 확인해보면 <code class="highlighter-rouge">INVOKEVIRTUAL java/lang/Integer.intValue ()I</code> 이 부분이 박싱 객체를 언박싱하는 과정으로 보이는데, <code class="highlighter-rouge">null</code> 참조를 이용하여 <code class="highlighter-rouge">intValue()</code> 메소드를 실행하려고 시도하니 <code class="highlighter-rouge">NullPointException</code> 이 발생한 것이였다.</p>
+<h2 id="1짤-요약">1짤 요약</h2>
+<p><img src="https://user-images.githubusercontent.com/25237661/76700066-e9e04b00-66f6-11ea-9263-1f4f049917a3.png" alt="image"></p>
 <h2 id="후기">후기</h2>
 <p>퇴근 직전에 재밌는 떡밥이였다.</p>
 <ul>

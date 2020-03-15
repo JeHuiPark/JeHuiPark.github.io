@@ -105,7 +105,7 @@ var store = [{
         "url": "https://jehuipark.github.io/note/blog-publish-with-github-action",
         "teaser":null},{
         "title": "3항 연산자와 Unboxing 그리고 NullPointException",
-        "excerpt":"떡밥 왜 NullPointException ? 어떻게 알아내었는가 unboxing 의 동작방식이 궁금해 후기 떡밥 얼마전에 팀 내에서 재밌는 이슈가 나왔다. 대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데. Integer exampleMethod() { return booleanExpression ? primitiveValue : integerObj; } booleanExpression 의 값이 false 일 때, integerObj 의 값이 null 이면 NullPointException 오류가 터지는 문제였다....","categories": ["java"],
+        "excerpt":"떡밥 왜 NullPointException ? 어떻게 알아내었는가 unboxing 의 동작방식이 궁금해 1짤 요약 후기 떡밥 얼마전에 팀 내에서 재밌는 이슈가 나왔다. 대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데. Integer exampleMethod() { return booleanExpression ? primitiveValue : integerObj; } booleanExpression 의 값이 false 일 때, integerObj 의 값이 null 이면 NullPointException 오류가...","categories": ["java"],
         "tags": ["java"],
         "url": "https://jehuipark.github.io/java/java-conditional-operator",
         "teaser":null}]
