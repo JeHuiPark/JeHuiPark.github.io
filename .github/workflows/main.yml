@@ -4,7 +4,6 @@ on:
   push:
     branches: 
       - work
-      - work-flow-cache-test
 jobs:
   build:
     name: blog-auto-publish
