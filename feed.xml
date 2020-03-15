@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Mar 2020 22:20:37 +0900</pubDate>
-    <lastBuildDate>Sun, 15 Mar 2020 22:20:37 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 22:28:02 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 22:28:02 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -320,10 +320,6 @@
 &lt;h2 id=&quot;완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/h2&gt;
 
 &lt;p&gt;내가 삽질하면서 작성한 Github Action DSL 은 &lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3&quot;&gt;여기서&lt;/a&gt; 확인할 수 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;2020-03-15 루비 모듈 캐싱안되는 현상 발견 및 &lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/11&quot;&gt;조치&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
 &lt;h2 id=&quot;깃헙액션-동작-결과&quot;&gt;깃헙액션 동작 결과&lt;/h2&gt;
 
