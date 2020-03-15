@@ -115,6 +115,9 @@ L3
 바이트 코드를 읽어보니 언박싱이 어떻게 동작하는 건지 알 수 있을것 같다.  
 바이트 코드 분석중 2-2 를 확인해보면 `INVOKEVIRTUAL java/lang/Integer.intValue ()I` 이 부분이 박싱 객체를 언박싱하는 과정으로 보이는데, `null` 참조를 이용하여 `intValue()` 메소드를 실행하려고 시도하니 `NullPointException` 이 발생한 것이였다.
 
+## 1짤 요약  
+![image](https://user-images.githubusercontent.com/25237661/76700066-e9e04b00-66f6-11ea-9263-1f4f049917a3.png)
+
 
 ## 후기
 퇴근 직전에 재밌는 떡밥이였다.
