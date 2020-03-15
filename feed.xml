@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Mar 2020 22:41:23 +0900</pubDate>
-    <lastBuildDate>Sun, 15 Mar 2020 22:41:23 +0900</lastBuildDate>
+    <pubDate>Sun, 15 Mar 2020 22:49:16 +0900</pubDate>
+    <lastBuildDate>Sun, 15 Mar 2020 22:49:16 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -320,6 +320,12 @@
 &lt;h2 id=&quot;완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/h2&gt;
 
 &lt;p&gt;내가 삽질하면서 작성한 Github Action DSL 은 &lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3&quot;&gt;여기서&lt;/a&gt; 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;캐시경로를 상대 경로로 설정 하였던 부분이 &lt;strong&gt;블로그 배포 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;/strong&gt; 부분의 작업내용과 충돌하는 부분이 있어서, &lt;code class=&quot;highlighter-rouge&quot;&gt;cache hit&lt;/code&gt; 를 하지 못하는 이슈가 발생해서 아래와 같은 스텝으로 조치하였다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/11&quot;&gt;캐시 강제업데이트&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/13&quot;&gt;캐시경로 변경&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;깃헙액션-동작-결과&quot;&gt;깃헙액션 동작 결과&lt;/h2&gt;
 
