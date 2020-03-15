@@ -122,6 +122,9 @@ jobs:
 
 내가 삽질하면서 작성한 Github Action DSL 은 [여기서](https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3) 확인할 수 있다.
 
+- 2020-03-15 루비 모듈 캐싱안되는 현상 발견 및 [조치](https://github.com/JeHuiPark/JeHuiPark.github.io/pull/11)
+
+
 ## 깃헙액션 동작 결과
 
 ![image](https://user-images.githubusercontent.com/25237661/75608419-9391da80-5b42-11ea-87ed-498fc2f5a657.png)
