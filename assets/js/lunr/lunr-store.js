@@ -108,4 +108,9 @@ var store = [{
         "excerpt":"떡밥 왜 NullPointException ? 어떻게 알아내었는가 unboxing 의 동작방식이 궁금해 1짤 요약 후기 떡밥 얼마전에 팀 내에서 재밌는 이슈가 나왔다. 대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데. Integer exampleMethod() { return booleanExpression ? primitiveValue : integerObj; } booleanExpression 의 값이 false 일 때, integerObj 의 값이 null 이면 NullPointException 오류가...","categories": ["java"],
         "tags": ["java"],
         "url": "https://jehuipark.github.io/java/java-conditional-operator",
+        "teaser":null},{
+        "title": "JPA 에서 UUID 사용할 때 주의할 점",
+        "excerpt":"UUID로 조회가 안된다. 혼란이 온다. 성공적인 구글링 왜 그럴까? 한줄 요약 확인 해보자 UUID로 조회가 안된다. 최근에 엔티티를 만들면서 Id 컬럼의 타입을 UUID 로 지정하면서 경험했던 이슈가 있다. 평소처럼 엔티티를 클래스를 작성하고, 기본적인 비즈니스 로직(1번 로직)을 구현하고, 비즈니스 로직에 대응하는 TC 를 작성하고 문제없이 동작하는 것을 확인한 후에 나는 다음...","categories": ["java"],
+        "tags": ["mysql","uuid"],
+        "url": "https://jehuipark.github.io/java/my-sql-binary-reference",
         "teaser":null}]
