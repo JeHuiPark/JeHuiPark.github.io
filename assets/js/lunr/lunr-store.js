@@ -113,4 +113,9 @@ var store = [{
         "excerpt":"UUID로 조회가 안된다. 혼란이 온다. 성공적인 구글링 왜 그럴까? 한줄 요약 확인 해보자 UUID로 조회가 안된다. 최근에 엔티티를 만들면서 Id 컬럼의 타입을 UUID 로 지정하면서 경험했던 이슈가 있다. 평소처럼 엔티티를 클래스를 작성하고, 기본적인 비즈니스 로직(1번 로직)을 구현하고, 비즈니스 로직에 대응하는 TC 를 작성하고 문제없이 동작하는 것을 확인한 후에 나는 다음...","categories": ["java"],
         "tags": ["mysql","uuid"],
         "url": "https://jehuipark.github.io/java/my-sql-binary-reference",
+        "teaser":null},{
+        "title": "Vim 어린이가 만든 GitHub Co-Author Vim Plugin",
+        "excerpt":"GitHub Co-Author? 난 이 기능이 좋다. Co-Author 표시하기 막상 작성을 해보려고 하면? vim 을 이용하자 기획 사전학습 vimscript 연습 배열 다루기 파일 읽기 키맵핑 하기 개발완료 참고자료 GitHub Co-Author? Co-Author 의 사전적 의미를 네이버에 검색하면 공동저자라고 나온다. GitHub 는 이렇게 하나의 커밋에 2명 이상의 기여자가 존재할 경우에 누가 이 커밋에...","categories": ["note"],
+        "tags": ["vim","github"],
+        "url": "https://jehuipark.github.io/note/vim-plugin-create",
         "teaser":null}]

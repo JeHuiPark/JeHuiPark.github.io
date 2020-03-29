@@ -6,9 +6,184 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Mar 2020 00:43:26 +0900</pubDate>
-    <lastBuildDate>Mon, 30 Mar 2020 00:43:26 +0900</lastBuildDate>
+    <pubDate>Mon, 30 Mar 2020 01:31:54 +0900</pubDate>
+    <lastBuildDate>Mon, 30 Mar 2020 01:31:54 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Vim 어린이가 만든 GitHub Co-Author Vim Plugin</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#github-co-author&quot; id=&quot;markdown-toc-github-co-author&quot;&gt;GitHub Co-Author?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#난-이-기능이-좋다&quot; id=&quot;markdown-toc-난-이-기능이-좋다&quot;&gt;난 이 기능이 좋다.&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#co-author-표시하기&quot; id=&quot;markdown-toc-co-author-표시하기&quot;&gt;Co-Author 표시하기&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#막상-작성을-해보려고-하면&quot; id=&quot;markdown-toc-막상-작성을-해보려고-하면&quot;&gt;막상 작성을 해보려고 하면?&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#vim-을-이용하자&quot; id=&quot;markdown-toc-vim-을-이용하자&quot;&gt;vim 을 이용하자&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#기획&quot; id=&quot;markdown-toc-기획&quot;&gt;기획&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#사전학습&quot; id=&quot;markdown-toc-사전학습&quot;&gt;사전학습&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vimscript-연습&quot; id=&quot;markdown-toc-vimscript-연습&quot;&gt;vimscript 연습&lt;/a&gt;            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#배열-다루기&quot; id=&quot;markdown-toc-배열-다루기&quot;&gt;배열 다루기&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#파일-읽기&quot; id=&quot;markdown-toc-파일-읽기&quot;&gt;파일 읽기&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#키맵핑-하기&quot; id=&quot;markdown-toc-키맵핑-하기&quot;&gt;키맵핑 하기&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#개발완료&quot; id=&quot;markdown-toc-개발완료&quot;&gt;개발완료&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;github-co-author&quot;&gt;GitHub Co-Author?&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Author&lt;/code&gt; 의 사전적 의미를 네이버에 검색하면 공동저자라고 나온다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842393-8f51ef00-71cc-11ea-94fb-005522612e99.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;GitHub 는 이렇게 하나의 커밋에 2명 이상의 기여자가 존재할 경우에 누가 이 커밋에 기여했는지 UI로 표현해주는 기능을 제공한다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842434-06878300-71cd-11ea-846c-2f2ad3e8407e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;난-이-기능이-좋다&quot;&gt;난 이 기능이 좋다.&lt;/h2&gt;
+&lt;p&gt;현재 회사에서는 코드를 작성하면 모든 코드는 빠짐없이 PR 과정을 거치게 된다.&lt;br /&gt;
+그렇다보니, 내 코드에 다른 사람의 의견이 반영되는 경우도 빈번하게 발생 하는데, 이런 경우에 GitHub 에서 지원하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Author&lt;/code&gt; 기능을 이용하면 해당 변경사항에 어떤 사람이 기여했는지 기록을 남기는 동시에 UI 로 표시까지 해주니 금상첨화다.&lt;/p&gt;
+
+&lt;h3 id=&quot;co-author-표시하기&quot;&gt;Co-Author 표시하기&lt;/h3&gt;
+&lt;p&gt;간단하다&lt;em&gt;(귀찮다)&lt;/em&gt; 커밋 메시지를 작성할 때 GitHub 에서 &lt;a href=&quot;https://help.github.com/en/github/committing-changes-to-your-project/creating-a-commit-with-multiple-authors&quot;&gt;가이드&lt;/a&gt; 하는 포멧에 맞추어 작성하면 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;막상-작성을-해보려고-하면&quot;&gt;막상 작성을 해보려고 하면?&lt;/h3&gt;
+&lt;p&gt;간단한데, 막상 작성하려고 하면 되게 귀찮은 작업이다. 
+팀원의 GitHub 계정명도 알아야하고, 이메일정보도 알아야 하는데 어디에 복사해 두고 하자니 커밋 메시지 작성하는데 한 세월이 걸릴 것 같은 느낌적인 느낌이 들었다. (완전 노가다)
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842923-d0e59880-71d2-11ea-8124-28bcd51cb7d7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그래서, 커밋 메시지에 컨트리뷰터 작성할 때 꿀팁이 있는지 &lt;a href=&quot;https://johngrib.github.io/&quot;&gt;기계인간 존그립&lt;/a&gt;님에게 질문해보았다.&lt;/p&gt;
+
+&lt;p&gt;존그립 님이 이런 답변을 주었다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;vim 의 자동완성 기능을 이용하면 될듯하다. 만들어두면 쓸만하겠는데요?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;vim-을-이용하자&quot;&gt;vim 을 이용하자&lt;/h2&gt;
+&lt;p&gt;존그립 님이 과거에 커밋메시지 관련하여 만든 &lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;플러그인&lt;/a&gt;을 참고하면 도움이 될 거라고 하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기획&quot;&gt;기획&lt;/h3&gt;
+
+&lt;p&gt;내가 만드려고 기획한 플러그인의 사용 시나리오는 이렇다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;커밋 메시지 입력 화면으로 이동한다.&lt;/li&gt;
+  &lt;li&gt;공동저자 입력을 위해 단축키를 누른다&lt;/li&gt;
+  &lt;li&gt;팀원 목록이 리스트로 출력된다.&lt;/li&gt;
+  &lt;li&gt;팀원을 선택한다.&lt;/li&gt;
+  &lt;li&gt;선택한 팀원정보로 공동저자 정보가 커밋메시지에 추가된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;팀원 리스트는 설정 파일로 관리한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;사전학습&quot;&gt;사전학습&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vimscript&lt;/code&gt; 의 문법을 모르는 상태이기 때문에 &lt;a href=&quot;https://devhints.io/vimscript&quot;&gt;여기에서&lt;/a&gt; 도움을 많이 받았다.&lt;/p&gt;
+
+&lt;h4 id=&quot;vimscript-연습&quot;&gt;vimscript 연습&lt;/h4&gt;
+
+&lt;h5 id=&quot;배열-다루기&quot;&gt;배열 다루기&lt;/h5&gt;
+&lt;p&gt;이 스크립트는 &lt;code class=&quot;highlighter-rouge&quot;&gt;team&lt;/code&gt; 이라는 변수를 배열로 초기화 하고, 배열에 값을 추가하는 코드이다.&lt;/p&gt;
+&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'박제희'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'존그립'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  echo team
+&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843363-6f73f880-71d7-11ea-83c5-f23595e8c9df.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;파일-읽기&quot;&gt;파일 읽기&lt;/h5&gt;
+&lt;p&gt;이 스크립트는 현재경로에 존재하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;example&lt;/code&gt; 이라는 파일을 읽어서 라인별로 &lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt; 를 하는 코드이다.&lt;/p&gt;
+&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; fileAbsolutePath &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; expand&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'%:p:h'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; records &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; readfile&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fileAbsolutePath &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/example'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; record &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; records
+    echo record
+  &lt;span class=&quot;k&quot;&gt;endfor&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843575-6be17100-71d9-11ea-8fdc-88df9fe273dd.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;키맵핑-하기&quot;&gt;키맵핑 하기&lt;/h5&gt;
+&lt;p&gt;이 코드는 vim 편집모드에서 ctrl + l 키를 입력할 시 TestFunction을 실행하라는 코드이다.&lt;br /&gt;
+기대 하는 결과는 편집모드에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Authored-By: jehuipark &amp;lt;email&amp;gt;&lt;/code&gt; 텍스트가 입력될 것이다.&lt;/p&gt;
+&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Co-Authored-By: jehuipark &amp;lt;email&amp;gt;'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
+
+imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;R&lt;span class=&quot;p&quot;&gt;&amp;gt;=&lt;/span&gt;TestFunction&lt;span class=&quot;p&quot;&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843700-af88aa80-71da-11ea-820e-2884d8a10d8d.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;개발완료&quot;&gt;개발완료&lt;/h3&gt;
+&lt;p&gt;이렇게 단위별로 기능을 작성하는 연습을 끝낸 후에 본격적으로 내가 원하는 플러그인을 만들기 위해 개발을 시작하였고, 조악한 코드지만 어찌어찌 완성을 하였다!&lt;/p&gt;
+
+&lt;p&gt;이 스크립트의 기능은 커밋 메시지를 vim 모드에서 입력할 때 ctrl + l 키를 입력하면 설정파일에 저장된 팀원 목록을 자동완성 목록으로 띄워주는게 전부이다.&lt;/p&gt;
+&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:message_prefix&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Co-Authored-By: '&lt;/span&gt;
+  
+augroup vim_autocomplte_co_auth
+  autocmd &lt;span class=&quot;nb&quot;&gt;FileType&lt;/span&gt; gitcommit inoremap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;R&lt;span class=&quot;p&quot;&gt;&amp;gt;=&lt;/span&gt;GetTeam&lt;span class=&quot;p&quot;&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+augroup END
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; GetTeam&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; records &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; readfile&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/Users/username/.vim/github-co-auth-plugin/co.config'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; mem &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; record &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; records
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; record &lt;span class=&quot;p&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^&quot;'&lt;/span&gt;
+      continue
+   &lt;span class=&quot;k&quot;&gt;endif&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; cols &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; split&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;record&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; usernameAndEmail &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; cols&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; cols&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mem&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:message_prefix&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; usernameAndEmail&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;endfor&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; complete&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; mem&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;설정파일의 내용&lt;/strong&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77854220-de773e80-7223-11ea-9608-cdbe1d7506c7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;자 이제 사용을 해보자 
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77853939-11203780-7222-11ea-8414-48b336fed2a8.gif&quot; alt=&quot;github-co-plugin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;하하하하하 잘된다.&lt;/p&gt;
+
+&lt;p&gt;다음에 박준근 님이 만든 &lt;code class=&quot;highlighter-rouge&quot;&gt;vim-plug&lt;/code&gt; 스펙에 맞추어 개선해보는 시간을 가져보아야겠다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim-plug&lt;/code&gt; 는 vim 플러그인을 관리해주는 도구이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;기계인간 존그립 님의 포스팅1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://johngrib.github.io/wiki/vim-auto-completion/&quot;&gt;기계인간 존그립 님의 포스팅2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;박준근 님의 vim-plug&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://devhints.io/vimscript&quot;&gt;vim script cheatsheet&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;https://blog.semanticart.com/2017/01/05/lets-write-a-basic-vim-plugin/&quot;&gt;어떤 외국인의 블로그&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sun, 29 Mar 2020 14:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/note/vim-plugin-create</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/note/vim-plugin-create</guid>
+        
+        <category>vim</category>
+        
+        <category>github</category>
+        
+        
+        <category>note</category>
+        
+      </item>
     
       <item>
         <title>JPA 에서 UUID 사용할 때 주의할 점</title>
@@ -1365,225 +1540,6 @@ gradle을 이용할 경우 spring-agent경로를 알아서 찾을것이기 때�
         <category>spring</category>
         
         <category>ltw</category>
-        
-        
-        <category>java</category>
-        
-      </item>
-    
-      <item>
-        <title>Springboot 시작하기 쉬운 Database H2</title>
-        <description>&lt;p&gt;Springboot에서 가장 빠르게 접근할 수 있는 RDBMS H2를 TCP모드로 셋업하는 과정을 공유합니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;springboot--데모수준-앱--관계형-데이터베이스rdbms--인텔리제이intellij&quot;&gt;Springboot + 데모수준 앱 + 관계형 데이터베이스(RDBMS) + 인텔리제이(IntelliJ)&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;이 4가지가 충족 된다면 H2 데이터베이스를 추천합니다.&lt;/strong&gt;
-인텔리제이의 경우에 H2를 선택한다면 무설치에 가까운 행위로 손쉽게 데이타소스 설정이 가능합니다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/H2&quot; title=&quot;위키로 이동&quot;&gt;위키&lt;/a&gt;에 따르면 H2는 JAVA로 작성된 RDBMS로 JAVA앱에 임베디드 되거나 클라이언트-서버모드로 구동이 가능하다고 합니다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;H2를 임메디드모드로 사용하는 방법은 다른 블로그에서도 설명이 잘 되어있으니 생략하고,&lt;/p&gt;
-
-&lt;p&gt;여기에서는 H2를 서버(TCP)모드로 구동시키는 법을 소개할 것이며, 서버모드의 장점은 다른 DB처럼 데이터베이스 클라이언트를 활용하여 커넥션 할 수 있다는 장점이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;전체 소스는 &lt;a href=&quot;https://github.com/JeHuiPark/spring-study/tree/master/h2&quot; title=&quot;깃허브로 이동&quot;&gt;깃허브&lt;/a&gt;에서 확인하실 수 있습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;프로젝트에 의존성 주입&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'com.h2database:h2'&lt;/span&gt;
- &lt;span class=&quot;c1&quot;&gt;// implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' 드라이버스파이&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;application 설정&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-   &lt;span class=&quot;na&quot;&gt;datasource&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-     &lt;span class=&quot;na&quot;&gt;continue-on-error&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
-     &lt;span class=&quot;na&quot;&gt;hikari&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;jdbc-url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jdbc:h2:tcp://localhost:9093/mem:management_db_9093&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;driver-class-name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;org.h2.Driver&lt;/span&gt;
-     &lt;span class=&quot;na&quot;&gt;jpa&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;database-platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;H2&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;show-sql&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;hibernate&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-         &lt;span class=&quot;na&quot;&gt;ddl-auto&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;update&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;여기서 &lt;code class=&quot;highlighter-rouge&quot;&gt;jdbc:h2:tcp://localhost:9093/mem:management_db_9093&lt;/code&gt; &lt;strong&gt;이 라인을 이해해야셔야 다음 단계에서 수월하게 이해할 수 있습니다.&lt;/strong&gt;&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;jdbc:h2:tcp://&lt;/code&gt; 여기까지는 프로토콜 즉 약속입니다. 해석하자면 h2데이터베이스를 사용할 것이고 tcp(클라이언트)모드로 사용할 것이다. 이 정도의 의미가 됩니다.&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9093&lt;/code&gt; 아시다시피 커넥션 할 목적지입니다.&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mem:management_db_9093&lt;/code&gt; 이 부분은 모두가 알다시피 관리할 db 이름을 명시하는 곳인데 H2 DB를 TCP모드로 실행할 경우 &lt;code class=&quot;highlighter-rouge&quot;&gt;management_db_{tcpPort}&lt;/code&gt;라는 데이터베이스가 자동으로 생성됩니다. database서버를 9093 포트로 서비스할 것이기 때문에 management_db_9093으로 명시해주었으며, &lt;code class=&quot;highlighter-rouge&quot;&gt;mem:&lt;/code&gt;은 H2 드라이버에서 정의한 dbname 프로토콜로 보입니다.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;해당 내용은 org.h2.Driver패키지에서 확인가능하며, org.h2.server.TcpServer 클래스에서 정의되어 있습니다.
- &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57580201-a2d76700-74e1-11e9-8914-cc7d81b65c22.png&quot; alt=&quot;h2 db prefix&quot; /&gt;
- &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57580223-f47ff180-74e1-11e9-86c0-29251e4517a9.png&quot; alt=&quot;h2 dbname&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;테스트용 도메인&lt;/strong&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt; @Builder
- @Data
- @Entity
- public class User {
-
-   @Id
-   @GeneratedValue
-   private long id;
-   @Column(unique = true)
-   private String userId;
-   private String userName;
-   private int age;
- }
-
- @Repository
- public interface UserRepository extends CrudRepository&amp;lt;User, Long&amp;gt; {
- }
-
- @RequiredArgsConstructor
- @Service
- public class UserRegister {
-
-   private final UserRepository userRepository;
-
-   /**
-    * 랜덤유저생성
-    * @return 생성된 유저
-    */
-   public User randUser(){
-     User rand = User.builder()
-         .userId(System.currentTimeMillis() + &quot;&quot;)
-         .age(new Random().nextInt(31)+1)
-         .userName(new String[]{&quot;김철수&quot;, &quot;김영희&quot;, &quot;짱구&quot;, &quot;맹구&quot;, &quot;슛돌이&quot;, &quot;도꺠비&quot;, &quot;김삿갓&quot;}[new Random().nextInt(7)])
-         .build();
-     return userRepository.save(rand);
-   }
- }
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Java 설정&lt;/strong&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-Java&quot;&gt; @Slf4j
- @Configuration
- @ComponentScan(includeFilters = @Filter(OptionalComponent.class))
- @Profile(&quot;local&quot;)
- public class H2ServerConfiguration {
-
-
- 	/**
- 	 * @see org.h2.server.TcpServer
- 	 * @return
- 	 * @throws SQLException
- 	 */
- 	@Bean
- 	@ConfigurationProperties(&quot;spring.datasource.hikari&quot;)
- 	public DataSource dataSource() throws SQLException {
- 		//Server server = adviceRun(9093, &quot;external_db_name&quot;, &quot;dbname&quot;, FilePath.absolute);
- 		Server server = defaultRun(9093);
- 		if(server.isRunning(true)){
- 			log.info(&quot;server run success&quot;);
- 		}
- 		log.info(&quot;h2 server url = {}&quot;, server.getURL());
-
- 		return new HikariDataSource();
- 	}
-
- 	private Server adviceRun(int port, String externalDbName, String dbname, FilePath db_store) throws SQLException {
- 		return Server.createTcpServer(
- 				&quot;-tcp&quot;,
- 				&quot;-tcpAllowOthers&quot;,
- 				&quot;-ifNotExists&quot;,
- 				&quot;-tcpPort&quot;, port+&quot;&quot;, &quot;-key&quot;, externalDbName, db_store.value2(dbname)).start();
- 	}
-
- 	private Server defaultRun(int port) throws SQLException {
- 		return Server.createTcpServer(
- 				&quot;-tcp&quot;,
- 				&quot;-tcpAllowOthers&quot;,
- 				&quot;-ifNotExists&quot;,
- 				&quot;-tcpPort&quot;, port+&quot;&quot;).start();
- 	}
-
- 	enum FilePath {
- 		absolute(&quot;~/&quot;),
- 		relative(&quot;./&quot;);
- 		String prefix;
- 		FilePath(String prefix){
- 			this.prefix = prefix;
- 		}
- 		public String value2(String dbname){
- 			return prefix + dbname;
- 		}
- 	}
- }
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;H2 DB도 &lt;a href=&quot;http://www.h2database.com/html/advanced.html&quot; title=&quot;h2 공식사이트로 이동&quot;&gt;공식사이트&lt;/a&gt;를 살펴보면 많은 옵션을 지원하는거 같은데요 저에게 필요한 기능만 가져와 보았습니다.&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;기본옵션으로 TCP모드를 실행할 경우 데이터베이스를 인메모리로 서비스&lt;/strong&gt;하기 때문에 서버종료시 데이터를 유지할 수 없습니다. 하지만 저는 일반적인 DB처럼 &lt;strong&gt;영속가능한 DB&lt;/strong&gt;를 원했기 때문에 사진에 보이는것 처럼 -key라는 옵션을 추가하였습니다.&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57582566-3ec49b00-7501-11e9-81ab-37c7a0ac64aa.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;key의 첫번째 인자값은 **외부용 dbname으로 externalDbName은 db커넥션시 명시해줘야할 dbname을 말합니다.
-        &lt;blockquote&gt;
-          &lt;p&gt;해당옵션을 사용하였다면 datasource설정에서 url속성도 변경이 필요합니다.&lt;br /&gt;
-ex) &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.datasource.url: jdbc:h2:tcp://{address}:{port}/{externalDbName}&lt;/code&gt;&lt;/p&gt;
-        &lt;/blockquote&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;key의 두번째 인자값은 내부적으로 관리될 dbname으로 &lt;strong&gt;prefix로 ./또는 ~/을 붙여주어야 합니다.&lt;/strong&gt;&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;두번째 인자값이 ./{dbname}일 경우에는 상대경로에 &lt;strong&gt;{dbname}.mv.db&lt;/strong&gt;라는 파일이 생기며 해당 파일에 데이터영속화가 수행됩니다.
-&lt;em&gt;상대경로의 기본경로는 모듈경로입니다. h2.iml파일에 명시되어있네요.&lt;/em&gt;&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;두번째 인자값이 ~/{dbname}일 경우에는 절대경로에 &lt;strong&gt;{dbname}.mv.db&lt;/strong&gt; 파일이 생기며 해당 파일에 데이터 영속화가 수행됩니다.
-&lt;em&gt;절대경로의 기본경로는 -baseDir 옵션을 따로 지정하지 않았으니 OS에 로그인된 계정의 root경로 입니다.&lt;/em&gt;&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;서버실행 후 DB 클라이언트로 접속하기&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57582905-995ff600-7505-11e9-97f5-6cba6d0091e7.png&quot; alt=&quot;서버실행로그&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;도깨비라는 이름을 가진 USER가 생성되었네요&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57582949-1f7c3c80-7506-11e9-940e-7c694cdfd71d.png&quot; alt=&quot;IntelliJ database&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;사진에 보이는 메뉴가 없으면 인텔리제이의 액션기능(Ctrl+Shift+A)에 Database를 입력하시면 됩니다.&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57583012-19d32680-7507-11e9-85ab-47fb93aaf411.png&quot; alt=&quot;IntelliJ data source&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57583047-759daf80-7507-11e9-82b8-31e0a09eaea1.png&quot; alt=&quot;IntelliJ data source properties&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;사진처럼 커넥션 타입을 URL only로 설정하신후 URL에 db서버 주소를 명시해주세요. (remote 선택하셔도 무방합니다.)&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57583099-06748b00-7508-11e9-9ada-15794a04f686.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/57583103-0eccc600-7508-11e9-91b3-720b62a3ad19.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-    &lt;p&gt;DB콘솔 활성화후 쿼리를 날려보니 아까전에 서버 실행로그에서 확인했던 도깨비라는 유저의 정보를 확인할 수 있네요!&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;개인공부용으로 쓰기 위해 제가 분석한 H2의 내용은 여기까지 입니다. 내용상에 오류가 있다면 지적 부탁드리며, 여기까지 따라오느라 수고하셨습니다!&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 12 May 2019 16:26:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/java/springboot-h2-tcp-setup</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/java/springboot-h2-tcp-setup</guid>
-        
-        <category>spring</category>
-        
-        <category>h2</category>
         
         
         <category>java</category>
