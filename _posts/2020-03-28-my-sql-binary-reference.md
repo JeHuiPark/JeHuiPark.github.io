@@ -81,7 +81,7 @@ class Example {
 1번 로직을 구현하고 테스트하는 시점에 이 문제를 알았다면, 더 좋았을텐데 라는 생각이 든다. 나는 이 문제를 `binary` 타입을 처리하는 DBMS의 차이(H2와 MySQL)로 이런 결과가 생긴것이라고 **추측**하고 있다.
 
 ## 왜 그럴까?
-해결은 했지만, 이렇게 두리뭉술하게 넘어가기엔 너무 찝찝하다. 그래서 자료조사를 조금 더 해보았고, [오피셜 문서](https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html)를 발견하였다.
+해결은 했지만, 이렇게 두루뭉술하게 넘어가기엔 너무 찝찝하다. 그래서 자료조사를 조금 더 해보았고, [오피셜 문서](https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html)를 발견하였다.
 
 ![image](https://user-images.githubusercontent.com/25237661/77825064-49544700-714a-11ea-98bb-6298edda3a10.png)
 
