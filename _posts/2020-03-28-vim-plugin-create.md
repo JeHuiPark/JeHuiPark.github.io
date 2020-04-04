@@ -98,45 +98,17 @@ imap <C-l> <C-R>=TestFunction()<CR>
 ### 개발완료
 이렇게 단위별로 기능을 작성하는 연습을 끝낸 후에 본격적으로 내가 원하는 플러그인을 만들기 위해 개발을 시작하였고, 조악한 코드지만 어찌어찌 완성을 하였다!
 
-이 스크립트의 기능은 커밋 메시지를 vim 모드에서 입력할 때 ctrl + l 키를 입력하면 설정파일에 저장된 팀원 목록을 자동완성 목록으로 띄워주는게 전부이다.
-``` vimscript
-let g:message_prefix = 'Co-Authored-By: '
-  
-augroup vim_autocomplte_co_auth
-  autocmd FileType gitcommit inoremap <C-l> <C-R>=GetTeam()<CR>
-augroup END
+이렇게 만든 스크립트는 [GitHub 저장소](https://github.com/JeHuiPark/github-co-author-vim-plugin)에 올려두었다.
 
-function! GetTeam()
-  let records = readfile('/Users/username/.vim/github-co-auth-plugin/co.config')
-
-  let mem = []
-
-  for record in records
-    if record =~ '^"'
-      continue
-   endif
-
-    let cols = split(record)
-    let usernameAndEmail = cols[1] . ' ' . cols[2]
-    call add(mem, g:message_prefix . usernameAndEmail)
-  endfor
-
-  call complete(col('.'), mem)
-  return ''
-endfunction
-```
 
 **설정파일의 내용**
 ![image](https://user-images.githubusercontent.com/25237661/77854220-de773e80-7223-11ea-9608-cdbe1d7506c7.png)
 
-자 이제 사용을 해보자 
+자! 이제 사용을 해보자 
 ![github-co-plugin](https://user-images.githubusercontent.com/25237661/77853939-11203780-7222-11ea-8414-48b336fed2a8.gif)
 
 
 하하하하하 잘된다.
-
-다음에 박준근 님이 만든 `vim-plug` 스펙에 맞추어 개선해보는 시간을 가져보아야겠다.
->`vim-plug` 는 vim 플러그인을 관리해주는 도구이다.
 
 ## 참고자료
 >- [기계인간 존그립 님의 포스팅1](https://github.com/johngrib/vim-git-msg-wheel)  
