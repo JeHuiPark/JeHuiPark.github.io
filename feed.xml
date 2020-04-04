@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Mar 2020 01:31:54 +0900</pubDate>
-    <lastBuildDate>Mon, 30 Mar 2020 01:31:54 +0900</lastBuildDate>
+    <pubDate>Sun, 05 Apr 2020 01:27:31 +0900</pubDate>
+    <lastBuildDate>Sun, 05 Apr 2020 01:27:31 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -121,45 +121,15 @@ imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;
 &lt;h3 id=&quot;개발완료&quot;&gt;개발완료&lt;/h3&gt;
 &lt;p&gt;이렇게 단위별로 기능을 작성하는 연습을 끝낸 후에 본격적으로 내가 원하는 플러그인을 만들기 위해 개발을 시작하였고, 조악한 코드지만 어찌어찌 완성을 하였다!&lt;/p&gt;
 
-&lt;p&gt;이 스크립트의 기능은 커밋 메시지를 vim 모드에서 입력할 때 ctrl + l 키를 입력하면 설정파일에 저장된 팀원 목록을 자동완성 목록으로 띄워주는게 전부이다.&lt;/p&gt;
-&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:message_prefix&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Co-Authored-By: '&lt;/span&gt;
-  
-augroup vim_autocomplte_co_auth
-  autocmd &lt;span class=&quot;nb&quot;&gt;FileType&lt;/span&gt; gitcommit inoremap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;R&lt;span class=&quot;p&quot;&gt;&amp;gt;=&lt;/span&gt;GetTeam&lt;span class=&quot;p&quot;&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-augroup END
-
-&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; GetTeam&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; records &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; readfile&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/Users/username/.vim/github-co-auth-plugin/co.config'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; mem &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; record &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; records
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; record &lt;span class=&quot;p&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^&quot;'&lt;/span&gt;
-      continue
-   &lt;span class=&quot;k&quot;&gt;endif&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; cols &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; split&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;record&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; usernameAndEmail &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; cols&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; cols&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mem&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:message_prefix&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; usernameAndEmail&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;endfor&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; complete&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; mem&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 만든 스크립트는 &lt;a href=&quot;https://github.com/JeHuiPark/github-co-author-vim-plugin&quot;&gt;GitHub 저장소&lt;/a&gt;에 올려두었다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;설정파일의 내용&lt;/strong&gt;
 &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77854220-de773e80-7223-11ea-9608-cdbe1d7506c7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;자 이제 사용을 해보자 
+&lt;p&gt;자! 이제 사용을 해보자 
 &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77853939-11203780-7222-11ea-8414-48b336fed2a8.gif&quot; alt=&quot;github-co-plugin&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;하하하하하 잘된다.&lt;/p&gt;
-
-&lt;p&gt;다음에 박준근 님이 만든 &lt;code class=&quot;highlighter-rouge&quot;&gt;vim-plug&lt;/code&gt; 스펙에 맞추어 개선해보는 시간을 가져보아야겠다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim-plug&lt;/code&gt; 는 vim 플러그인을 관리해주는 도구이다.&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
 &lt;blockquote&gt;
