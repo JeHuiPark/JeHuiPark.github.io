@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 05 Apr 2020 01:27:31 +0900</pubDate>
-    <lastBuildDate>Sun, 05 Apr 2020 01:27:31 +0900</lastBuildDate>
+    <pubDate>Wed, 15 Apr 2020 01:05:52 +0900</pubDate>
+    <lastBuildDate>Wed, 15 Apr 2020 01:05:52 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1185,7 +1185,7 @@ worker.print();
       &lt;td&gt;이거보는거 추천&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;켄트 벡의 구현 패턴&lt;/td&gt;
+      &lt;td&gt;&lt;del&gt;켄트 벡의 구현 패턴&lt;/del&gt;&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
