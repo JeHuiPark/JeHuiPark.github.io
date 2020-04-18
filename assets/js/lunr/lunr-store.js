@@ -118,4 +118,9 @@ var store = [{
         "excerpt":"GitHub Co-Author? 난 이 기능이 좋다. Co-Author 표시하기 막상 작성을 해보려고 하면? vim 을 이용하자 기획 사전학습 vimscript 연습 배열 다루기 파일 읽기 키맵핑 하기 개발완료 참고자료 GitHub Co-Author? Co-Author 의 사전적 의미를 네이버에 검색하면 공동저자라고 나온다. GitHub 는 이렇게 하나의 커밋에 2명 이상의 기여자가 존재할 경우에 누가 이 커밋에...","categories": ["note"],
         "tags": ["vim","github"],
         "url": "https://jehuipark.github.io/note/vim-plugin-create",
+        "teaser":null},{
+        "title": "디자인 패턴 : 추상 팩토리",
+        "excerpt":"정의 특징 구조 예제코드 예제코드 클래스 다이어그램 참고자료 정의 객체 생성과 구성(협력관계)을 추상화 시킨 패턴으로 서버 코드와 클라이언트 코드의 결합도를 낮춘 디자인 패턴 클라이언트 코드에서는 구현체가 아닌 인터페이스에 의존한다. 특징 클라이언트는 추상화 레이어에 의존하기 때문에 구현체와의 결합도가 낮아진다. 구현체를 교체하는 비용이 낮아진다. 대부분의 행위가 동적 바인딩으로 이루어지기 때문에 정적인 코드만으로는...","categories": ["study"],
+        "tags": ["디자인패턴"],
+        "url": "https://jehuipark.github.io/study/abstract-factory-pattern",
         "teaser":null}]
