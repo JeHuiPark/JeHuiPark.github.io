@@ -115,4 +115,4 @@ imap <C-l> <C-R>=TestFunction()<CR>
 - [기계인간 존그립 님의 포스팅2](https://johngrib.github.io/wiki/vim-auto-completion/)  
 - [박준근 님의 vim-plug](https://github.com/johngrib/vim-git-msg-wheel)  
 - [vim script cheatsheet](https://devhints.io/vimscript)  
-- [어떤 외국인의 블로그](https://blog.semanticart.com/2017/01/05/lets-write-a-basic-vim-plugin/)
+- [어떤 외국인 블로그](https://blog.semanticart.com/2017/01/05/lets-write-a-basic-vim-plugin/)
