@@ -123,4 +123,9 @@ var store = [{
         "excerpt":"정의 특징 구조 예제코드 예제코드 클래스 다이어그램 참고자료 정의 객체 생성과 구성(협력관계)을 추상화 시킨 패턴으로 서버 코드와 클라이언트 코드의 결합도를 낮춘 디자인 패턴 클라이언트 코드에서는 구현체가 아닌 인터페이스에 의존한다. 특징 클라이언트는 추상화 레이어에 의존하기 때문에 구현체와의 결합도가 낮아진다. 구현체를 교체하는 비용이 낮아진다. 대부분의 행위가 동적 바인딩으로 이루어지기 때문에 정적인 코드만으로는...","categories": ["study"],
         "tags": ["디자인패턴"],
         "url": "https://jehuipark.github.io/study/abstract-factory-pattern",
+        "teaser":null},{
+        "title": "JUnit5 DisplayName 이 동작하지 않을 때",
+        "excerpt":"@DisplayName 이 동작하지 않아요 해결 @DisplayName of junit5 in intellij do not working @DisplayName 이 동작하지 않아요 JUnit5 를 이용하여 아래와 같은 테스트를 작성하고 @DisplayName(\"example\") class JunitExample { @DisplayName(\"when coding enjoy\") @Nested class Context_Sample { @Test @DisplayName(\"i am happy\") void test1() { } } } 이런 결과를 기대했지만? 이런 화면이...","categories": ["note"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/note/displayname-do-not-work-in-intellij",
         "teaser":null}]

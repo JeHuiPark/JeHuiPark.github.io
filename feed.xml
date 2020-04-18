@@ -6,9 +6,55 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 18 Apr 2020 21:37:43 +0900</pubDate>
-    <lastBuildDate>Sat, 18 Apr 2020 21:37:43 +0900</lastBuildDate>
+    <pubDate>Sun, 19 Apr 2020 01:29:18 +0900</pubDate>
+    <lastBuildDate>Sun, 19 Apr 2020 01:29:18 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>JUnit5 DisplayName 이 동작하지 않을 때</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#displayname-이-동작하지-않아요&quot; id=&quot;markdown-toc-displayname-이-동작하지-않아요&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; 이 동작하지 않아요&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#해결&quot; id=&quot;markdown-toc-해결&quot;&gt;해결&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; of junit5 in intellij do not working&lt;/p&gt;
+
+&lt;h2 id=&quot;displayname-이-동작하지-않아요&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; 이 동작하지 않아요&lt;/h2&gt;
+
+&lt;p&gt;JUnit5 를 이용하여 아래와 같은 테스트를 작성하고&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;example&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JunitExample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;when coding enjoy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Nested&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Context_Sample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i am happy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이런 결과를 기대했지만?&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79642932-3974d380-81db-11ea-885d-0d5f033561b1.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이런 화면이 나온다면..😭&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79642973-780a8e00-81db-11ea-9a50-73fbc778b980.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Run tests using&lt;/code&gt; 옵션을 변경 &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;intellij&lt;/code&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79643067-0ed74a80-81dc-11ea-95bd-2a163e6b1bbf.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 19 Apr 2020 01:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/note/displayname-do-not-work-in-intellij</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/note/displayname-do-not-work-in-intellij</guid>
+        
+        
+        <category>note</category>
+        
+      </item>
     
       <item>
         <title>디자인 패턴 : 추상 팩토리</title>
@@ -1275,90 +1321,6 @@ worker.print();
         <pubDate>Sun, 16 Jun 2019 17:26:00 +0900</pubDate>
         <link>https://jehuipark.github.io/note/book-read-plan</link>
         <guid isPermaLink="true">https://jehuipark.github.io/note/book-read-plan</guid>
-        
-        
-        <category>note</category>
-        
-      </item>
-    
-      <item>
-        <title>트랜잭션이 동작하지 않는다.</title>
-        <description>&lt;p&gt;팀장님으로부터 어떤 업무를 처리할 서버앱을 데모형태로 먼저 개발해달란 요청이 들어왔고, 여느때와 다름없이 springboot를 이용하여 빠르게 구축하였다.&lt;/p&gt;
-
-&lt;p&gt;프로젝트에서 사용될 핵심 의존성은 대충 아래와 같았다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;의존성&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;querydsl&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;web&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;spring-data-jpa&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;mariadb&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;문제는 데이터 레이어 개발을 끝내고 테스트 진행중에 발생하였다……ㅠㅠ&lt;/p&gt;
-
-&lt;h2 id=&quot;이슈-발견&quot;&gt;이슈 발견&lt;/h2&gt;
-
-&lt;p&gt;Test를 위해 스프링부트에서 지원하는 DataJpaTest 어노테이션을 이용하여 슬라이싱 테스트를 진행하였고 몇번의 시행착오를 겪으며 테스트를 통과시킨 후 데이터베이스를 확인해봤는데, &lt;strong&gt;롤백됬어야 될 데이터들이 차곡차곡 쌓이고 있엇다..&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;원래라면 DataJpaTest 어노테이션을 이용하여 테스트를 진행할경우 Transaction 옵션이 자동으로 활성화되며 JUnit Test에서 Transaction 옵션이 활성화 될 경우에 단위 테스트가 종료될 때마다 테스트 도중에 변경되었던 데이터는 자동으로 Rollback처리 되어야한다. 이게 기본 옵션이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;어떤-이슈&quot;&gt;어떤 이슈?&lt;/h2&gt;
-&lt;p&gt;그럼에도 불구하고 데이터베이스에는 단위테스트에서 생성되고 있던 데이터가 차곡차곡 쌓이고 있었다.
-&lt;strong&gt;여기에서 나는 트랜잭션이 정상적으로 동작하고 있지 않다고 판단했다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;문제가-없는데&quot;&gt;문제가 없는데?&lt;/h2&gt;
-&lt;p&gt;이상해서 다시 테스트를 돌리며 로그를 자세히 확인해봤지만, 로그상으로는 전혀 문제가 없었다. 평소와 다름없이 트랜잭션이 열리고, 롤백처리되는 것 까지 전부 정상적인 로그뿐이였다.
-&lt;strong&gt;여기서부터 멘붕이 오기 시작했다…&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;이유가-뭘까&quot;&gt;이유가 뭘까?????&lt;/h2&gt;
-&lt;p&gt;데모 프로젝트는 아래처럼 멀티 프로젝트 구조를 가지고 있었다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;root &lt;br /&gt;
-└ module-a        (core, root에 의존) &lt;br /&gt;
-└ module-b        (core, root에 의존) &lt;br /&gt;
-└ module-core     (root에 의존) &lt;br /&gt;
-└ &lt;strong&gt;module-demo&lt;/strong&gt; (root에 의존)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;제일 먼저 module-core에서도 DataJpaTest 어노테이션을 이용하여 테스트를 진행 했었기 때문에, 혹시몰라서 테스트코드에 트랜잭션 롤백처리 테스트 코드도 추가를 하고 테스트를 진행 하였지만 아무 문제가 없었다.&lt;/p&gt;
-
-&lt;p&gt;module-demo는 다른 node 수준의 프로젝트와는 무관한 프로젝트라고 생각하고 시작했지만, 막상 테스트도중 아무 문제가 없는거 같은데, 아니 없어야 되는데 이슈가 터지다보니 제정신이 아니였나보다… 여기서 내 자신을 의심하기 시작했다 ㅋㅋㅋㅋㅋㅋ&lt;/p&gt;
-
-&lt;p&gt;&lt;del&gt;혹시나 module-a와 module-demo에서 사용중인 restdoc플러그인 때문에??? 아니면 module-core와 module-demo에서 사용중인 querydsl플러그인 때문에??? 부끄럽다.. 진짜 의심할 수 있는 모든것을 의심하며 3일을 소비했다…&lt;/del&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;원인을-찾았고-해결했다&quot;&gt;원인을 찾았고 해결했다.&lt;/h2&gt;
-&lt;p&gt;결론부터 말하면 &lt;strong&gt;데이터베이스 저장소 엔진이 문제였다.&lt;/strong&gt; &lt;del&gt;지식이 부족했음&lt;/del&gt;&lt;/p&gt;
-
-&lt;p&gt;MariaDB를 사용중이였는데, MySQL계열 데이터베이스에는 대표적인 StorageEngine으로 &lt;strong&gt;MyISAM&lt;/strong&gt; 엔진과 &lt;strong&gt;InnoDB&lt;/strong&gt;엔진이 있다고 한다. 여기서 &lt;strong&gt;MyISAM엔진은 트랜잭션을 지원하지 않는 엔진&lt;/strong&gt;인데 &lt;strong&gt;데모앱에서 액세스한 테이블만 MyISAM엔진&lt;/strong&gt;으로 설정이 되있었다…
-(나머지는 다 InnoDB엔진 아니……. 왜? ㅋㅋㅋㅋㅋㅋㅋㅋ 그래서 다른 엔티티로 트랜잭션 테스트를 할땐 잘됬던……….)&lt;/p&gt;
-
-&lt;p&gt;물론 데이터베이스 설정자체를 의심하지 않은것은 아니였다. 의심을 하긴 했지만, Global설정만 확인하여 문제점을 빠르게 찾지 못했던것 같았다. &lt;strong&gt;테이블별로 저장소 엔진 설정이 가능하다는 점을 알았어야 됬는데…&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;어쩐지 프로젝트 구조 똑같이 새로만들어서 H2 DB 임베디드해서 테스트하니까 잘되더라 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Sun, 02 Jun 2019 20:26:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/transaction-do-not-work-issue</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/transaction-do-not-work-issue</guid>
-        
-        <category>database</category>
         
         
         <category>note</category>
