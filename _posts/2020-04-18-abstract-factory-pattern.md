@@ -43,6 +43,10 @@ tags:
 ### 예제코드 클래스 다이어그램
 ![imgae](https://github.com/JeHuiPark/design-pattern/blob/master/image/abstract_factory.png?raw=true)
 
+## 관련 패턴
+- 팩토리 메소드 패턴
+- 싱글톤 패턴
+- 프로로타입 패턴
 
 ## 참고자료
 > *GoF의 디자인 패턴 p132 - p143*
