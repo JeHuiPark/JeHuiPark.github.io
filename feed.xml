@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Apr 2020 20:25:58 +0900</pubDate>
-    <lastBuildDate>Sun, 19 Apr 2020 20:25:58 +0900</lastBuildDate>
+    <pubDate>Sun, 19 Apr 2020 21:56:23 +0900</pubDate>
+    <lastBuildDate>Sun, 19 Apr 2020 21:56:23 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -138,7 +138,7 @@
         <link>https://jehuipark.github.io/study/abstract-factory-pattern</link>
         <guid isPermaLink="true">https://jehuipark.github.io/study/abstract-factory-pattern</guid>
         
-        <category>디자인패턴</category>
+        <category>디자인 패턴</category>
         
         
         <category>study</category>
