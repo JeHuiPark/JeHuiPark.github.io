@@ -5,7 +5,7 @@ date:   2020-04-18 18:00:00 +0900
 comments: true
 categories: study
 tags: 
-  - 디자인패턴
+  - 디자인 패턴
 ---
 
 * TOC
