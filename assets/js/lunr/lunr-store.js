@@ -128,4 +128,9 @@ var store = [{
         "excerpt":"@DisplayName 이 동작하지 않아요 해결 @DisplayName of junit5 in intellij do not working @DisplayName 이 동작하지 않아요 JUnit5 를 이용하여 아래와 같은 테스트를 작성하고 @DisplayName(\"example\") class JunitExample { @DisplayName(\"when coding enjoy\") @Nested class Context_Sample { @Test @DisplayName(\"i am happy\") void test1() { } } } 이런 결과를 기대했지만? 이런 화면이...","categories": ["note"],
         "tags": [],
         "url": "https://jehuipark.github.io/note/displayname-do-not-work-in-intellij",
+        "teaser":null},{
+        "title": "디자인 패턴 : 팩토리 메소드",
+        "excerpt":"정의 내 생각 정의 GoF의 디자인 패턴(p156)에서는 팩토리 메소드에 대한 패턴을 이렇게 정의한다. 객체 생성을 위한 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할 지에 대한 결정은 서브클래스가 내리도록 한다. 내 생각 이 문구를 보고 이상한 점을 느꼈다. 그렇다면 팩토리 메소드 패턴과 추상 팩토리 패턴의 차이는 뭐지? 말장난인가? 아직 나의 식견이 좁아서...","categories": ["study"],
+        "tags": ["디자인 패턴"],
+        "url": "https://jehuipark.github.io/study/factory-method",
         "teaser":null}]
