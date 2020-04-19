@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Apr 2020 02:00:09 +0900</pubDate>
-    <lastBuildDate>Sun, 19 Apr 2020 02:00:09 +0900</lastBuildDate>
+    <pubDate>Sun, 19 Apr 2020 20:25:58 +0900</pubDate>
+    <lastBuildDate>Sun, 19 Apr 2020 20:25:58 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -66,6 +66,7 @@
       &lt;li&gt;&lt;a href=&quot;#예제코드-클래스-다이어그램&quot; id=&quot;markdown-toc-예제코드-클래스-다이어그램&quot;&gt;예제코드 클래스 다이어그램&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#관련-패턴&quot; id=&quot;markdown-toc-관련-패턴&quot;&gt;관련 패턴&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -120,6 +121,13 @@
 
 &lt;h3 id=&quot;예제코드-클래스-다이어그램&quot;&gt;예제코드 클래스 다이어그램&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&quot;https://github.com/JeHuiPark/design-pattern/blob/master/image/abstract_factory.png?raw=true&quot; alt=&quot;imgae&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;관련-패턴&quot;&gt;관련 패턴&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;팩토리 메소드 패턴&lt;/li&gt;
+  &lt;li&gt;싱글톤 패턴&lt;/li&gt;
+  &lt;li&gt;프로로타입 패턴&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
 &lt;blockquote&gt;
