@@ -133,4 +133,9 @@ var store = [{
         "excerpt":"정의 내 생각 정의 GoF의 디자인 패턴(p156)에서는 팩토리 메소드에 대한 패턴을 이렇게 정의한다. 객체 생성을 위한 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할 지에 대한 결정은 서브클래스가 내리도록 한다. 내 생각 이 문구를 보고 이상한 점을 느꼈다. 그렇다면 팩토리 메소드 패턴과 추상 팩토리 패턴의 차이는 뭐지? 말장난인가? 아직 나의 식견이 좁아서...","categories": ["study"],
         "tags": ["디자인 패턴"],
         "url": "https://jehuipark.github.io/study/factory-method",
+        "teaser":null},{
+        "title": "IntelliJ 잘 쓰기 Tip",
+        "excerpt":"   WIP           No Newline at End of File       보일러 플레이트 해결하기       idea run in terminal           WIP   No Newline at End of File   보일러 플레이트 해결하기   idea run in terminal   ","categories": ["note"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/note/use-intellij-more-well",
         "teaser":null}]
