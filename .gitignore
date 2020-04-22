@@ -13,6 +13,7 @@ example/_site
 node_modules
 npm-debug.log*
 .jekyll-cache
+.idea
 
 # 루비 모듈 캐싱 디렉토리 #
 .cache

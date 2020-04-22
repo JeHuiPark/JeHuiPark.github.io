@@ -6,28 +6,69 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Apr 2020 23:24:22 +0900</pubDate>
-    <lastBuildDate>Mon, 20 Apr 2020 23:24:22 +0900</lastBuildDate>
+    <pubDate>Thu, 23 Apr 2020 01:24:17 +0900</pubDate>
+    <lastBuildDate>Thu, 23 Apr 2020 01:24:17 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>IntelliJ 잘 쓰기 Tip</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#wip&quot; id=&quot;markdown-toc-wip&quot;&gt;WIP&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#no-newline-at-end-of-file&quot; id=&quot;markdown-toc-no-newline-at-end-of-file&quot;&gt;No Newline at End of File&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#보일러-플레이트-해결하기&quot; id=&quot;markdown-toc-보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#idea-run-in-terminal&quot; id=&quot;markdown-toc-idea-run-in-terminal&quot;&gt;idea run in terminal&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#no-newline-at-end-of-file&quot; id=&quot;markdown-toc-no-newline-at-end-of-file&quot;&gt;No newline at end of file&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#보일러-플레이트-해결하기&quot; id=&quot;markdown-toc-보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#livetemplate&quot; id=&quot;markdown-toc-livetemplate&quot;&gt;LiveTemplate&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#filetemplate&quot; id=&quot;markdown-toc-filetemplate&quot;&gt;FileTemplate&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#터미널에서-intellij-실행하기&quot; id=&quot;markdown-toc-터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;wip&quot;&gt;WIP&lt;/h1&gt;
+&lt;h2 id=&quot;no-newline-at-end-of-file&quot;&gt;No newline at end of file&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;intelliJ&lt;/code&gt; 에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;커맨드&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; 단축키를 이용하여 테스트 클래스를 자동생성할 수 있는데, 이 기능을 그냥 이용하게 되면 거슬리는게 하나 있다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79998744-0b9ed000-84f6-11ea-845c-b0e5f621453b.gif&quot; alt=&quot;test_gen&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;no-newline-at-end-of-file&quot;&gt;No Newline at End of File&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;소스트리&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80000609-4f92d480-84f8-11ea-81b9-685007f3347f.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;깃헙&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80001543-73a2e580-84f9-11ea-9614-1f321e55f53a.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;터미널&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79999509-f37b8080-84f6-11ea-9b31-2604fd811578.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;EOF 전에 공백 라인이 없어서 생기는 문제인데, &lt;strong&gt;마지막 라인에 공백라인 하나만 추가&lt;/strong&gt;하면 해결된다.&lt;/p&gt;
+
+&lt;p&gt;그런데 테스트 코드를 생성할 때 마다 공백라인을 추가하는 행위를 하자니 너무 원시적이며, 되게 자주 까먹는다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;PR 2번중에 1번꼴로 하는 실수였다.
+이렇게 실수를 자주하다가 현타가와서 도구를 활용하기로 했다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;더블 쉬프트 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;file and code templates&lt;/code&gt; 입력&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002548-bfa25a00-84fa-11ea-866a-9af093ce17d1.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기에서 자주 사용하는 테스트 도구를 선택&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002583-caf58580-84fa-11ea-8bc9-5889d91a3471.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;공백 라인을 추가한다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002993-596a0700-84fb-11ea-9173-b05e93c795cf.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;br /&gt;
+&lt;strong&gt;끝!&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/h2&gt;
+&lt;p&gt;코딩을 하다보면 보일러 플레이트가 상당히 많이 발생하는데 툴에서 지원하는 기능을 적절히 이용하면, 좀 더 스마트하게 작업을 할 수 있다.&lt;/p&gt;
 
-&lt;h2 id=&quot;idea-run-in-terminal&quot;&gt;idea run in terminal&lt;/h2&gt;
+&lt;h3 id=&quot;livetemplate&quot;&gt;LiveTemplate&lt;/h3&gt;
+&lt;p&gt;Example BDD boilerplate
+WIP&lt;/p&gt;
+
+&lt;h3 id=&quot;filetemplate&quot;&gt;FileTemplate&lt;/h3&gt;
+&lt;p&gt;Example Vue boilerplate
+WIP&lt;/p&gt;
+
+&lt;h2 id=&quot;터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/h2&gt;
+&lt;p&gt;작업을 하다보면 &lt;strong&gt;터미널에서 intellij 를 실행하고 싶을 때&lt;/strong&gt;가 자주있다.&lt;br /&gt;
+그럴땐 이런 설정을 이용하면 된다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79994673-3d616800-84f1-11ea-9bc7-60151edc62ee.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79996611-9c27e100-84f3-11ea-81c2-c80c3b7c8152.gif&quot; alt=&quot;idea_open_in_terminal&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 20 Apr 2020 23:00:00 +0900</pubDate>
