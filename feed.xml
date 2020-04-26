@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 23 Apr 2020 01:24:17 +0900</pubDate>
-    <lastBuildDate>Thu, 23 Apr 2020 01:24:17 +0900</lastBuildDate>
+    <pubDate>Sun, 26 Apr 2020 21:52:08 +0900</pubDate>
+    <lastBuildDate>Sun, 26 Apr 2020 21:52:08 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -15,7 +15,12 @@
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#no-newline-at-end-of-file&quot; id=&quot;markdown-toc-no-newline-at-end-of-file&quot;&gt;No newline at end of file&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#보일러-플레이트-해결하기&quot; id=&quot;markdown-toc-보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#livetemplate&quot; id=&quot;markdown-toc-livetemplate&quot;&gt;LiveTemplate&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#livetemplate&quot; id=&quot;markdown-toc-livetemplate&quot;&gt;LiveTemplate&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#템플릿-만들기&quot; id=&quot;markdown-toc-템플릿-만들기&quot;&gt;템플릿 만들기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#템플릿-적용위치-설정하기&quot; id=&quot;markdown-toc-템플릿-적용위치-설정하기&quot;&gt;템플릿 적용위치 설정하기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#사용-예시&quot; id=&quot;markdown-toc-사용-예시&quot;&gt;사용 예시&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#filetemplate&quot; id=&quot;markdown-toc-filetemplate&quot;&gt;FileTemplate&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -57,12 +62,34 @@
 &lt;p&gt;코딩을 하다보면 보일러 플레이트가 상당히 많이 발생하는데 툴에서 지원하는 기능을 적절히 이용하면, 좀 더 스마트하게 작업을 할 수 있다.&lt;/p&gt;
 
 &lt;h3 id=&quot;livetemplate&quot;&gt;LiveTemplate&lt;/h3&gt;
-&lt;p&gt;Example BDD boilerplate
-WIP&lt;/p&gt;
+&lt;p&gt;Example Java Test Code boilerplate&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Editor &amp;gt; Live Templates&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306715-e06ef600-87ff-11ea-9cd5-541f0d5694a6.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;템플릿-만들기&quot;&gt;템플릿 만들기&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306796-668b3c80-8800-11ea-8a18-d0f53e5b3f51.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;expression&lt;/code&gt; 에서는 이런식으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;groovy&lt;/code&gt; 문법을 지원한다.
+    &lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;groovyScript&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_editor.getDocument().getText().split(\&quot;@.*Test\&quot;).length-1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;템플릿-적용위치-설정하기&quot;&gt;템플릿 적용위치 설정하기&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80307282-fd58f880-8802-11ea-87ef-295d50537179.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Java 파일에서 선언문 작성시에 라이브템플릿을 활성화 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;사용-예시&quot;&gt;사용 예시&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80307461-275eea80-8804-11ea-8634-69ea9ff0304c.gif&quot; alt=&quot;live_template&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;filetemplate&quot;&gt;FileTemplate&lt;/h3&gt;
-&lt;p&gt;Example Vue boilerplate
-WIP&lt;/p&gt;
+&lt;p&gt;Example Vue boilerplate&lt;br /&gt;
+뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Editor &amp;gt; file and code templates&lt;/code&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306590-34c5a600-87ff-11ea-81be-af466056dfc0.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/h2&gt;
 &lt;p&gt;작업을 하다보면 &lt;strong&gt;터미널에서 intellij 를 실행하고 싶을 때&lt;/strong&gt;가 자주있다.&lt;br /&gt;
