@@ -42,12 +42,34 @@ EOF 전에 공백 라인이 없어서 생기는 문제인데, **마지막 라인
 코딩을 하다보면 보일러 플레이트가 상당히 많이 발생하는데 툴에서 지원하는 기능을 적절히 이용하면, 좀 더 스마트하게 작업을 할 수 있다.
 
 ### LiveTemplate
-Example BDD boilerplate
-WIP
+Example Java Test Code boilerplate  
+`Preferences > Editor > Live Templates`  
+
+![image](https://user-images.githubusercontent.com/25237661/80306715-e06ef600-87ff-11ea-9cd5-541f0d5694a6.png){:width="500px"}  
+
+#### 템플릿 만들기
+![image](https://user-images.githubusercontent.com/25237661/80306796-668b3c80-8800-11ea-8a18-d0f53e5b3f51.png){:width="500px"}
+- `expression` 에서는 이런식으로 `groovy` 문법을 지원한다.  
+    ``` groovy
+    groovyScript("_editor.getDocument().getText().split(\"@.*Test\").length-1")
+    ```
+
+#### 템플릿 적용위치 설정하기
+![image](https://user-images.githubusercontent.com/25237661/80307282-fd58f880-8802-11ea-87ef-295d50537179.png){:width="300px"}  
+- Java 파일에서 선언문 작성시에 라이브템플릿을 활성화 한다.
+
+#### 사용 예시
+![live_template](https://user-images.githubusercontent.com/25237661/80307461-275eea80-8804-11ea-8634-69ea9ff0304c.gif){:width="500px"}  
+
+
+
+
 
 ### FileTemplate
-Example Vue boilerplate
-WIP
+Example Vue boilerplate  
+뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.  
+`Preferences > Editor > file and code templates`  
+![image](https://user-images.githubusercontent.com/25237661/80306590-34c5a600-87ff-11ea-81be-af466056dfc0.png){:width="500px"}
 
 
 ## 터미널에서 Intellij 실행하기
