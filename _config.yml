@@ -182,6 +182,7 @@ exclude:
   - README
   - tmp
   - .github
+  - .idea
 keep_files:
   - .git
   - .svn
