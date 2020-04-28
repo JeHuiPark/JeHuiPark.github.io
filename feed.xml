@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 26 Apr 2020 21:56:21 +0900</pubDate>
-    <lastBuildDate>Sun, 26 Apr 2020 21:56:21 +0900</lastBuildDate>
+    <pubDate>Tue, 28 Apr 2020 22:53:24 +0900</pubDate>
+    <lastBuildDate>Tue, 28 Apr 2020 22:53:24 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -253,10 +253,10 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;예제코드&quot;&gt;예제코드&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/design-pattern/tree/master/src/main/java/com/example/jehuipark/abstract_factory&quot;&gt;Java Sample Code&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/src/main/java/com/example/jehuipark/abstract_factory&quot;&gt;Java Sample Code&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;예제코드-클래스-다이어그램&quot;&gt;예제코드 클래스 다이어그램&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;https://github.com/JeHuiPark/design-pattern/blob/master/image/abstract_factory.png?raw=true&quot; alt=&quot;imgae&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/image/abstract_factory.png?raw=true&quot; alt=&quot;imgae&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;관련-패턴&quot;&gt;관련 패턴&lt;/h2&gt;
 &lt;ul&gt;
