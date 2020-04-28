@@ -38,10 +38,10 @@ tags:
     - 인터페이스 구현 레이어 (모듈)
 
 ## 예제코드
-[Java Sample Code](https://github.com/JeHuiPark/design-pattern/tree/master/src/main/java/com/example/jehuipark/abstract_factory)
+[Java Sample Code](https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/src/main/java/com/example/jehuipark/abstract_factory)
 
 ### 예제코드 클래스 다이어그램
-![imgae](https://github.com/JeHuiPark/design-pattern/blob/master/image/abstract_factory.png?raw=true)
+![imgae](https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/image/abstract_factory.png?raw=true)
 
 ## 관련 패턴
 - 팩토리 메소드 패턴
