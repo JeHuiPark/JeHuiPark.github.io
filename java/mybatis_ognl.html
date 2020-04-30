@@ -102,7 +102,7 @@
 </code></pre></div></div>
 <p><strong>테스트 수행결과</strong></p>
 <p><img src="https://user-images.githubusercontent.com/25237661/44947978-7e09fa80-ae50-11e8-81ef-008e5e420820.PNG" alt="테스트 수행결과2"> <br> <br></p>
-<h4 id="마지막으로-이해를-돕기위해-좀-더-다양한-테스트-케이스를-공유하겠습니다">마지막으로 이해를 돕기위해 좀 더 다양한 테스트 케이스를 공유하겠습니다.</h4>
+<h4 id="test-expression-case">test expression case</h4>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"parseTest1"</span> <span class="na">resultType=</span><span class="s">"hashMap"</span> <span class="nt">&gt;</span>
 /* parseTest1 */
 <span class="nt">&lt;trim</span> <span class="na">prefix=</span><span class="s">"SELECT"</span> <span class="na">suffix=</span><span class="s">"FROM DUAL"</span><span class="nt">&gt;</span>
@@ -152,17 +152,8 @@
   <span class="n">mapper</span><span class="o">.</span><span class="na">parseTest2</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p><strong>실행해보니 결과는 다음과 같습니다</strong></p>
-<p><img src="https://user-images.githubusercontent.com/25237661/44947979-7e09fa80-ae50-11e8-8bc3-704bafe3f257.PNG" alt="테스트 수행결과3"></p>
-<p>뭔가 이상하죠??? <strong>원인은 test구문에 사용된 예약어 <code class="highlighter-rouge">==</code></strong> 에 있습니다.</p>
-<ul>
-<li>
-<code class="highlighter-rouge">==</code>을 사용하면 비교연산을 <strong>데이터에 맞추어서 보다 유연하게 수행합니다.</strong>
-</li>
-<li>객체접근을 통해 <code class="highlighter-rouge">equals</code>메소드를 호출하면 <strong>JAVA CODE에서 equals메소드를 호출한 것과 100% 동일 합니다.</strong>
-</li>
-</ul>
-<p>이번글은 여기서 마치겠습니다. 즐코 하세요.</p>
+<p><strong>실행해보니 결과는 다음과 같습니다</strong><br> <img src="https://user-images.githubusercontent.com/25237661/44947979-7e09fa80-ae50-11e8-8bc3-704bafe3f257.PNG" alt="테스트 수행결과3"></p>
+<p>일관성이 없는 모습이다.<br> 일단 test 구문은 싱글 쿼테이션으로 묶는게 정답일 듯</p>
 <p class="page__taxonomy"> <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong> <span itemprop="keywords"> <a href="/tags/#mybatis" class="page__taxonomy-item" rel="tag">mybatis</a><span class="sep">, </span> <a href="/tags/#ognl" class="page__taxonomy-item" rel="tag">ognl</a><span class="sep">, </span> <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">spring</a> </span></p>
 <a href="#page-title" class="back-to-top">Back to Top ↑</a><div class="page__comments">
 <h4 class="page__comments-title">댓글남기기</h4>

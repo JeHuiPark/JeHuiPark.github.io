@@ -140,7 +140,7 @@ var store = [{
         "url": "https://jehuipark.github.io/note/use-intellij-more-well",
         "teaser":null},{
         "title": "디자인 패턴 : Prototype Design Pattern",
-        "excerpt":"정의 효과 구조 적용예시 고려 사항 참고자료 정의 원본 객체를 사용하여 새로운 사본 객체를 생성하는 패턴 복사 객체의 타입은 서브 클래스에서 정의 효과 클라이언트에서 같은 상태의 객체를 생성하기 위해 알아야 할 정보가 줄어든다. 팩토리 메소드와 다르게 객체 생성에 대한 책임을 클라이언트에게 일부 위임하기 때문에 인스턴스를 쉽게 다양화 시킬 수 있다....","categories": ["note"],
-        "tags": [],
-        "url": "https://jehuipark.github.io/note/prototype_design_pattern",
+        "excerpt":"정의 효과 구조 적용예시 고려 사항 참고자료 정의 원본 객체를 사용하여 새로운 사본 객체를 생성하는 패턴 복사 객체의 타입은 서브 클래스에서 정의 효과 클라이언트에서 같은 상태의 객체를 생성하기 위해 알아야 할 정보가 줄어든다. 팩토리 메소드와 다르게 객체 생성에 대한 책임을 클라이언트에게 일부 위임하기 때문에 인스턴스를 쉽게 다양화 시킬 수 있다....","categories": ["study"],
+        "tags": ["디자인 패턴"],
+        "url": "https://jehuipark.github.io/study/prototype_design_pattern",
         "teaser":null}]
