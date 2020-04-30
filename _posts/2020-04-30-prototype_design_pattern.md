@@ -3,7 +3,9 @@ layout: posts
 title:  "디자인 패턴 : Prototype Design Pattern"
 date:   2020-04-30 20:00:00 +0900
 comments: true
-categories: note
+categories: study
+tags: 
+  - 디자인 패턴
 ---
 
 * TOC
