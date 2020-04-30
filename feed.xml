@@ -6,9 +6,78 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Apr 2020 22:53:24 +0900</pubDate>
-    <lastBuildDate>Tue, 28 Apr 2020 22:53:24 +0900</lastBuildDate>
+    <pubDate>Thu, 30 Apr 2020 21:26:47 +0900</pubDate>
+    <lastBuildDate>Thu, 30 Apr 2020 21:26:47 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>디자인 패턴 : Prototype Design Pattern</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#정의&quot; id=&quot;markdown-toc-정의&quot;&gt;정의&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#효과&quot; id=&quot;markdown-toc-효과&quot;&gt;효과&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#구조&quot; id=&quot;markdown-toc-구조&quot;&gt;구조&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#적용예시&quot; id=&quot;markdown-toc-적용예시&quot;&gt;적용예시&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#고려-사항&quot; id=&quot;markdown-toc-고려-사항&quot;&gt;고려 사항&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+&lt;p&gt;원본 객체를 사용하여 새로운 사본 객체를 생성하는 패턴&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;복사 객체의 타입은 서브 클래스에서 정의&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;효과&quot;&gt;효과&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;클라이언트에서 같은 상태의 객체를 생성하기 위해 알아야 할 정보가 줄어든다.&lt;/li&gt;
+  &lt;li&gt;팩토리 메소드와 다르게 객체 생성에 대한 책임을 클라이언트에게 일부 위임하기 때문에 인스턴스를 쉽게 다양화 시킬 수 있다.
+    &lt;blockquote&gt;
+      &lt;p&gt;서브 클래싱 감소&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;클래스의 인스턴스들이 서로 다른 상태 조합중 하나일 때 유용하다.
+    &lt;blockquote&gt;
+      &lt;p&gt;프로토 타입 인스턴스를 기반으로 동적으로 클래스에 따라 설정을 변경하여 사용&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;구조&quot;&gt;구조&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/tree/master/design-pattern/src/main/java/com/example/jehuipark/prototype_pattern&quot;&gt;예제코드&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/src/test/java/com/example/jehuipark/prototype_pattern/ClientTest.java&quot;&gt;예제코드 테스트&lt;/a&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80703013-f5f46080-8b1c-11ea-9dc0-f8b4d0aa94b1.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;적용예시&quot;&gt;적용예시&lt;/h2&gt;
+&lt;p&gt;Java 에서 json 처리를 위해 자주 사용되는 라이브러리 중 &lt;code class=&quot;highlighter-rouge&quot;&gt;Jackson&lt;/code&gt; 라이브러리를 살펴보면 원형패턴이 적용된 예시가 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80708450-a4e96a00-8b26-11ea-9cc1-72b14688e92f.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80704003-c2b2d100-8b1e-11ea-95ac-491969cb41d4.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectMapper&lt;/code&gt; 에서 의존하는 몇몇 추상화 클래스들은 구현체에게 &lt;code class=&quot;highlighter-rouge&quot;&gt;copy&lt;/code&gt; 메소드를 구현할 수 있도록 하여, &lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectMapper&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;copy&lt;/code&gt; 메소드를 지원한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;고려-사항&quot;&gt;고려 사항&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;깊은 복사와 얕은 복사 타겟 설정
+    &lt;blockquote&gt;
+      &lt;p&gt;보통 상태머신 객체는 깊은 복사를, &lt;code class=&quot;highlighter-rouge&quot;&gt;stateless&lt;/code&gt; 객체는 얕은 복사를 하면 될 듯 하다&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;복사를 지원하지 않는 객체를 다수 포함하고 있다면, 복사기능을 구현하기 힘들 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;GoF의 디자인 패턴 p169 - p180&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Thu, 30 Apr 2020 20:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/note/prototype_design_pattern</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/note/prototype_design_pattern</guid>
+        
+        
+        <category>note</category>
+        
+      </item>
     
       <item>
         <title>IntelliJ 잘 쓰기 Tip</title>
@@ -1034,199 +1103,6 @@ Host github-jehuipark
         
         
         <category>note</category>
-        
-      </item>
-    
-      <item>
-        <title>Github 블로그 개발 환경을 Docker로 구성하자</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#블로그를-방치했던-가장-큰-이유&quot; id=&quot;markdown-toc-블로그를-방치했던-가장-큰-이유&quot;&gt;블로그를 방치했던 가장 큰 이유&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#환경-구성이-귀찮았던-이유&quot; id=&quot;markdown-toc-환경-구성이-귀찮았던-이유&quot;&gt;환경 구성이 귀찮았던 이유&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#내-블로그-살리자&quot; id=&quot;markdown-toc-내-블로그-살리자&quot;&gt;내 블로그 살리자&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#계획&quot; id=&quot;markdown-toc-계획&quot;&gt;계획&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#실행-고군분투기&quot; id=&quot;markdown-toc-실행-고군분투기&quot;&gt;실행 (고군분투기)&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#보너스&quot; id=&quot;markdown-toc-보너스&quot;&gt;보너스&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#마치며&quot; id=&quot;markdown-toc-마치며&quot;&gt;마치며&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#앞으로-할-일&quot; id=&quot;markdown-toc-앞으로-할-일&quot;&gt;앞으로 할 일&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;몇 가지 이유로 나는 이 블로그를 거의 1년간 방치하고 있었다. (&lt;del&gt;&lt;em&gt;사실 핑계&lt;/em&gt;&lt;/del&gt;)&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;2019년 06월 이직&lt;/li&gt;
-  &lt;li&gt;지킬 블로그 개발환경 구성이 너무나 귀찮다&lt;/li&gt;
-  &lt;li&gt;올바른 객체지향 설계를 위한 개념 잡기에 몰두&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;블로그를-방치했던-가장-큰-이유&quot;&gt;블로그를 방치했던 가장 큰 이유&lt;/h1&gt;
-&lt;p&gt;개발환경 구성이 너무나 귀찮다는 점이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;환경-구성이-귀찮았던-이유&quot;&gt;환경 구성이 귀찮았던 이유&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;운영환경으로 부터 독립적이지 못함 (여기서 운영환경은 지킬서버가 돌아가는 환경을 말함 -&amp;gt; 개발환경)&lt;/li&gt;
-  &lt;li&gt;깃헙에게 지킬 빌드를 위임하는 방식이 아닌 로컬 빌드 방식을 택함 (그 이유는 &lt;a href=&quot;https://jehuipark.github.io/blog/blog-publish&quot;&gt;여기에&lt;/a&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;내-블로그-살리자&quot;&gt;내 블로그 살리자&lt;/h1&gt;
-&lt;p&gt;일단 기존의 문제점은 내가 가장 잘 알고있는 상태이기 때문에 어떻게 살릴지에 대한 추상적은 계획은 세워두었다.&lt;/p&gt;
-
-&lt;h2 id=&quot;계획&quot;&gt;계획&lt;/h2&gt;
-&lt;p&gt;아주 간단하다 도커를 활용하여 운영환경에서 분리하여 손쉽게 개발환경 구축이 가능하게 만들면 된다.&lt;br /&gt;
-다만, 나는 도커에 자신이 없다. (걸음마 수준)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;그래서 나는 &lt;a href=&quot;https://www.44bits.io/ko/post/how-docker-image-work&quot;&gt;이 글&lt;/a&gt;을 참고하여 작업했다. (감사합니다 ❤️)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;실행-고군분투기&quot;&gt;실행 (고군분투기)&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;가장 먼저 jekyll 이미지를 땡겨 받자.  &lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;docker pull jekyll/jekyll&lt;/code&gt;&lt;br /&gt;
-&lt;a href=&quot;https://hub.docker.com&quot;&gt;도커허브&lt;/a&gt;에서 jekyll을 검색하면 pull command를 확인할 수 있으며, 기초적인 레퍼런스도 확인이 가능하다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;git에서 내 블로그 소스코드를 clone하자.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;git clone 블라블라블라블라&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;터미널에서 내 블로그 소스코드 위치로 이동하자.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605023-56bbf180-5107-11ea-8605-3a9851342ce3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;레퍼런스에 있는 커맨드를 그대로 일단 터미널에 때리자
-    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JEKYLL_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3.8
-docker run &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--volume&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:/srv/jekyll&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; jekyll/jekyll:&lt;span class=&quot;nv&quot;&gt;$JEKYLL_VERSION&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  jekyll build
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;때리고 나서 확인해보니 현재 경로를 컨테이너의 &lt;code class=&quot;highlighter-rouge&quot;&gt;/srv/jekyll&lt;/code&gt; 경로로 마운팅 시킨다는 옵션이 있는걸 확인했다. (&lt;del&gt;제대로 했군ㅋ&lt;/del&gt;)&lt;br /&gt;
-명령어를 확인해보면 3.8 버전을 사용하도록 하고 있는데, 지킬 블로그 구성할 때 지킬 버전이 몇이였는지 기억이 안난다. 문제생기면 확인 하기로 하고 일단 수정하지 않기로 했다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;오류가 난다… 역시 한번에 되면 섭하지&lt;br /&gt;
-  오류 내용은 이랬다. -&amp;gt; 대충 &lt;code class=&quot;highlighter-rouge&quot;&gt;지킬 빌드에 필요한 어떤 디펜던시가 존재하지 않는다&lt;/code&gt; 라는 내용&lt;br /&gt;
-  &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605184-034aa300-5109-11ea-81dd-4cbe7e65a2c9.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;처방전을 내리자.&lt;br /&gt;
-  &lt;em&gt;여기선 이렇게 간단하게 쓰지만 지킬을 너무 오랜만에 접해서 기억을 더듬느라 힘들었음&lt;/em&gt;&lt;br /&gt;
-  과거의 내가 왜 그랬는지 기억이 나질 않지만 루비 모듈 의존성을 관리하는 Gemfile을 과거에 삭제해서 생긴 문제이다.
-    &lt;ol&gt;
-      &lt;li&gt;Gemfile을 일단 생성하자.
-        &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://rubygems.org&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-sitemap&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;또 오류가 난다.&lt;br /&gt;
- 여기서 지킬 블로그 설정을 관리하는 파일을 확인 해야겠다는 생각이 들었다. &lt;br /&gt;
- &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605336-a5b75600-510a-11ea-8fcd-f14aa01099e8.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
- 오류 내용과 플러그인 리스트가 일치하는 거 보니 내 예상이 맞는듯 하다.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Gemfile을 지킬 설정과 동기화 시키자.
-        &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://rubygems.org&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-sitemap&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-mentions&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-paginate&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-seo-tag&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-gist&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-redirect-from&quot;&lt;/span&gt;
- &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jemoji&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;이제 레퍼런스에 있는 커맨드를 그대로 일단 터미널에 때리자&lt;br /&gt;
-  오오오오 뭔가 되는듯 하다가 오류없이 작업이 종료 되었다. (엥?)&lt;br /&gt;
-  내가 원하는건 4000 포트로 로컬서버가 구동되는건데?&lt;br /&gt;
-  커맨드를 자세히 보니 컨테이너 구동완료후 실행할 명령어가 내가 원하는 명령어가 아니였다&lt;br /&gt;
-  레퍼런스 명령어는 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt;, &lt;strong&gt;내가 원하는 명령어는 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;명령어를 수정하자 (1차)
-    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:/srv/jekyll&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; jekyll/jekyll:3.8 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;오 이번엔 뭔가 된 것 같다?&lt;br /&gt;
-  &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605502-e9f72600-510b-11ea-97ff-28c307d10a26.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-  &lt;strong&gt;아니다 안된다&lt;/strong&gt;&lt;br /&gt;
-  &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605875-29734180-510f-11ea-9aeb-5a0e8bd001f5.png&quot; alt=&quot;image&quot; /&gt; 
-  서버가 올라갔는데 &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:4000&lt;/code&gt;으로 접속을 못하는 이유는 컨테이너와 호스트 포트 바인딩 문제라고 판단했다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;명령어를 수정하자 (2차)
-    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:/srv/jekyll&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 4000:4000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; jekyll/jekyll:3.8 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;&lt;strong&gt;잘 된다&lt;/strong&gt;&lt;br /&gt;
-  &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/74605870-1c565280-510f-11ea-934d-2c695bfc4746.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-  잘 되지만 지금 상태에서는 &lt;strong&gt;문제점&lt;/strong&gt;이 있다.&lt;br /&gt;
-  docker run을 할 때마다 루비 모듈을 처음부터 내려 받느라 엄청난 시간을 소요함&lt;br /&gt;
-  도커허브의 jekyll 이미지 레퍼런스를 확인하니 &lt;a href=&quot;https://github.com/envygeeks/jekyll-docker/blob/master/README.md#caching&quot;&gt;이런내용&lt;/a&gt;이 존재했다.&lt;br /&gt;
-  대충 &lt;code class=&quot;highlighter-rouge&quot;&gt;컨테이너의 루비 모듈 설치경로와 호스트의 볼륨을 마운팅 시켜라&lt;/code&gt;라는 내용&lt;/p&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;docker run할 때 컨테이너 이름을 지정하여 docker start와 stop을 이용하는 방법도 존재하며,&lt;br /&gt;
-  이 방법은 컨테이너를 새로 생성할 경우에 루비 모듈을 처음부터 내려 받아야 한다&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;명령어를 수정하자 (3차)
-    &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;:/srv/jekyll&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.cache/bundle:/usr/local/bundle&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 4000:4000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; blog &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; jekyll/jekyll:3.8 
-  jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;컨테이너의 루비 모듈 설치경로와 호스트 경로의 볼륨을 마운팅 하라는 옵션을 추가하고, 컨테이너 이름을 blog로 지정했다.&lt;br /&gt;
-  추가로 루비 모듈 캐시경로를 git에서 추적하지 않도록 설정을 추가했다.&lt;br /&gt;
-  이제 컨테이너를 지우고 다시 생성해도 &lt;code class=&quot;highlighter-rouge&quot;&gt;.cache&lt;/code&gt; 디렉토리에 미리 설치된 루비 모듈이 존재하니, &lt;strong&gt;한번이라도 환경구성을 했다면&lt;/strong&gt; 컨테이너 구동이 이전보다는 굉장히 빨라졌다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;docekr-compose를 작성하자&lt;br /&gt;
-  최초 환경 구동시에 더 편하게 환경울 구성하기 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt;을 작성했다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;보너스&quot;&gt;보너스&lt;/h2&gt;
-&lt;p&gt;최초 환경 구동시에 더 편하게 환경울 구성하기 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt;을 작성했다.&lt;/p&gt;
-&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.7'&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;jekyll&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;container_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;blog&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jekyll/jekyll:3.8&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;4000:4000&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$PWD:/srv/jekyll&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$PWD/.cache/bundle:/usr/local/bundle&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jekyll serve&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;마치며&quot;&gt;마치며&lt;/h1&gt;
-&lt;p&gt;이 작업으로 나는 이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone 블라블라블라&lt;/code&gt; 명령어와 도커를 이용하여 블로그 개발환경을 구성할 수 있게 되었다.&lt;br /&gt;
-하지만 아직도 개선할 점은 남아있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;앞으로-할-일&quot;&gt;앞으로 할 일&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;CD 구성하기&lt;br /&gt;
-  이건 과거에 윈도우 환경에서 &lt;a href=&quot;https://jehuipark.github.io/blog/blog-publish&quot;&gt;배포자동화&lt;/a&gt;를 위해 사용하던 Rakefile을 참고하면 될 듯 하다.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 16 Feb 2020 16:26:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/blog/blog-env-setting-with-docker</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/blog/blog-env-setting-with-docker</guid>
-        
-        <category>jekyll</category>
-        
-        
-        <category>blog</category>
         
       </item>
     
