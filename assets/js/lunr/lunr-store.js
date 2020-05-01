@@ -143,4 +143,9 @@ var store = [{
         "excerpt":"정의 효과 구조 적용예시 고려 사항 참고자료 정의 원본 객체를 사용하여 새로운 사본 객체를 생성하는 패턴 복사 객체의 타입은 서브 클래스에서 정의 효과 클라이언트에서 같은 상태의 객체를 생성하기 위해 알아야 할 정보가 줄어든다. 팩토리 메소드와 다르게 객체 생성에 대한 책임을 클라이언트에게 일부 위임하기 때문에 인스턴스를 쉽게 다양화 시킬 수 있다....","categories": ["study"],
         "tags": ["디자인 패턴"],
         "url": "https://jehuipark.github.io/study/prototype_design_pattern",
+        "teaser":null},{
+        "title": "디자인 패턴 : Singleton",
+        "excerpt":"정의 특징 예제코드 참고자료 정의 클래스에 대한 인스턴스를 하나로 제한하는 패턴 특징 인스턴스의 개수가 1개임을 보장 access point 제한 유일한 인스턴스이면서 서브 클래싱으로 확장을 지원 예제코드 생성자를 은닉시키고, 객체 생성을 제한하여 인스턴스가 1개임을 보장하는 것에 초점을 맞춘다. 간단한 싱글톤 thread-safe 요구사항이 없다면 아래와 같은 구현으로 충분하다. final class BasicSingleton {...","categories": ["study"],
+        "tags": ["디자인 패턴"],
+        "url": "https://jehuipark.github.io/study/singleton-pattern",
         "teaser":null}]
