@@ -39,6 +39,7 @@ final class BasicSingleton {
   }
 }
 ```
+<br>
 
 **안전한 싱글톤**  
 `thread safe` 요구사항이 있다면 생성자 구현에 좀현 더 신경을 써야한다.
@@ -66,6 +67,23 @@ final class ThreadSafeSingleton {
   }
 }
 ```
+<br>
+
+**클래스 로더를 활용한 방법**  
+객체 생성을 `inner class` 에게 위임하여 초기화 시점을 제어  
+```java
+final class ThreadSafeSingleton2 {
+
+  public static ThreadSafeSingleton2 getInstance() {
+    return Inner.INSTANCE;
+  }
+
+  private static final class Inner {
+    static final ThreadSafeSingleton2 INSTANCE = new ThreadSafeSingleton2();
+  }
+}
+```
+<br>
 
 **서브클래싱을 지원하는 싱글톤**  
 ```java
