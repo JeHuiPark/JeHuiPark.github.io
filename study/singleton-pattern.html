@@ -11,7 +11,7 @@
     <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div><p><strong>안전한 싱글톤</strong><br /> <code class="highlighter-rouge">thread safe</code> 요구사항이 있다면 생성자 구현에 좀현 더 신경을 써야한다.</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="nc">ThreadSafeSingleton</span> <span class="o">{</span>
+</code></pre></div></div><p><br /></p><p><strong>안전한 싱글톤</strong><br /> <code class="highlighter-rouge">thread safe</code> 요구사항이 있다면 생성자 구현에 좀현 더 신경을 써야한다.</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="nc">ThreadSafeSingleton</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ThreadSafeSingleton</span> <span class="n">instance</span><span class="o">;</span>
 
@@ -33,7 +33,17 @@
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div><p><strong>서브클래싱을 지원하는 싱글톤</strong></p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SuperSingleton</span> <span class="o">{</span>
+</code></pre></div></div><p><br /></p><p><strong>클래스 로더를 활용한 방법</strong><br /> 객체 생성을 <code class="highlighter-rouge">inner class</code> 에게 위임하여 초기화 시점을 제어</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="nc">ThreadSafeSingleton2</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ThreadSafeSingleton2</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Inner</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Inner</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ThreadSafeSingleton2</span> <span class="no">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadSafeSingleton2</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div><p><br /></p><p><strong>서브클래싱을 지원하는 싱글톤</strong></p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SuperSingleton</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">InstanceRegistry</span> <span class="no">INSTANCE_REGISTRY</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InstanceRegistry</span><span class="o">();</span>
 
