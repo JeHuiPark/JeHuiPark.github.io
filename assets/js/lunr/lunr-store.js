@@ -148,4 +148,9 @@ var store = [{
         "excerpt":"정의 특징 예제코드 참고자료 정의 클래스에 대한 인스턴스를 하나로 제한하는 패턴 특징 인스턴스의 개수가 1개임을 보장 access point 제한 유일한 인스턴스이면서 서브 클래싱으로 확장을 지원 예제코드 생성자를 은닉시키고, 객체 생성을 제한하여 인스턴스가 1개임을 보장하는 것에 초점을 맞춘다. 간단한 싱글톤 thread-safe 요구사항이 없다면 아래와 같은 구현으로 충분하다. final class BasicSingleton {...","categories": ["study"],
         "tags": ["디자인 패턴"],
         "url": "https://jehuipark.github.io/study/singleton-pattern",
+        "teaser":null},{
+        "title": "디자인 패턴 : Builder Pattern",
+        "excerpt":"정의 특징 예제코드 참고자료 정의 복잡한 객체를 생성하는 방법과 표현하는 방법을 정의하는 클래스를 분리하는 패턴 특징 빌더에 의해 객체 생성방법이 추상화 되기 때문에 객체 생성 난이도가 낮아지며, 객체 생성방법이 클라이언트로 부터 어느정도 자유로워 질 수 있다. 외부에는 간결한 인터페이스를 제공하고, 내부적으로는 복잡한 생성로직을 처리한다. 예제코드 객체 생성을 위해 필요한 정보를...","categories": ["study"],
+        "tags": ["디자인 패턴"],
+        "url": "https://jehuipark.github.io/study/builder-pattern",
         "teaser":null}]

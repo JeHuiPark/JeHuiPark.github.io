@@ -6,9 +6,114 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 May 2020 18:23:19 +0900</pubDate>
-    <lastBuildDate>Sat, 02 May 2020 18:23:19 +0900</lastBuildDate>
+    <pubDate>Sat, 02 May 2020 20:53:46 +0900</pubDate>
+    <lastBuildDate>Sat, 02 May 2020 20:53:46 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>디자인 패턴 : Builder Pattern</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#정의&quot; id=&quot;markdown-toc-정의&quot;&gt;정의&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#특징&quot; id=&quot;markdown-toc-특징&quot;&gt;특징&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#예제코드&quot; id=&quot;markdown-toc-예제코드&quot;&gt;예제코드&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+&lt;p&gt;복잡한 객체를 생성하는 방법과 표현하는 방법을 정의하는 클래스를 분리하는 패턴&lt;/p&gt;
+
+&lt;h2 id=&quot;특징&quot;&gt;특징&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;빌더에 의해 객체 생성방법이 추상화 되기 때문에 객체 생성 난이도가 낮아지며, 객체 생성방법이 클라이언트로 부터 어느정도 자유로워 질 수 있다.
+    &lt;blockquote&gt;
+      &lt;p&gt;외부에는 간결한 인터페이스를 제공하고, 내부적으로는 복잡한 생성로직을 처리한다.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;예제코드&quot;&gt;예제코드&lt;/h2&gt;
+&lt;p&gt;객체 생성을 위해 필요한 정보를 추상화된 인터페이스를 통하여 입력받고, 객체 생성 시점에 조립한다는 생각으로 설계한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;간단한 빌더패턴&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UrlRole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UrlRole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;role&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UrlRoleBuilder&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UrlRoleBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;UrlRole{&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;url='&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\''&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;, role=&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;, method=&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;sc&quot;&gt;'}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@SuppressWarnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UseBulkOperation&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ManualArrayToCollectionCopy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UrlRoleBuilder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nc&quot;&gt;UrlRoleBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HashSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HashSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UrlRoleBuilder&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hasAnyRole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UrlRole&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UrlRole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// do something for validate)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;GoF의 디자인 패턴 p144 - p155&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sat, 02 May 2020 20:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/study/builder-pattern</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/study/builder-pattern</guid>
+        
+        <category>디자인 패턴</category>
+        
+        
+        <category>study</category>
+        
+      </item>
     
       <item>
         <title>디자인 패턴 : Singleton</title>
@@ -972,178 +1077,6 @@ UUID의 길이는 16바이트의 길이를 요구한다고 하였다. 눈으로 
         
         
         <category>java</category>
-        
-      </item>
-    
-      <item>
-        <title>Github Action 을 이용하여 Github 블로그 배포하기</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#시작하기-전에&quot; id=&quot;markdown-toc-시작하기-전에&quot;&gt;시작하기 전에&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#github-action-이-딱이네&quot; id=&quot;markdown-toc-github-action-이-딱이네&quot;&gt;Github Action 이 딱이네&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-은&quot; id=&quot;markdown-toc-github-action-은&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 은&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#github-action-을-만들어보자&quot; id=&quot;markdown-toc-github-action-을-만들어보자&quot;&gt;Github Action 을 만들어보자&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-생성&quot; id=&quot;markdown-toc-github-action-생성&quot;&gt;Github Action 생성&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#github-action-몸빵으로-배우기&quot; id=&quot;markdown-toc-github-action-몸빵으로-배우기&quot;&gt;Github Action 몸빵으로 배우기&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#완성된-github-action-dsl&quot; id=&quot;markdown-toc-완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#깃헙액션-동작-결과&quot; id=&quot;markdown-toc-깃헙액션-동작-결과&quot;&gt;깃헙액션 동작 결과&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;시작하기-전에&quot;&gt;시작하기 전에&lt;/h2&gt;
-
-&lt;p&gt;Github Action을 이용하기 전에 나는 블로그를 이런식으로 운영하고 있었다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;블로그의 빌드방식을 github 의존 방식이 아닌 로컬 빌드방식을 이용&lt;/li&gt;
-  &lt;li&gt;블로그를 배포하는 방법으로 루비 Rakefile 스크립트 이용&lt;/li&gt;
-  &lt;li&gt;블로그 개발환경을 도커로 구성
-    &lt;blockquote&gt;
-
-      &lt;p&gt;&lt;a href=&quot;https://jehuipark.github.io/blog/blog-publish&quot;&gt;배포 자동화&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://jehuipark.github.io/blog/blog-env-setting-with-docker&quot;&gt;블로그 개발환경 도커로 구성하기&lt;/a&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;블로그 개발환경을 도커 구성으로 변경하면서, 기존 배포방식에 문제가 발생 하면서 문제점이 보이기 시작했다.&lt;/p&gt;
-
-&lt;p&gt;배포를 Rakefile 태스크에 의존하다 보니, 배포 또한 도커를 이용하게 되었는데 컨테이너 환경에서는 github 에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt; 하기 위한 권한이 없기 때문에 아래와 같은 추가적인 작업이 필요한 상황이 발생한 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;basic credentials 으로 직접 로그인 - &lt;strong&gt;귀찮음&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;컨테이너에 ssh 설정 - &lt;strong&gt;배포환경이 달라질 때 마다 설정을 해줘야 함&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;결정적으로 나는 &lt;strong&gt;개발환경 구축이 되어 있지 않더라도, 배포가 가능한 환경을 원했다.&lt;/strong&gt;&lt;br /&gt;
-이런 환경이라면, 단순한 수정은 인터넷만 가능하다면 퀵 하게 처리가 가능할 테니까&lt;/p&gt;
-
-&lt;h2 id=&quot;github-action-이-딱이네&quot;&gt;Github Action 이 딱이네&lt;/h2&gt;
-&lt;p&gt;내 요구사항을 처리하기에 딱 좋은 녀석은 얼마전에 회사에서 공유 받은적이 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 이 딱이라고 생각하였다.&lt;br /&gt;
-나도 &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 을 사용해본 경험은 없기 때문에, 사전조사를 간략하게 진행 하였다.&lt;/p&gt;
-
-&lt;h3 id=&quot;github-action-은&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Github Action&lt;/code&gt; 은&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;깃헙 레파지토리에서 발생하는 이벤트를 받아서 처리할 수 있게 인터페이스 제공&lt;/li&gt;
-  &lt;li&gt;레파지토리별 가상 서버를 깃헙에서 제공
-    &lt;ul&gt;
-      &lt;li&gt;자체 호스팅 서버를 이용도 가능&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;깃헙에서 제공하는 가상서버에는 해당 레파지토리에 대한 접근권한 설정이 미리 되어있는 상태&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;GITHUB_TOKEN&lt;/code&gt; 을 이용한다고 한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이 정도의 정보를 갖고 행동으로 옮겼고, 삽질 끝에 배포 자동화 환경을 구축했다.&lt;/p&gt;
-
-&lt;p&gt;배포 과정을 요약하면 이렇다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;work&lt;/code&gt; 브랜치에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;를 한다.&lt;/li&gt;
-  &lt;li&gt;원격지에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;빌드&lt;/code&gt;를 수행한다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;빌드&lt;/code&gt; output을 github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치에 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt; 한다. (&lt;strong&gt;배포완료&lt;/strong&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;github-action-을-만들어보자&quot;&gt;Github Action 을 만들어보자&lt;/h2&gt;
-
-&lt;h3 id=&quot;github-action-생성&quot;&gt;Github Action 생성&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75607351-8b816d00-5b39-11ea-9a42-447925b85cbe.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생성 버튼을 누르니 깃헙설정 경로에 &lt;code class=&quot;highlighter-rouge&quot;&gt;yml&lt;/code&gt; 파일이 생성되는 걸 보니 &lt;strong&gt;DSL&lt;/strong&gt; 의 느낌이 온다.
-그래서 &lt;a href=&quot;https://help.github.com/en/actions&quot;&gt;Github Action Help&lt;/a&gt; 레퍼런스를 잠깐 읽었는데 머리도 아프고 역시 몸빵이 최고인 것 같아서 레퍼런스를 켜두고 일단 시작했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://help.github.com/en/actions&quot;&gt;Github Action Help&lt;/a&gt; 어디에선가 발췌한 Hello World 스크립트를 갖고 바로 몸빵을 시작하기로 결정했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Hello World 스크립트&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Greet Everyone&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# This workflow is triggered on pushes to the repository.&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# Job name is Greeting&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Greeting&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# This job runs on Linux&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;# This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Hello world&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;actions/hello-world-javascript-action@v1&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;who-to-greet&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Mona&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Octocat'&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;hello&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;# This step prints an output (time) from the previous step's action.&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Echo the greeting's time&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo 'The time was $.'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;github-action-몸빵으로-배우기&quot;&gt;Github Action 몸빵으로 배우기&lt;/h3&gt;
-
-&lt;p&gt;깃헙 액션을 몸빵으로 체득하다 보면 커밋 히스토리가 지저분해질게 뻔히 보여서 일단 리모트 &lt;strong&gt;브랜치를 분리&lt;/strong&gt;하는 작업을 먼저 진행 하였다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;work-flow-test 브랜치 생성&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;분리된 브랜치에서 깃헙액션 DSL 을 생성하고, 사전에 찾아뒀던 Hello World 스크립트를 저장하였다.&lt;br /&gt;
-저장하는 순간 github 에 push 이벤트가 발생하였고, 아래와 같이 깃헙 액션 실행결과를 확인할 수 있었다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75607494-20389a80-5b3b-11ea-901c-e98d3204e967.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;깃헙액션의 실행결과를 눈으로 확인하고 나서 바로 든 생각은 &lt;em&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;신기하네 약간 도커같은 느낌인걸?&lt;/code&gt;&lt;/em&gt; 이였다.&lt;/p&gt;
-
-&lt;p&gt;그리고 job 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 을 하나씩 단계별로 구성하면 내가 하려던 작업을 충분히 할 수 있겠다고 직감했고 깃헙 액션을 조금씩 채워나가기 시작했다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;소스 체크아웃 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기
-이런저런 삽질을 해보다가 이정도는 이미 만들어져 있지 않을까 해서 찾아보니 &lt;a href=&quot;https://github.com/actions/checkout&quot;&gt;깃헙에서 제공&lt;/a&gt;하고 있어서 그걸 사용했다.&lt;/li&gt;
-  &lt;li&gt;ruby 설치하기 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기
-지킬 블로그는 ruby 패키지에 의존하여 동작하기 때문에 필수적으로 필요한 요소이다.&lt;br /&gt;
-이것도 &lt;a href=&quot;https://github.com/actions/setup-ruby&quot;&gt;깃헙에서 제공&lt;/a&gt;한다.&lt;/li&gt;
-  &lt;li&gt;gem 설치하기 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-지킬 블로그에 빌드에 필요한 gem 을 설치해야 한다. (내 로컬과 동일하게)&lt;br /&gt;
-여기서 삽질을 좀 했다.
-    &lt;ol&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;이 존재하지 않아서 gem 설치가 순서대로 되지 않아서 오류 발생&lt;/li&gt;
-      &lt;li&gt;젬 디펜던시 설치가 너무 오래 걸림 (액션이 돌때마다 새로 설치)&lt;br /&gt;
- 이에 대한 솔루션도 &lt;a href=&quot;https://github.com/actions/cache&quot;&gt;깃헙에서 제공&lt;/a&gt;하고 있어서 몇번 삽질 후에 성공적으로 적용하였다.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;블로그 빌드 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-&lt;a href=&quot;https://github.com/actions/cache&quot;&gt;기존에 프로덕션 배포시 사용하던 Rakefile을 일부 활용&lt;/a&gt;하였다. &lt;code class=&quot;highlighter-rouge&quot;&gt;rake site:generate&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;블로그 배포 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;br /&gt;
-쉘 스크립트 작성에 능숙치 못해서 여기에서 가장 많은 시간을 소요했다&lt;br /&gt;
-대충 요악하면 여기에서 진행하려고 하던 작업은 이렇다.
-    &lt;ol&gt;
-      &lt;li&gt;블로그 빌드 결과물을 임시 디렉토리로 이동&lt;/li&gt;
-      &lt;li&gt;작업 브랜치를 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치로 이동&lt;/li&gt;
-      &lt;li&gt;블로그 빌드 결과물 적용&lt;/li&gt;
-      &lt;li&gt;변경사항 &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt; 내용을 github 저장소의 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 브랜치로 push&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;완성된-github-action-dsl&quot;&gt;완성된 Github Action DSL&lt;/h2&gt;
-
-&lt;p&gt;내가 삽질하면서 작성한 Github Action DSL 은 &lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/3&quot;&gt;여기서&lt;/a&gt; 확인할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;캐시경로를 상대 경로로 설정 하였던 부분이 &lt;strong&gt;블로그 배포 &lt;code class=&quot;highlighter-rouge&quot;&gt;step&lt;/code&gt; 만들기&lt;/strong&gt; 부분의 작업내용과 충돌하는 부분이 있어서, &lt;code class=&quot;highlighter-rouge&quot;&gt;cache hit&lt;/code&gt; 를 하지 못하는 이슈가 발생해서 아래와 같은 스텝으로 조치하였다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/11&quot;&gt;캐시 강제업데이트&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/JeHuiPark/JeHuiPark.github.io/pull/13&quot;&gt;캐시경로 변경&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;깃헙액션-동작-결과&quot;&gt;깃헙액션 동작 결과&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/75608419-9391da80-5b42-11ea-87ed-498fc2f5a657.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 29 Feb 2020 22:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/blog-publish-with-github-action</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/blog-publish-with-github-action</guid>
-        
-        <category>github</category>
-        
-        
-        <category>note</category>
         
       </item>
     
