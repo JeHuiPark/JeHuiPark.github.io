@@ -6,9 +6,93 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 02 May 2020 20:53:46 +0900</pubDate>
-    <lastBuildDate>Sat, 02 May 2020 20:53:46 +0900</lastBuildDate>
+    <pubDate>Sun, 03 May 2020 23:06:02 +0900</pubDate>
+    <lastBuildDate>Sun, 03 May 2020 23:06:02 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Java 로깅전략 with MDC</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#mdc&quot; id=&quot;markdown-toc-mdc&quot;&gt;MDC&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#예제코드&quot; id=&quot;markdown-toc-예제코드&quot;&gt;예제코드&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;어플리케이션에서 이루어지는 어떤 행위에는 보통 Context(문맥) 가 존재한다.&lt;br /&gt;
+그렇기에 로그정보를 Context 단위로 볼 수 있다면, 더 유의미한 로그가 될 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;mdc&quot;&gt;MDC&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Java 로깅 프레임워크에서는 관련 기능을 &lt;code class=&quot;highlighter-rouge&quot;&gt;MDC&lt;/code&gt; 라는 이름으로 제공하고 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MDC&lt;/code&gt; 는 &lt;code class=&quot;highlighter-rouge&quot;&gt;key/value&lt;/code&gt; 저장소를 지원하며, 이 저장소는 &lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadContext&lt;/code&gt; 에 의존한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;예제코드&quot;&gt;예제코드&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;의존성&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.apache.logging.log4j'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'log4j-slf4j-impl'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2.13.2'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.apache.logging.log4j'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'log4j-api'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2.13.2'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.apache.logging.log4j'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'log4j-core'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'2.13.2'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;로그설정&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;%-8mdc{trace-id}&lt;/code&gt; &amp;lt;- mdc 포멧&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;자세한 정보는 참고자료에 명시한 Log4j2 Manual 에서 확인할 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Configuration&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;status=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;WARN&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Appenders&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;Console&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Console&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SYSTEM_OUT&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;PatternLayout&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;
+                    %highlight{%d{HH:mm:ss.SSS} [%-5t] [%-8mdc{trace-id}] [%-5level] %msg%n%throwable}
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/PatternLayout&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Console&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Appenders&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Loggers&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;Root&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;level=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;debug&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;AppenderRef&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ref=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Console&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Root&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Loggers&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Configuration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Java 코드&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MockApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExecutorService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Executors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newFixedThreadPool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Executors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;privilegedThreadFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;executorService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;MDC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;trace-id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;substring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// do something&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;MDC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;실행결과&lt;/strong&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80915551-f5163580-8d8d-11ea-94c0-f71259c4080d.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/tree/master/logger-example&quot;&gt;예제코드 저장소&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://logging.apache.org/log4j/2.x/manual/configuration.html&quot;&gt;log4j2 manual&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 May 2020 20:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/java/java-logging-mdc</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/java/java-logging-mdc</guid>
+        
+        
+        <category>java</category>
+        
+      </item>
     
       <item>
         <title>디자인 패턴 : Builder Pattern</title>
@@ -914,166 +998,6 @@ UUID의 길이는 16바이트의 길이를 요구한다고 하였다. 눈으로 
         <category>mysql</category>
         
         <category>uuid</category>
-        
-        
-        <category>java</category>
-        
-      </item>
-    
-      <item>
-        <title>3항 연산자와 Unboxing 그리고 NullPointException</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#떡밥&quot; id=&quot;markdown-toc-떡밥&quot;&gt;떡밥&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#왜-nullpointexception-&quot; id=&quot;markdown-toc-왜-nullpointexception-&quot;&gt;왜 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; ?&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#어떻게-알아내었는가&quot; id=&quot;markdown-toc-어떻게-알아내었는가&quot;&gt;어떻게 알아내었는가&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#unboxing-의-동작방식이-궁금해&quot; id=&quot;markdown-toc-unboxing-의-동작방식이-궁금해&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 의 동작방식이 궁금해&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#1짤-요약&quot; id=&quot;markdown-toc-1짤-요약&quot;&gt;1짤 요약&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#후기&quot; id=&quot;markdown-toc-후기&quot;&gt;후기&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;떡밥&quot;&gt;떡밥&lt;/h2&gt;
-
-&lt;p&gt;얼마전에 팀 내에서 재밌는 이슈가 나왔다.&lt;br /&gt;
-대충 아래와 같은 방식으로 리턴하는 메소드가 존재하였는데.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;exampleMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booleanExpression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primitiveValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integerObj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;booleanExpression&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; 일 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;integerObj&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 이면 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 오류가 터지는 문제였다.&lt;/p&gt;
-
-&lt;p&gt;언뜻 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;booleanExpression&lt;/code&gt; 의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; 이면, &lt;code class=&quot;highlighter-rouge&quot;&gt;integerObj&lt;/code&gt; 의 값이 무엇이던 그대로 반환할 것 같은 메소드이지만, 알고보면 그렇지 않다.&lt;/p&gt;
-
-&lt;p&gt;이 오류를 재현하기 위해 간단한 테스트를 작성하고, 실행 해보자&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ex1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;fail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NullPointerException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;예상되는 에러&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;테스트 결과&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698396-bb0da900-66e5-11ea-9b27-9ef98bcbdacd.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;왜-nullpointexception-&quot;&gt;왜 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; ?&lt;/h3&gt;
-
-&lt;p&gt;결론부터 말하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;java&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 과 관련된 이슈였다.&lt;/p&gt;
-
-&lt;p&gt;요악하면 변수 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; 를 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 하는 과정에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointerException&lt;/code&gt; 이 발생한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;어떻게-알아내었는가&quot;&gt;어떻게 알아내었는가&lt;/h4&gt;
-
-&lt;p&gt;머릿속에 여러 생각이 들었다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이펙티브 자바&lt;/code&gt; 책의 한 구절이 떠올랐다.
-    &lt;blockquote&gt;
-      &lt;p&gt;컴파일러로 인해 개발자가 작성한 코드가 예상과 다르게 동작할 수 있다.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointerException&lt;/code&gt; 예외가 발생할 수 있는 포인트가 3항 연산자 이외에는 보이지 않는다.&lt;/li&gt;
-  &lt;li&gt;3항 연산자의 2항의 반환 타입이 &lt;code class=&quot;highlighter-rouge&quot;&gt;primitive&lt;/code&gt; 인게 걸린다.&lt;/li&gt;
-  &lt;li&gt;혹시 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 로 초기화 된 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; 를 언박싱 하려고 하니?&lt;/li&gt;
-  &lt;li&gt;만약 2항의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;boxing object&lt;/code&gt; 이면 에러없이 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 을 반환할까?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;나름의 정보를 종합하여, 한가지 가설을 세우고 바로 테스트를 작성해 보았다.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ex2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;assertNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;테스트 결과&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698556-bfd35c80-66e7-11ea-84cb-b4754df909f0.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;내가 세운 가설&lt;/strong&gt;은 이랬다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;2항의 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;primitive&lt;/code&gt; 이기 때문에, 3항의 &lt;code class=&quot;highlighter-rouge&quot;&gt;boxing object&lt;/code&gt;가 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt;이 되는 것은 아닐까?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이렇게 나는 테스트 코드를 통해 이번 3항 연산자 떡밥은 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 과 관련이 있다는 것이 증명 되었다고 판단하였다.&lt;/p&gt;
-
-&lt;h3 id=&quot;unboxing-의-동작방식이-궁금해&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 의 동작방식이 궁금해&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;boxing&lt;/code&gt; 이라던지 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 키워드는 정말 지겹도록 들어봤을 것이며, 이것을 설명하는 것은 주제를 넘어가니 생략한다.&lt;/p&gt;
-
-&lt;p&gt;당시에, 나는 2가지의 키워드가 의미하는 바가 무엇인지는 알고 있었지만, 솔직히 말하면 실제로 어떻게 동작하는지에 대해서는 구체적으로 알고 있는 상태는 아니였다.&lt;/p&gt;
-
-&lt;p&gt;이때의 계기로 나는 &lt;code class=&quot;highlighter-rouge&quot;&gt;unboxing&lt;/code&gt; 이 어떻게 동작하는지 알아보고 싶어져서 &lt;code class=&quot;highlighter-rouge&quot;&gt;바이트 코드&lt;/code&gt; 를 읽어보기로 결정하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76698970-c5cb3c80-66eb-11ea-8627-85a41970551e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이미지에 보이는 자바코드 두줄은 바이트 코드로 이렇게 표현되고 있었다.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;L0&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;LINENUMBER&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;L0&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;ACONST_NULL&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;ASTORE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;no&quot;&gt;L3&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;LINENUMBER&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;L3&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;ALOAD&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;INVOKEVIRTUAL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;intValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;INVOKESTATIC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Ljava&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;no&quot;&gt;ASTORE&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;천천히 순서대로 읽어보자. (&lt;a href=&quot;https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html#jvms-6.5.astore&quot;&gt;오라클 문서&lt;/a&gt;와 같이 보면 도움이 된다.)&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LO&lt;/code&gt; 은 자바코드 12번 라인에 대응하는 코드이다.
-    &lt;ol&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ASTORE 1&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 이라는 상수를 &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;에 저장한다.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;L3&lt;/code&gt; 은 자바코드 13번 라인에 대응하는 코드이다.
-    &lt;ol&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ALOAD 1&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;에서 객체를 로드 해라. (&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 예상)&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKEVIRTUAL java/lang/Integer.intValue ()I&lt;/code&gt; -&amp;gt; 로드한 객체를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;Integer&lt;/code&gt; 클래스의 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue&lt;/code&gt; 메소드를 실행해라. (&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 참조 상태이므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue()&lt;/code&gt; 메소드를 실행하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 이 발생&lt;/strong&gt;한다.)&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Integer&lt;/code&gt; 클래스의 &lt;code class=&quot;highlighter-rouge&quot;&gt;valueOf&lt;/code&gt;라는 정적 메소드를 실행하면서 I를 넘겨라. 정적 메소드의 반환 타입은 &lt;code class=&quot;highlighter-rouge&quot;&gt;java/lang/Integer&lt;/code&gt; 이다.&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ASTORE 2&lt;/code&gt; -&amp;gt; 반환값을 &lt;code class=&quot;highlighter-rouge&quot;&gt;로컬 참조변수 저장소&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;에 저장하라&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;바이트 코드에서 보면 13번 라인의 3항 연산자가 삭제된 것을 확인할 수 있는데, 이것은 1항의 값이 컴파일 시점에 이미 결정되어 있기 때문에 실행시점에는 2항의 값이 쓸모없는 값이 되어 버린다 그렇기 때문에, 컴파일러가 최적화한 결과라고 생각하면 되며, 이 글에서 중요하지 않는 부분이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;바이트 코드를 읽어보니 언박싱이 어떻게 동작하는 건지 알 수 있을것 같다.&lt;br /&gt;
-바이트 코드 분석중 2-2 를 확인해보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKEVIRTUAL java/lang/Integer.intValue ()I&lt;/code&gt; 이 부분이 박싱 객체를 언박싱하는 과정으로 보이는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 참조를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;intValue()&lt;/code&gt; 메소드를 실행하려고 시도하니 &lt;code class=&quot;highlighter-rouge&quot;&gt;NullPointException&lt;/code&gt; 이 발생한 것이였다.&lt;/p&gt;
-
-&lt;h2 id=&quot;1짤-요약&quot;&gt;1짤 요약&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/76700066-e9e04b00-66f6-11ea-9263-1f4f049917a3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
-&lt;p&gt;퇴근 직전에 재밌는 떡밥이였다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;이 이슈는 알고보니 아주 유명한 이슈라고 한다.
-    &lt;ul&gt;
-      &lt;li&gt;이것도 자바 스펙중 하나로 오라클에 &lt;a href=&quot;https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.25&quot;&gt;오피셜 문서&lt;/a&gt;가 존재한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3항 연산자에 박싱 객체와 언박싱 객체가 공존할 때, 언박싱 객체를 박싱객체로 변환하는 방법도 있을법 하지만, 컴파일러는 언박싱 처리를 하도록 하고 있다. 이유가 뭘까?
-    &lt;ul&gt;
-      &lt;li&gt;그냥 단순히 객체 생성 비용을 아끼기 위해서 일까? 다른 이유가 있을까?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sun, 15 Mar 2020 15:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/java/java-conditional-operator</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/java/java-conditional-operator</guid>
-        
-        <category>java</category>
         
         
         <category>java</category>

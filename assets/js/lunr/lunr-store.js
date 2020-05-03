@@ -153,4 +153,9 @@ var store = [{
         "excerpt":"정의 특징 예제코드 참고자료 정의 복잡한 객체를 생성하는 방법과 표현하는 방법을 정의하는 클래스를 분리하는 패턴 특징 빌더에 의해 객체 생성방법이 추상화 되기 때문에 객체 생성 난이도가 낮아지며, 객체 생성방법이 클라이언트로 부터 어느정도 자유로워 질 수 있다. 외부에는 간결한 인터페이스를 제공하고, 내부적으로는 복잡한 생성로직을 처리한다. 예제코드 객체 생성을 위해 필요한 정보를...","categories": ["study"],
         "tags": ["디자인 패턴"],
         "url": "https://jehuipark.github.io/study/builder-pattern",
+        "teaser":null},{
+        "title": "Java 로깅전략 with MDC",
+        "excerpt":"MDC 예제코드 참고자료 어플리케이션에서 이루어지는 어떤 행위에는 보통 Context(문맥) 가 존재한다. 그렇기에 로그정보를 Context 단위로 볼 수 있다면, 더 유의미한 로그가 될 것이다. MDC Java 로깅 프레임워크에서는 관련 기능을 MDC 라는 이름으로 제공하고 있다. MDC 는 key/value 저장소를 지원하며, 이 저장소는 ThreadContext 에 의존한다. 예제코드 의존성 dependencies { compile group:...","categories": ["java"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/java/java-logging-mdc",
         "teaser":null}]
