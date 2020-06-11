@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 03 May 2020 23:06:02 +0900</pubDate>
-    <lastBuildDate>Sun, 03 May 2020 23:06:02 +0900</lastBuildDate>
+    <pubDate>Fri, 12 Jun 2020 00:13:36 +0900</pubDate>
+    <lastBuildDate>Fri, 12 Jun 2020 00:13:36 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -832,7 +832,7 @@ imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;
       </item>
     
       <item>
-        <title>JPA 에서 UUID 사용할 때 주의할 점</title>
+        <title>JPA 에서 UUID 삽질기록</title>
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#uuid로-조회가-안된다&quot; id=&quot;markdown-toc-uuid로-조회가-안된다&quot;&gt;UUID로 조회가 안된다.&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#혼란이-온다&quot; id=&quot;markdown-toc-혼란이-온다&quot;&gt;혼란이 온다.&lt;/a&gt;&lt;/li&gt;
@@ -857,12 +857,12 @@ imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;
 &lt;p&gt;2번 로직은 요약하면 이런 구성이였다.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;UUID 값을 전달받는다.
+  &lt;li&gt;전달 받은 UUID 를 이용하여 조회를 요청한다.
     &lt;ol&gt;
-      &lt;li&gt;UUID 값이 없다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Exception&lt;/code&gt; 을 &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt; 한다.&lt;/li&gt;
+      &lt;li&gt;조회결과가 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; 이면 예외로 처리한다.&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;UUID 값을 이용해 조회후 값을 변경한다.&lt;/li&gt;
+  &lt;li&gt;다음 로직을 실행한다.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;검증하는 과정에서는 정상적인 컨텍스트에서 실행을 했기 때문에 이 메소드는 예외를 발생시키지 않고 정상 리턴되야 했는데 이상하게 UUID 값이 없다는 예외를 발생시키고 있엇다.&lt;/p&gt;
