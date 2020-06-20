@@ -66,11 +66,15 @@ Example Java Test Code boilerplate
 
 
 ### FileTemplate
-Example Vue boilerplate  
+
+#### Vue Template
 뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.  
 `Preferences > Editor > file and code templates`  
 ![image](https://user-images.githubusercontent.com/25237661/80306590-34c5a600-87ff-11ea-81be-af466056dfc0.png){:width="500px"}
 
+#### Blog Template
+![image](https://user-images.githubusercontent.com/25237661/85196498-91cc6c80-b315-11ea-804d-11dd10ad93a9.png)  
+![blog-template](https://user-images.githubusercontent.com/25237661/85196691-f1774780-b316-11ea-833f-af856d70330a.gif)
 
 ## 터미널에서 Intellij 실행하기
 작업을 하다보면 **터미널에서 intellij 를 실행하고 싶을 때**가 자주있다.  
