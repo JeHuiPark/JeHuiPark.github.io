@@ -158,4 +158,9 @@ var store = [{
         "excerpt":"MDC 예제코드 참고자료 어플리케이션에서 이루어지는 어떤 행위에는 보통 Context(문맥) 가 존재한다. 그렇기에 로그정보를 Context 단위로 볼 수 있다면, 더 유의미한 로그가 될 것이다. MDC Java 로깅 프레임워크에서는 관련 기능을 MDC 라는 이름으로 제공하고 있다. MDC 는 key/value 저장소를 지원하며, 이 저장소는 ThreadContext 에 의존한다. 예제코드 의존성 dependencies { compile group:...","categories": ["java"],
         "tags": [],
         "url": "https://jehuipark.github.io/java/java-logging-mdc",
+        "teaser":null},{
+        "title": "MS Excel csv 한글깨짐",
+        "excerpt":"증상 원인 해결 예제코드 매직넘버 적용결과 증상 특정 편집기로는 CSV 파일을 열어볼 때는 글자 깨짐 현상 없음 MS Excel 편집기로 CSV 파일을 열어볼 때는 글자 깨짐 현상 발생 원인 MS Excel 에 파일의 인코딩을 알리는 BOM 누락 (매직넘버라고 부른다.) 아래는 위키피디아의 문서의 내용을 발췌 마이크로소프트의 컴파일러와 인터프리터 그리고 노트패드와 같은...","categories": ["note"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/note/ms-excel-utf8",
         "teaser":null}]
