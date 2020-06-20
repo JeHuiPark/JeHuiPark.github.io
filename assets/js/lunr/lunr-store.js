@@ -135,7 +135,7 @@ var store = [{
         "url": "https://jehuipark.github.io/study/factory-method",
         "teaser":null},{
         "title": "IntelliJ 잘 쓰기 Tip",
-        "excerpt":"No newline at end of file 보일러 플레이트 해결하기 LiveTemplate 템플릿 만들기 템플릿 적용위치 설정하기 사용 예시 FileTemplate 터미널에서 Intellij 실행하기 No newline at end of file intelliJ 에서는 커맨드 + N 단축키를 이용하여 테스트 클래스를 자동생성할 수 있는데, 이 기능을 그냥 이용하게 되면 거슬리는게 하나 있다. 소스트리 깃헙 터미널...","categories": ["note"],
+        "excerpt":"No newline at end of file 보일러 플레이트 해결하기 LiveTemplate 템플릿 만들기 템플릿 적용위치 설정하기 사용 예시 FileTemplate Vue Template Blog Template 터미널에서 Intellij 실행하기 No newline at end of file intelliJ 에서는 커맨드 + N 단축키를 이용하여 테스트 클래스를 자동생성할 수 있는데, 이 기능을 그냥 이용하게 되면 거슬리는게 하나...","categories": ["note"],
         "tags": [],
         "url": "https://jehuipark.github.io/note/use-intellij-more-well",
         "teaser":null},{

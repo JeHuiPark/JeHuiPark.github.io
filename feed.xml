@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 Jun 2020 20:25:09 +0900</pubDate>
-    <lastBuildDate>Sat, 13 Jun 2020 20:25:09 +0900</lastBuildDate>
+    <pubDate>Sat, 20 Jun 2020 16:58:55 +0900</pubDate>
+    <lastBuildDate>Sat, 20 Jun 2020 16:58:55 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -426,7 +426,11 @@
           &lt;li&gt;&lt;a href=&quot;#사용-예시&quot; id=&quot;markdown-toc-사용-예시&quot;&gt;사용 예시&lt;/a&gt;&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#filetemplate&quot; id=&quot;markdown-toc-filetemplate&quot;&gt;FileTemplate&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#filetemplate&quot; id=&quot;markdown-toc-filetemplate&quot;&gt;FileTemplate&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#vue-template&quot; id=&quot;markdown-toc-vue-template&quot;&gt;Vue Template&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#blog-template&quot; id=&quot;markdown-toc-blog-template&quot;&gt;Blog Template&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#터미널에서-intellij-실행하기&quot; id=&quot;markdown-toc-터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/a&gt;&lt;/li&gt;
@@ -491,10 +495,15 @@
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80307461-275eea80-8804-11ea-8634-69ea9ff0304c.gif&quot; alt=&quot;live_template&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;filetemplate&quot;&gt;FileTemplate&lt;/h3&gt;
-&lt;p&gt;Example Vue boilerplate&lt;br /&gt;
-뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.&lt;br /&gt;
+
+&lt;h4 id=&quot;vue-template&quot;&gt;Vue Template&lt;/h4&gt;
+&lt;p&gt;뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Editor &amp;gt; file and code templates&lt;/code&gt;&lt;br /&gt;
 &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306590-34c5a600-87ff-11ea-81be-af466056dfc0.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;blog-template&quot;&gt;Blog Template&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/85196498-91cc6c80-b315-11ea-804d-11dd10ad93a9.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/85196691-f1774780-b316-11ea-833f-af856d70330a.gif&quot; alt=&quot;blog-template&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/h2&gt;
 &lt;p&gt;작업을 하다보면 &lt;strong&gt;터미널에서 intellij 를 실행하고 싶을 때&lt;/strong&gt;가 자주있다.&lt;br /&gt;
