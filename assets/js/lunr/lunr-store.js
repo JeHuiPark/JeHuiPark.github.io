@@ -80,7 +80,7 @@ var store = [{
         "url": "https://jehuipark.github.io/note/transaction-do-not-work-issue",
         "teaser":null},{
         "title": "책봐라 제희야",
-        "excerpt":"               제목       저자                       이펙티브 자바       조슈아 블로                 클린코드 애자일 소프트웨어 장인정신       로버트C. 마틴                 도메인 주도 설계       에릭 에반스                 자바 ORM 표준 JPA 프로그래밍       김영한                 오브젝트       조양호                 헤드퍼스트 디자인패턴                         GOF의 디자인패턴                         켄트 벡의 구현 패턴                         피플 웨어                         알고리즘       로버트 세지윅          ","categories": ["note"],
+        "excerpt":"제목 저자 이펙티브 자바 조슈아 블로 클린코드 애자일 소프트웨어 장인정신 로버트C. 마틴 도메인 주도 설계 에릭 에반스 자바 ORM 표준 JPA 프로그래밍 김영한 오브젝트 조양호 헤드퍼스트 디자인패턴   GOF의 디자인패턴   켄트 벡의 구현 패턴   피플 웨어   알고리즘 로버트 세지윅 데이터 중심 애플리케이션 설계 마틴 클레프만 컴퓨팅 사고...","categories": ["note"],
         "tags": [],
         "url": "https://jehuipark.github.io/note/book-read-plan",
         "teaser":null},{
