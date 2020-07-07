@@ -152,3 +152,8 @@ values (unhex(replace('8f886d50-70ff-11ea-b498-02dd0a2dce82','-','')));
 
     예상대로 조회가 되는 것을 확인할 수 있다.  
     ![image](https://user-images.githubusercontent.com/25237661/77825850-47d94d80-714f-11ea-94f2-4068c05b2f1e.png)
+    
+## 깔끔하게 정리한 글
+https://helloworld.kurly.com/blog/jpa-uuid-sapjil/
+
+
