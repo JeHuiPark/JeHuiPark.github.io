@@ -110,7 +110,7 @@ var store = [{
         "url": "https://jehuipark.github.io/java/java-conditional-operator",
         "teaser":null},{
         "title": "JPA 에서 UUID 삽질기록",
-        "excerpt":"UUID로 조회가 안된다. 혼란이 온다. 성공적인 구글링 왜 그럴까? 한줄 요약 확인 해보자 UUID로 조회가 안된다. 최근에 엔티티를 만들면서 Id 컬럼의 타입을 UUID 로 지정하면서 경험했던 이슈가 있다. 평소처럼 엔티티를 클래스를 작성하고, 기본적인 비즈니스 로직(1번 로직)을 구현하고, 비즈니스 로직에 대응하는 TC 를 작성하고 문제없이 동작하는 것을 확인한 후에 나는 다음...","categories": ["java"],
+        "excerpt":"UUID로 조회가 안된다. 혼란이 온다. 성공적인 구글링 왜 그럴까? 한줄 요약 확인 해보자 깔끔하게 정리한 글 UUID로 조회가 안된다. 최근에 엔티티를 만들면서 Id 컬럼의 타입을 UUID 로 지정하면서 경험했던 이슈가 있다. 평소처럼 엔티티를 클래스를 작성하고, 기본적인 비즈니스 로직(1번 로직)을 구현하고, 비즈니스 로직에 대응하는 TC 를 작성하고 문제없이 동작하는 것을 확인한...","categories": ["java"],
         "tags": ["mysql","uuid"],
         "url": "https://jehuipark.github.io/java/my-sql-binary-reference",
         "teaser":null},{
