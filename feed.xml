@@ -6,9 +6,136 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 07 Jul 2020 18:38:45 +0900</pubDate>
-    <lastBuildDate>Tue, 07 Jul 2020 18:38:45 +0900</lastBuildDate>
+    <pubDate>Sat, 11 Jul 2020 21:02:15 +0900</pubDate>
+    <lastBuildDate>Sat, 11 Jul 2020 21:02:15 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Springboot 2.2.x MockMvc 인코딩 이슈</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#springboot-mockmvc-한글깨짐&quot; id=&quot;markdown-toc-springboot-mockmvc-한글깨짐&quot;&gt;SpringBoot MockMvc 한글깨짐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#해결법-찾기&quot; id=&quot;markdown-toc-해결법-찾기&quot;&gt;해결법 찾기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#해결&quot; id=&quot;markdown-toc-해결&quot;&gt;해결&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#정리&quot; id=&quot;markdown-toc-정리&quot;&gt;정리&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#관련링크&quot; id=&quot;markdown-toc-관련링크&quot;&gt;관련링크&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;springboot-mockmvc-한글깨짐&quot;&gt;SpringBoot MockMvc 한글깨짐&lt;/h2&gt;
+&lt;p&gt;SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈에 거슬리는게 생겼다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvc&lt;/code&gt; 에는 요청과 응답에 관한 정보를 이쁘게 출력해주는 기능이 포함되어 있는데, 
+버전을 변경한 이후 MockMvc 에서 출력시 이용하는 인코딩이 맞지 않아 글자가 박살난 것을 확인할 수 있다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222377-1eff6000-c3ae-11ea-89bd-353cae7f4038.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 한글깨짐 현상은 SpringBoot 2.2 로 넘어오면서 적용된 변경사항에 대한 사이드 이펙트로 추측 (이거 버그 같은데)&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Spring 에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;MediaType.APPLICATION_JSON_UTF8&lt;/code&gt; 사용중단 결정이 내려지고, 해당 변경사항이 SpringFramework 5.2 버전에서 적용이 되었는데, SpringBoot 2.2.x 버전부터 SpringFramework 버전을 5.2 변경&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;아무튼 실제 코드 동작에는 영향이 없기도 하고 귀찮아서 그냥 방치하고 있었는데, MockMvcFilter 에 UTF8 인코딩 필터를 추가하면 된다는 정보를 확인했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;해결법-찾기&quot;&gt;해결법 찾기&lt;/h2&gt;
+&lt;p&gt;좋은 정보를 얻었으니 직접 해결 해보자&lt;/p&gt;
+
+&lt;p&gt;우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvc&lt;/code&gt; 를 주입받고 있는 방식이니 &lt;code class=&quot;highlighter-rouge&quot;&gt;@AutoConfigureMockMvc&lt;/code&gt; 의 주석을 확인 해보았다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;주석에서 시키는대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvcAutoConfiguration&lt;/code&gt; 와 &lt;code class=&quot;highlighter-rouge&quot;&gt;SpringBootMockMvcBuilderCustomizer&lt;/code&gt; 를 확인해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvcAutoConfiguration&lt;/code&gt; 의 일부분인데 자주 보이는 패턴이라서 어떤 느낌인지 알 것 같다.&lt;br /&gt;
+&lt;em&gt;자동 설정에 대하여 확장 포인트를 제공하기 위해 이런식으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;hook&lt;/code&gt; 을 제공하는 패턴이 많음&lt;/em&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222798-042eea80-c3b2-11ea-9858-6cee042fb4a8.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고, &lt;code class=&quot;highlighter-rouge&quot;&gt;SpringBootMockMvcBuilderCustomizer&lt;/code&gt; 를 살펴보자.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SpringBootMockMvcBuilderCustomizer&lt;/code&gt; 는 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvcAutoConfiguration&lt;/code&gt; 에서 확인했던 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvcBuilderCustomizer&lt;/code&gt; 인터페이스의 기본 구현체다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;builder&lt;/code&gt; 를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvc&lt;/code&gt; 에 필터를 추가할 수 있겠다는 정보를 얻을 수 있다. 
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222819-3e988780-c3b2-11ea-987b-9706f6155af1.png&quot; alt=&quot;image&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;커스텀 설정 어노테이션을 작성한다
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@AutoConfigureMockMvc&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@Import&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
+     &lt;span class=&quot;nc&quot;&gt;SampleConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SampleConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+   &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+     &lt;span class=&quot;nc&quot;&gt;MockMvcBuilderCustomizer&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;utf8Config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addFilters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CharacterEncodingFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;테스트에 커스텀 설정을 추가한다
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@SampleConfig&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@SpringBootTest&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SampleApplicationTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+   &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;MockMvc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+   &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+   &lt;span class=&quot;nc&quot;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+   &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;writeValueAsString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;k&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;한글&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    
+     &lt;span class=&quot;n&quot;&gt;mockMvc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sample&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;contentType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andDo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    
+   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;테스트 코드를 변경했으니 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvc&lt;/code&gt; 인코딩이 깨지나 안깨지나 로깅을 확인 해보자&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87223171-a9978d80-c3b5-11ea-96cb-c23f938cc016.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;안깨진다 👍👍👍 샘플 코드는 &lt;a href=&quot;https://github.com/JeHuiPark/blog-sample/tree/master/boot2-2-x-mock-mvc-sample&quot;&gt;여기에서&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
+&lt;p&gt;영어 능력이 부족해서 100% 맞는 내용이다 장담할 수는 없지만 나름대로 요약하면&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;RFC 7159 가 폐기되고, RFC 8259 로 대체 되었다.&lt;/li&gt;
+  &lt;li&gt;RFC 8259 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.&lt;/li&gt;
+  &lt;li&gt;메이저 브라우저인 크롬에는 이미 RFC 8259 스펙이 적용되어 있다.&lt;/li&gt;
+  &lt;li&gt;스프링에서도 RFC 8259 스펙을 적용하기로 결정하였다.&lt;/li&gt;
+  &lt;li&gt;RFC 8259 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.&lt;/li&gt;
+  &lt;li&gt;SpringBoot 2.2.x 버전은 SpringFrameWork 5.2 버전을 사용한다.&lt;/li&gt;
+  &lt;li&gt;SpringBoot 테스트 도구에는 RFC 8259 스펙 적용이 되지 않은듯 하다. (2.3.0 버전도 확인해 보았으나, 동일한 이슈 존재)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;관련링크&quot;&gt;관련링크&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/JeHuiPark/blog-sample/tree/master/boot2-2-x-mock-mvc-sample&quot;&gt;샘플 코드&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes&quot;&gt;SpringBoot 2.2 Release Note&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-5.x#deprecation-of-mediatypeapplication_json_utf8-and-mediatypeapplication_problem_json_utf8&quot;&gt;Upgrading to Version 5.2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-framework/issues/22788&quot;&gt;미디어 타입 깃헙 이슈&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7159&quot;&gt;RFC 7159&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 11 Jul 2020 19:22:17 +0900</pubDate>
+        <link>https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue</guid>
+        
+        
+        <category>spring</category>
+        
+      </item>
     
       <item>
         <title>MS Excel csv 한글깨짐</title>
@@ -768,151 +895,6 @@
         
         
         <category>study</category>
-        
-      </item>
-    
-      <item>
-        <title>Vim 어린이가 만든 GitHub Co-Author Vim Plugin</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#github-co-author&quot; id=&quot;markdown-toc-github-co-author&quot;&gt;GitHub Co-Author?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#난-이-기능이-좋다&quot; id=&quot;markdown-toc-난-이-기능이-좋다&quot;&gt;난 이 기능이 좋다.&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#co-author-표시하기&quot; id=&quot;markdown-toc-co-author-표시하기&quot;&gt;Co-Author 표시하기&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#막상-작성을-해보려고-하면&quot; id=&quot;markdown-toc-막상-작성을-해보려고-하면&quot;&gt;막상 작성을 해보려고 하면?&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#vim-을-이용하자&quot; id=&quot;markdown-toc-vim-을-이용하자&quot;&gt;vim 을 이용하자&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#기획&quot; id=&quot;markdown-toc-기획&quot;&gt;기획&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#사전학습&quot; id=&quot;markdown-toc-사전학습&quot;&gt;사전학습&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#vimscript-연습&quot; id=&quot;markdown-toc-vimscript-연습&quot;&gt;vimscript 연습&lt;/a&gt;            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#배열-다루기&quot; id=&quot;markdown-toc-배열-다루기&quot;&gt;배열 다루기&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#파일-읽기&quot; id=&quot;markdown-toc-파일-읽기&quot;&gt;파일 읽기&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#키맵핑-하기&quot; id=&quot;markdown-toc-키맵핑-하기&quot;&gt;키맵핑 하기&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#개발완료&quot; id=&quot;markdown-toc-개발완료&quot;&gt;개발완료&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;github-co-author&quot;&gt;GitHub Co-Author?&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Author&lt;/code&gt; 의 사전적 의미를 네이버에 검색하면 공동저자라고 나온다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842393-8f51ef00-71cc-11ea-94fb-005522612e99.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;GitHub 는 이렇게 하나의 커밋에 2명 이상의 기여자가 존재할 경우에 누가 이 커밋에 기여했는지 UI로 표현해주는 기능을 제공한다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842434-06878300-71cd-11ea-846c-2f2ad3e8407e.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;난-이-기능이-좋다&quot;&gt;난 이 기능이 좋다.&lt;/h2&gt;
-&lt;p&gt;현재 회사에서는 코드를 작성하면 모든 코드는 빠짐없이 PR 과정을 거치게 된다.&lt;br /&gt;
-그렇다보니, 내 코드에 다른 사람의 의견이 반영되는 경우도 빈번하게 발생 하는데, 이런 경우에 GitHub 에서 지원하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Author&lt;/code&gt; 기능을 이용하면 해당 변경사항에 어떤 사람이 기여했는지 기록을 남기는 동시에 UI 로 표시까지 해주니 금상첨화다.&lt;/p&gt;
-
-&lt;h3 id=&quot;co-author-표시하기&quot;&gt;Co-Author 표시하기&lt;/h3&gt;
-&lt;p&gt;간단하다&lt;em&gt;(귀찮다)&lt;/em&gt; 커밋 메시지를 작성할 때 GitHub 에서 &lt;a href=&quot;https://help.github.com/en/github/committing-changes-to-your-project/creating-a-commit-with-multiple-authors&quot;&gt;가이드&lt;/a&gt; 하는 포멧에 맞추어 작성하면 된다.&lt;/p&gt;
-
-&lt;h3 id=&quot;막상-작성을-해보려고-하면&quot;&gt;막상 작성을 해보려고 하면?&lt;/h3&gt;
-&lt;p&gt;간단한데, 막상 작성하려고 하면 되게 귀찮은 작업이다. 
-팀원의 GitHub 계정명도 알아야하고, 이메일정보도 알아야 하는데 어디에 복사해 두고 하자니 커밋 메시지 작성하는데 한 세월이 걸릴 것 같은 느낌적인 느낌이 들었다. (완전 노가다)
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77842923-d0e59880-71d2-11ea-8124-28bcd51cb7d7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그래서, 커밋 메시지에 컨트리뷰터 작성할 때 꿀팁이 있는지 &lt;a href=&quot;https://johngrib.github.io/&quot;&gt;기계인간 존그립&lt;/a&gt;님에게 질문해보았다.&lt;/p&gt;
-
-&lt;p&gt;존그립 님이 이런 답변을 주었다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;vim 의 자동완성 기능을 이용하면 될듯하다. 만들어두면 쓸만하겠는데요?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;vim-을-이용하자&quot;&gt;vim 을 이용하자&lt;/h2&gt;
-&lt;p&gt;존그립 님이 과거에 커밋메시지 관련하여 만든 &lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;플러그인&lt;/a&gt;을 참고하면 도움이 될 거라고 하였다.&lt;/p&gt;
-
-&lt;h3 id=&quot;기획&quot;&gt;기획&lt;/h3&gt;
-
-&lt;p&gt;내가 만드려고 기획한 플러그인의 사용 시나리오는 이렇다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;커밋 메시지 입력 화면으로 이동한다.&lt;/li&gt;
-  &lt;li&gt;공동저자 입력을 위해 단축키를 누른다&lt;/li&gt;
-  &lt;li&gt;팀원 목록이 리스트로 출력된다.&lt;/li&gt;
-  &lt;li&gt;팀원을 선택한다.&lt;/li&gt;
-  &lt;li&gt;선택한 팀원정보로 공동저자 정보가 커밋메시지에 추가된다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;팀원 리스트는 설정 파일로 관리한다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;사전학습&quot;&gt;사전학습&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vimscript&lt;/code&gt; 의 문법을 모르는 상태이기 때문에 &lt;a href=&quot;https://devhints.io/vimscript&quot;&gt;여기에서&lt;/a&gt; 도움을 많이 받았다.&lt;/p&gt;
-
-&lt;h4 id=&quot;vimscript-연습&quot;&gt;vimscript 연습&lt;/h4&gt;
-
-&lt;h5 id=&quot;배열-다루기&quot;&gt;배열 다루기&lt;/h5&gt;
-&lt;p&gt;이 스크립트는 &lt;code class=&quot;highlighter-rouge&quot;&gt;team&lt;/code&gt; 이라는 변수를 배열로 초기화 하고, 배열에 값을 추가하는 코드이다.&lt;/p&gt;
-&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'박제희'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; team &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; add&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'존그립'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  echo team
-&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843363-6f73f880-71d7-11ea-83c5-f23595e8c9df.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;파일-읽기&quot;&gt;파일 읽기&lt;/h5&gt;
-&lt;p&gt;이 스크립트는 현재경로에 존재하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;example&lt;/code&gt; 이라는 파일을 읽어서 라인별로 &lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt; 를 하는 코드이다.&lt;/p&gt;
-&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; fileAbsolutePath &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; expand&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'%:p:h'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; records &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; readfile&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fileAbsolutePath &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/example'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; record &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; records
-    echo record
-  &lt;span class=&quot;k&quot;&gt;endfor&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843575-6be17100-71d9-11ea-8fdc-88df9fe273dd.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;키맵핑-하기&quot;&gt;키맵핑 하기&lt;/h5&gt;
-&lt;p&gt;이 코드는 vim 편집모드에서 ctrl + l 키를 입력할 시 TestFunction을 실행하라는 코드이다.&lt;br /&gt;
-기대 하는 결과는 편집모드에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Co-Authored-By: jehuipark &amp;lt;email&amp;gt;&lt;/code&gt; 텍스트가 입력될 것이다.&lt;/p&gt;
-&lt;div class=&quot;language-vimscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; TestFunction&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Co-Authored-By: jehuipark &amp;lt;email&amp;gt;'&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
-
-imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;R&lt;span class=&quot;p&quot;&gt;&amp;gt;=&lt;/span&gt;TestFunction&lt;span class=&quot;p&quot;&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77843700-af88aa80-71da-11ea-820e-2884d8a10d8d.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;개발완료&quot;&gt;개발완료&lt;/h3&gt;
-&lt;p&gt;이렇게 단위별로 기능을 작성하는 연습을 끝낸 후에 본격적으로 내가 원하는 플러그인을 만들기 위해 개발을 시작하였고, 조악한 코드지만 어찌어찌 완성을 하였다!&lt;/p&gt;
-
-&lt;p&gt;이렇게 만든 스크립트는 &lt;a href=&quot;https://github.com/JeHuiPark/github-co-author-vim-plugin&quot;&gt;GitHub 저장소&lt;/a&gt;에 올려두었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;설정파일의 내용&lt;/strong&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77854220-de773e80-7223-11ea-9608-cdbe1d7506c7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;자! 이제 사용을 해보자 
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/77853939-11203780-7222-11ea-8414-48b336fed2a8.gif&quot; alt=&quot;github-co-plugin&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;하하하하하 잘된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;기계인간 존그립 님의 포스팅1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;https://johngrib.github.io/wiki/vim-auto-completion/&quot;&gt;기계인간 존그립 님의 포스팅2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;https://github.com/johngrib/vim-git-msg-wheel&quot;&gt;박준근 님의 vim-plug&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;https://devhints.io/vimscript&quot;&gt;vim script cheatsheet&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&quot;https://blog.semanticart.com/2017/01/05/lets-write-a-basic-vim-plugin/&quot;&gt;어떤 외국인 블로그&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Sun, 29 Mar 2020 14:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/vim-plugin-create</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/vim-plugin-create</guid>
-        
-        <category>vim</category>
-        
-        <category>github</category>
-        
-        
-        <category>note</category>
         
       </item>
     

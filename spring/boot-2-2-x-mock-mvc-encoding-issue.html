@@ -1,0 +1,137 @@
+<!doctype html> <!-- Minimal Mistakes Jekyll Theme 4.12.0 by Michael Rose Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes Free for personal and commercial use under the MIT license https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt --><html lang="ko" class="no-js"><head><meta charset="utf-8"> <!-- begin _includes/seo.html --><title>Springboot 2.2.x MockMvc 인코딩 이슈 - JH Blog</title><meta name="description" content="developer JH website."><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="JH Blog"><meta property="og:title" content="Springboot 2.2.x MockMvc 인코딩 이슈"><meta property="og:url" content="https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue"><meta property="og:description" content="developer JH website."><meta property="article:published_time" content="2020-07-11T19:22:17+09:00"><meta property="fb:app_id" content="150481385751381"><link rel="canonical" href="https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Person", "name": "Dev JH", "url": "https://jehuipark.github.io", "sameAs": null } </script><meta name="google-site-verification" content="googlece77ee37e1eecdba" /><meta name="naver-site-verification" content="naver4b9c5fbe228f7d5fc4264f265fee743a"> <!-- end _includes/seo.html --> <!--<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JH Blog Feed">--><link rel="alternate" type="application/rss+xml" href="https://jehuipark.github.io/feed.xml" title="JH Blog Feed"> <!-- https://t.co/dKP3o1e --><meta name="viewport" content="width=device-width, initial-scale=1.0"> <script> document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js '; </script> <!-- For all browsers --><link rel="stylesheet" href="/assets/css/main.css"> <!--[if IE ]><style> /* old IE unsupported flexbox fixes */ .greedy-nav .site-title { padding-right: 3em; } .greedy-nav button { position: absolute; top: 0; right: 0; height: 100%; }</style><![endif]--> <script src="/assets/js/highlight.js"></script> <script src="/assets/js/highlightjs-line-numbers.min.js"></script> <!-- start custom head snippets --> <!--<link href="/assets/css/railscasts.css" rel="stylesheet" type="text/css">--><link href="/assets/css/zenburn.css" rel="stylesheet" type="text/css"> <!-- insert favicons. use https://realfavicongenerator.net/ --> <!-- end custom head snippets --><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"><link rel="icon" href="/favicon.ico" type="image/x-icon"></head><body class="layout--posts"> <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]--><div class="masthead"><div class="masthead__inner-wrap"><div class="masthead__menu"><nav id="site-nav" class="greedy-nav"> <a class="site-title" href="/">JH Blog</a><ul class="visible-links">
+<li class="masthead__menu-item"> <a href="/about/">about</a>
+</li>
+<li class="masthead__menu-item"> <a href="/categories">category</a>
+</li>
+<li class="masthead__menu-item"> <a href="/tags">tag</a>
+</li>
+</ul>
+<button class="search__toggle" type="button"> <span class="visually-hidden">Toggle search</span> <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 15.99 16"><path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path> </svg> </button> <button class="greedy-nav__toggle hidden" type="button"> <span class="visually-hidden">토글 메뉴</span><div class="navicon"></div></button><ul class="hidden-links hidden"></ul></nav></div></div></div><div class="initial-content"><div id="main" role="main">
+<div class="sidebar sticky"><div itemscope itemtype="https://schema.org/Person">
+<div class="author__avatar"> <img src="/assets/images/me.jpg" alt="JeHui Park" itemprop="image">
+</div>
+<div class="author__content">
+<h3 class="author__name" itemprop="name">JeHui Park</h3>
+<p class="author__bio" itemprop="description"> 개발자 박제희</p>
+</div>
+<div class="author__urls-wrapper"> <button class="btn btn--inverse">팔로우</button><ul class="author__urls social-icons">
+<li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place"> <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+</li>
+<li> <a href="https://jehuipark.github.io" itemprop="url"> <i class="fas fa-fw fa-link" aria-hidden="true"></i> 웹사이트 </a>
+</li>
+<li> <a href="mailto:pjh2359@gmail.com"><meta itemprop="email" content="pjh2359@gmail.com"> <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일 </a>
+</li>
+<li> <a href="https://github.com/JeHuiPark" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub </a>
+</li>
+<!--<li> <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer"> <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link </a></li>-->
+</ul>
+</div>
+</div></div>
+<div class="archive">
+<h1 id="page-title" class="page__title">Springboot 2.2.x MockMvc 인코딩 이슈</h1>
+<ul id="markdown-toc">
+<li><a href="#springboot-mockmvc-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90" id="markdown-toc-springboot-mockmvc-한글깨짐">SpringBoot MockMvc 한글깨짐</a></li>
+<li><a href="#%ED%95%B4%EA%B2%B0%EB%B2%95-%EC%B0%BE%EA%B8%B0" id="markdown-toc-해결법-찾기">해결법 찾기</a></li>
+<li><a href="#%ED%95%B4%EA%B2%B0" id="markdown-toc-해결">해결</a></li>
+<li><a href="#%EC%A0%95%EB%A6%AC" id="markdown-toc-정리">정리</a></li>
+<li><a href="#%EA%B4%80%EB%A0%A8%EB%A7%81%ED%81%AC" id="markdown-toc-관련링크">관련링크</a></li>
+</ul>
+<h2 id="springboot-mockmvc-한글깨짐">SpringBoot MockMvc 한글깨짐</h2>
+<p>SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈에 거슬리는게 생겼다.<br> <code class="highlighter-rouge">MockMvc</code> 에는 요청과 응답에 관한 정보를 이쁘게 출력해주는 기능이 포함되어 있는데, 버전을 변경한 이후 MockMvc 에서 출력시 이용하는 인코딩이 맞지 않아 글자가 박살난 것을 확인할 수 있다.<br> <img src="https://user-images.githubusercontent.com/25237661/87222377-1eff6000-c3ae-11ea-89bd-353cae7f4038.png" alt="image" width="300px"></p>
+<p>이 한글깨짐 현상은 SpringBoot 2.2 로 넘어오면서 적용된 변경사항에 대한 사이드 이펙트로 추측 (이거 버그 같은데)</p>
+<blockquote><p><em>Spring 에서 <code class="highlighter-rouge">MediaType.APPLICATION_JSON_UTF8</code> 사용중단 결정이 내려지고, 해당 변경사항이 SpringFramework 5.2 버전에서 적용이 되었는데, SpringBoot 2.2.x 버전부터 SpringFramework 버전을 5.2 변경</em></p></blockquote>
+<p>아무튼 실제 코드 동작에는 영향이 없기도 하고 귀찮아서 그냥 방치하고 있었는데, MockMvcFilter 에 UTF8 인코딩 필터를 추가하면 된다는 정보를 확인했다.</p>
+<h2 id="해결법-찾기">해결법 찾기</h2>
+<p>좋은 정보를 얻었으니 직접 해결 해보자</p>
+<p>우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 <code class="highlighter-rouge">MockMvc</code> 를 주입받고 있는 방식이니 <code class="highlighter-rouge">@AutoConfigureMockMvc</code> 의 주석을 확인 해보았다.<br> <img src="https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png" alt="image" width="300px"></p>
+<p>주석에서 시키는대로 <code class="highlighter-rouge">MockMvcAutoConfiguration</code> 와 <code class="highlighter-rouge">SpringBootMockMvcBuilderCustomizer</code> 를 확인해 보았다.</p>
+<p><code class="highlighter-rouge">MockMvcAutoConfiguration</code> 의 일부분인데 자주 보이는 패턴이라서 어떤 느낌인지 알 것 같다.<br> <em>자동 설정에 대하여 확장 포인트를 제공하기 위해 이런식으로 <code class="highlighter-rouge">hook</code> 을 제공하는 패턴이 많음</em> <img src="https://user-images.githubusercontent.com/25237661/87222798-042eea80-c3b2-11ea-9858-6cee042fb4a8.png" alt="image"></p>
+<p>그리고, <code class="highlighter-rouge">SpringBootMockMvcBuilderCustomizer</code> 를 살펴보자.</p>
+<ul>
+<li>
+<code class="highlighter-rouge">SpringBootMockMvcBuilderCustomizer</code> 는 <code class="highlighter-rouge">MockMvcAutoConfiguration</code> 에서 확인했던 <code class="highlighter-rouge">MockMvcBuilderCustomizer</code> 인터페이스의 기본 구현체다.</li>
+<li>
+<code class="highlighter-rouge">builder</code> 를 이용하여 <code class="highlighter-rouge">MockMvc</code> 에 필터를 추가할 수 있겠다는 정보를 얻을 수 있다. <img src="https://user-images.githubusercontent.com/25237661/87222819-3e988780-c3b2-11ea-987b-9706f6155af1.png" alt="image">
+</li>
+</ul>
+<h2 id="해결">해결</h2>
+<ol>
+<li>커스텀 설정 어노테이션을 작성한다<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">)</span>
+ <span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+ <span class="nd">@AutoConfigureMockMvc</span>
+ <span class="nd">@Import</span><span class="o">({</span>
+     <span class="nc">SampleConfig</span><span class="o">.</span><span class="na">Sample</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+ <span class="o">})</span>
+ <span class="nd">@interface</span> <span class="nc">SampleConfig</span> <span class="o">{</span>
+    
+   <span class="kd">class</span> <span class="nc">Sample</span> <span class="o">{</span>
+     <span class="nd">@Bean</span>
+     <span class="nc">MockMvcBuilderCustomizer</span> <span class="nf">utf8Config</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">builder</span> <span class="o">-&gt;</span>
+           <span class="n">builder</span><span class="o">.</span><span class="na">addFilters</span><span class="o">(</span><span class="k">new</span> <span class="nc">CharacterEncodingFilter</span><span class="o">(</span><span class="s">"UTF-8"</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+     <span class="o">}</span>
+   <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+</li>
+<li>테스트에 커스텀 설정을 추가한다<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SampleConfig</span>
+ <span class="nd">@SpringBootTest</span>
+ <span class="kd">class</span> <span class="nc">SampleApplicationTest</span> <span class="o">{</span>
+    
+   <span class="nd">@Autowired</span>
+   <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+    
+   <span class="nd">@Autowired</span>
+   <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+    
+   <span class="nd">@Test</span>
+   <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+     <span class="kt">var</span> <span class="n">json</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"k"</span><span class="o">,</span> <span class="s">"한글"</span><span class="o">));</span>
+    
+     <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
+         <span class="n">get</span><span class="o">(</span><span class="s">"/sample"</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">json</span><span class="o">)</span>
+     <span class="o">).</span><span class="na">andDo</span><span class="o">(</span><span class="n">print</span><span class="o">());</span>
+    
+   <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+</li>
+</ol>
+<p>테스트 코드를 변경했으니 <code class="highlighter-rouge">MockMvc</code> 인코딩이 깨지나 안깨지나 로깅을 확인 해보자<br> <img src="https://user-images.githubusercontent.com/25237661/87223171-a9978d80-c3b5-11ea-96cb-c23f938cc016.png" alt="image" width="300px"></p>
+<p>안깨진다 👍👍👍 샘플 코드는 <a href="https://github.com/JeHuiPark/blog-sample/tree/master/boot2-2-x-mock-mvc-sample">여기에서</a></p>
+<h2 id="정리">정리</h2>
+<p>영어 능력이 부족해서 100% 맞는 내용이다 장담할 수는 없지만 나름대로 요약하면</p>
+<ul>
+<li>RFC 7159 가 폐기되고, RFC 8259 로 대체 되었다.</li>
+<li>RFC 8259 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.</li>
+<li>메이저 브라우저인 크롬에는 이미 RFC 8259 스펙이 적용되어 있다.</li>
+<li>스프링에서도 RFC 8259 스펙을 적용하기로 결정하였다.</li>
+<li>RFC 8259 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.</li>
+<li>SpringBoot 2.2.x 버전은 SpringFrameWork 5.2 버전을 사용한다.</li>
+<li>SpringBoot 테스트 도구에는 RFC 8259 스펙 적용이 되지 않은듯 하다. (2.3.0 버전도 확인해 보았으나, 동일한 이슈 존재)</li>
+</ul>
+<h2 id="관련링크">관련링크</h2>
+<ul>
+<li><a href="https://github.com/JeHuiPark/blog-sample/tree/master/boot2-2-x-mock-mvc-sample">샘플 코드</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes">SpringBoot 2.2 Release Note</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-5.x#deprecation-of-mediatypeapplication_json_utf8-and-mediatypeapplication_problem_json_utf8">Upgrading to Version 5.2</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/issues/22788">미디어 타입 깃헙 이슈</a></li>
+<li><a href="https://tools.ietf.org/html/rfc8259">RFC 8259</a></li>
+<li><a href="https://tools.ietf.org/html/rfc7159">RFC 7159</a></li>
+</ul>
+<a href="#page-title" class="back-to-top">Back to Top ↑</a><div class="page__comments">
+<h4 class="page__comments-title">댓글남기기</h4>
+<section id="disqus_thread"></section>
+</div>
+</div>
+</div></div><div class="search-content"><div class="search-content__inner-wrap">
+<input type="text" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력해주세요..."><div id="results" class="results"></div>
+<h3>우측 상단의 돋보기를 누르면 원래 화면으로 돌아갈 수 있습니다.</h3>
+</div></div><div class="page__footer"><footer> <!-- start custom footer snippets --> <!-- end custom footer snippets --><div class="page__footer-follow"><ul class="social-icons">
+<li><strong>팔로우:</strong></li>
+<li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+</ul></div>
+<div class="page__footer-copyright">© 2020 Dev JH. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div></footer></div><script src="/assets/js/main.min.js"></script> <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script> <script src="/assets/js/lunr/lunr.min.js"></script> <script src="/assets/js/lunr/lunr-store.js"></script> <script src="/assets/js/lunr/lunr-en.js"></script> <!-- start custom analytics snippet --> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-113477172-1', 'auto'); ga('send', 'pageview'); </script> <!-- end custom analytics snippet --> <script> var disqus_config = function () { this.page.url = "https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue"; /* Replace PAGE_URL with your page's canonical URL variable */ this.page.identifier = "/spring/boot-2-2-x-mock-mvc-encoding-issue"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */ }; (function() { /* DON'T EDIT BELOW THIS LINE */ var d = document, s = d.createElement('script'); s.src = 'https://https-jehuipark-github-io-blog.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })(); </script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript> <script> $(document).ready(function() { $('pre code').each(function(i, block) { try{block.className = block.parentElement.parentElement.parentElement.className.split(' ')[0].replace('language-', '')}catch(e){}; hljs.highlightBlock(block); }); hljs.initLineNumbersOnLoad(); }); </script></body></html>

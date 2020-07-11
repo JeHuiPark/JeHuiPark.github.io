@@ -163,4 +163,9 @@ var store = [{
         "excerpt":"증상 원인 해결 예제코드 매직넘버 적용결과 증상 특정 편집기로는 CSV 파일을 열어볼 때는 글자 깨짐 현상 없음 MS Excel 편집기로 CSV 파일을 열어볼 때는 글자 깨짐 현상 발생 원인 MS Excel 에 파일의 인코딩을 알리는 BOM 누락 (매직넘버라고 부른다.) 아래는 위키피디아의 문서의 내용을 발췌 마이크로소프트의 컴파일러와 인터프리터 그리고 노트패드와 같은...","categories": ["note"],
         "tags": [],
         "url": "https://jehuipark.github.io/note/ms-excel-utf8",
+        "teaser":null},{
+        "title": "Springboot 2.2.x MockMvc 인코딩 이슈",
+        "excerpt":"SpringBoot MockMvc 한글깨짐 해결법 찾기 해결 정리 관련링크 SpringBoot MockMvc 한글깨짐 SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈에 거슬리는게 생겼다. MockMvc 에는 요청과 응답에 관한 정보를 이쁘게 출력해주는 기능이 포함되어 있는데, 버전을 변경한 이후 MockMvc 에서 출력시 이용하는 인코딩이 맞지 않아 글자가 박살난 것을 확인할 수 있다....","categories": ["spring"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue",
         "teaser":null}]
