@@ -24,7 +24,7 @@ SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈
 좋은 정보를 얻었으니 직접 해결 해보자
   
 우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 `MockMvc` 를 주입받고 있는 방식이니 `@AutoConfigureMockMvc` 의 주석을 확인 해보았다.  
-![image](https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png){:width="300px"}
+![image](https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png)
 
 주석에서 시키는대로 `MockMvcAutoConfiguration` 와 `SpringBootMockMvcBuilderCustomizer` 를 확인해 보았다.
 
