@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 11 Jul 2020 21:02:15 +0900</pubDate>
-    <lastBuildDate>Sat, 11 Jul 2020 21:02:15 +0900</lastBuildDate>
+    <pubDate>Sat, 11 Jul 2020 21:05:22 +0900</pubDate>
+    <lastBuildDate>Sat, 11 Jul 2020 21:05:22 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -37,7 +37,7 @@
 &lt;p&gt;좋은 정보를 얻었으니 직접 해결 해보자&lt;/p&gt;
 
 &lt;p&gt;우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvc&lt;/code&gt; 를 주입받고 있는 방식이니 &lt;code class=&quot;highlighter-rouge&quot;&gt;@AutoConfigureMockMvc&lt;/code&gt; 의 주석을 확인 해보았다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;주석에서 시키는대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;MockMvcAutoConfiguration&lt;/code&gt; 와 &lt;code class=&quot;highlighter-rouge&quot;&gt;SpringBootMockMvcBuilderCustomizer&lt;/code&gt; 를 확인해 보았다.&lt;/p&gt;
 

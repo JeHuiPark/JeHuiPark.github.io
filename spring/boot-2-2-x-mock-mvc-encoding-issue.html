@@ -43,7 +43,7 @@
 <p>아무튼 실제 코드 동작에는 영향이 없기도 하고 귀찮아서 그냥 방치하고 있었는데, MockMvcFilter 에 UTF8 인코딩 필터를 추가하면 된다는 정보를 확인했다.</p>
 <h2 id="해결법-찾기">해결법 찾기</h2>
 <p>좋은 정보를 얻었으니 직접 해결 해보자</p>
-<p>우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 <code class="highlighter-rouge">MockMvc</code> 를 주입받고 있는 방식이니 <code class="highlighter-rouge">@AutoConfigureMockMvc</code> 의 주석을 확인 해보았다.<br> <img src="https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png" alt="image" width="300px"></p>
+<p>우선 현재의 테스트 코드는 어플리케이션 컨텍스트에서 <code class="highlighter-rouge">MockMvc</code> 를 주입받고 있는 방식이니 <code class="highlighter-rouge">@AutoConfigureMockMvc</code> 의 주석을 확인 해보았다.<br> <img src="https://user-images.githubusercontent.com/25237661/87222728-46a3f780-c3b1-11ea-852f-9b3cf2a7171a.png" alt="image"></p>
 <p>주석에서 시키는대로 <code class="highlighter-rouge">MockMvcAutoConfiguration</code> 와 <code class="highlighter-rouge">SpringBootMockMvcBuilderCustomizer</code> 를 확인해 보았다.</p>
 <p><code class="highlighter-rouge">MockMvcAutoConfiguration</code> 의 일부분인데 자주 보이는 패턴이라서 어떤 느낌인지 알 것 같다.<br> <em>자동 설정에 대하여 확장 포인트를 제공하기 위해 이런식으로 <code class="highlighter-rouge">hook</code> 을 제공하는 패턴이 많음</em> <img src="https://user-images.githubusercontent.com/25237661/87222798-042eea80-c3b2-11ea-9858-6cee042fb4a8.png" alt="image"></p>
 <p>그리고, <code class="highlighter-rouge">SpringBootMockMvcBuilderCustomizer</code> 를 살펴보자.</p>
