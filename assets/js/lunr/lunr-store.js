@@ -168,4 +168,9 @@ var store = [{
         "excerpt":"SpringBoot MockMvc 한글깨짐 해결법 찾기 해결 정리 관련링크 SpringBoot MockMvc 한글깨짐 SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈에 거슬리는게 생겼다. MockMvc 에는 요청과 응답에 관한 정보를 이쁘게 출력해주는 기능이 포함되어 있는데, 버전을 변경한 이후 MockMvc 에서 출력시 이용하는 인코딩이 맞지 않아 글자가 박살난 것을 확인할 수 있다....","categories": ["spring"],
         "tags": [],
         "url": "https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue",
+        "teaser":null},{
+        "title": "Spring Transactional 과 메소드 접근제어 수준",
+        "excerpt":"Transactional 선언 메소드는 public 으로 지정하자 이유를 파헤쳐보자 Transactional 선언 메소드는 public 으로 지정하자 @Transactional 어노테이션을 이용하여 선언적 트랜잭션 메소드를 작성할 때는 주의해야 할 점이 있다. 메소드의 접근제어 수준을 public 으로 설정해야 Spring 에서 지원하는 트랜잭션을 획득 할 수 있다는 점인데, 이 스펙을 지키지 않으면 원하는 동작을 기대할 수 없을...","categories": ["spring"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/spring/spring-transaction-1",
         "teaser":null}]
