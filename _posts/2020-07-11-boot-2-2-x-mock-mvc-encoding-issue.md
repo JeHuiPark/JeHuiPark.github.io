@@ -91,11 +91,11 @@ SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈
 
 ## 정리
 영어 능력이 부족해서 100% 맞는 내용이다 장담할 수는 없지만 나름대로 요약하면 
-- RFC 7159 가 폐기되고, RFC 8259 로 대체 되었다.  
-- RFC 8259 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.
-- 메이저 브라우저인 크롬에는 이미 RFC 8259 스펙이 적용되어 있다.
-- 스프링에서도 RFC 8259 스펙을 적용하기로 결정하였다.
-- RFC 8259 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.
+- [RFC 7159][RFC 7159] 가 폐기되고, [RFC 8259][RFC 8259] 로 대체 되었다.  
+- [RFC 8259][RFC 8259] 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.
+- 메이저 브라우저인 크롬에는 이미 [RFC 8259][RFC 8259] 스펙이 적용되어 있다.
+- 스프링에서도 [RFC 8259][RFC 8259] 스펙을 적용하기로 결정하였다.
+- [RFC 8259][RFC 8259] 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.
 - SpringBoot 2.2.x 버전은 SpringFrameWork 5.2 버전을 사용한다.
 - SpringBoot 테스트 도구에는 RFC 8259 스펙 적용이 되지 않은듯 하다. (2.3.0 버전도 확인해 보았으나, 동일한 이슈 존재)
 
@@ -104,5 +104,8 @@ SpringBoot 2.1.x 를 사용하다가 2.2.x 로 버전을 변경한 이후에 눈
 - [SpringBoot 2.2 Release Note](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes)
 - [Upgrading to Version 5.2](https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-5.x#deprecation-of-mediatypeapplication_json_utf8-and-mediatypeapplication_problem_json_utf8)
 - [미디어 타입 깃헙 이슈](https://github.com/spring-projects/spring-framework/issues/22788)
-- [RFC 8259](https://tools.ietf.org/html/rfc8259)
-- [RFC 7159](https://tools.ietf.org/html/rfc7159)
+- [RFC 8259][RFC 8259]
+- [RFC 7159][RFC 7159]
+
+[RFC 8259]: https://tools.ietf.org/html/rfc8259
+[RFC 7159]: https://tools.ietf.org/html/rfc7159
