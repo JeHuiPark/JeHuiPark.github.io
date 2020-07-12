@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 Jul 2020 22:17:30 +0900</pubDate>
-    <lastBuildDate>Sun, 12 Jul 2020 22:17:30 +0900</lastBuildDate>
+    <pubDate>Sun, 12 Jul 2020 22:19:51 +0900</pubDate>
+    <lastBuildDate>Sun, 12 Jul 2020 22:19:51 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -155,11 +155,11 @@
 &lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
 &lt;p&gt;영어 능력이 부족해서 100% 맞는 내용이다 장담할 수는 없지만 나름대로 요약하면&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;RFC 7159 가 폐기되고, RFC 8259 로 대체 되었다.&lt;/li&gt;
-  &lt;li&gt;RFC 8259 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.&lt;/li&gt;
-  &lt;li&gt;메이저 브라우저인 크롬에는 이미 RFC 8259 스펙이 적용되어 있다.&lt;/li&gt;
-  &lt;li&gt;스프링에서도 RFC 8259 스펙을 적용하기로 결정하였다.&lt;/li&gt;
-  &lt;li&gt;RFC 8259 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7159&quot;&gt;RFC 7159&lt;/a&gt; 가 폐기되고, &lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt; 로 대체 되었다.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt; 에 따르면 JSON 문자열은 UTF-8 을 이용하여 인코딩 하여야 한다.&lt;/li&gt;
+  &lt;li&gt;메이저 브라우저인 크롬에는 이미 &lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt; 스펙이 적용되어 있다.&lt;/li&gt;
+  &lt;li&gt;스프링에서도 &lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt; 스펙을 적용하기로 결정하였다.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt; 스펙 적용은 SpringFrameWork 5.2 버전에서 이루어졌다.&lt;/li&gt;
   &lt;li&gt;SpringBoot 2.2.x 버전은 SpringFrameWork 5.2 버전을 사용한다.&lt;/li&gt;
   &lt;li&gt;SpringBoot 테스트 도구에는 RFC 8259 스펙 적용이 되지 않은듯 하다. (2.3.0 버전도 확인해 보았으나, 동일한 이슈 존재)&lt;/li&gt;
 &lt;/ul&gt;
@@ -173,6 +173,7 @@
   &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc8259&quot;&gt;RFC 8259&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://tools.ietf.org/html/rfc7159&quot;&gt;RFC 7159&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 </description>
         <pubDate>Sat, 11 Jul 2020 19:22:17 +0900</pubDate>
         <link>https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue</link>
