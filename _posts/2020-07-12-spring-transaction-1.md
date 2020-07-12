@@ -32,6 +32,8 @@ categories: spring
  
 기본 설정이 이렇기 때문에 `public` 메소드가 아니라면 `@Transactional` 어노테이션이 선언되어 있다고 하더라도, 메소드 접근제어 수준이 `public` 이 아니라면 트랜잭션을 획득하지 못한다.
 
+## 관련링크
+- [Spring Reference](https://docs.spring.io/spring/docs/5.2.x/spring-framework-reference/data-access.html#transaction-declarative-annotations)
 
 [AbstractFallbackTransactionAttributeSource]: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/interceptor/AbstractFallbackTransactionAttributeSource.html
 [AnnotationTransactionAttributeSource]: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/AnnotationTransactionAttributeSource.html
