@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 Jul 2020 19:57:31 +0900</pubDate>
-    <lastBuildDate>Sun, 12 Jul 2020 19:57:31 +0900</lastBuildDate>
+    <pubDate>Sun, 12 Jul 2020 22:17:30 +0900</pubDate>
+    <lastBuildDate>Sun, 12 Jul 2020 22:17:30 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -15,6 +15,7 @@
         <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#transactional-선언-메소드는-public-으로-지정하자&quot; id=&quot;markdown-toc-transactional-선언-메소드는-public-으로-지정하자&quot;&gt;Transactional 선언 메소드는 public 으로 지정하자&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#이유를-파헤쳐보자&quot; id=&quot;markdown-toc-이유를-파헤쳐보자&quot;&gt;이유를 파헤쳐보자&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#관련링크&quot; id=&quot;markdown-toc-관련링크&quot;&gt;관련링크&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;transactional-선언-메소드는-public-으로-지정하자&quot;&gt;Transactional 선언 메소드는 public 으로 지정하자&lt;/h2&gt;
@@ -39,6 +40,11 @@
 설정변경이 가능하긴 하지만, 기본값은 &lt;code class=&quot;highlighter-rouge&quot;&gt;public&lt;/code&gt; 메소드만 허용하는 것으로 되어있는 것을 확인할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;기본 설정이 이렇기 때문에 &lt;code class=&quot;highlighter-rouge&quot;&gt;public&lt;/code&gt; 메소드가 아니라면 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Transactional&lt;/code&gt; 어노테이션이 선언되어 있다고 하더라도, 메소드 접근제어 수준이 &lt;code class=&quot;highlighter-rouge&quot;&gt;public&lt;/code&gt; 이 아니라면 트랜잭션을 획득하지 못한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;관련링크&quot;&gt;관련링크&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.spring.io/spring/docs/5.2.x/spring-framework-reference/data-access.html#transaction-declarative-annotations&quot;&gt;Spring Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Sun, 12 Jul 2020 18:39:29 +0900</pubDate>

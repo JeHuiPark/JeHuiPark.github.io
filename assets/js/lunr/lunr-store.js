@@ -170,7 +170,7 @@ var store = [{
         "url": "https://jehuipark.github.io/spring/boot-2-2-x-mock-mvc-encoding-issue",
         "teaser":null},{
         "title": "Spring Transactional 과 메소드 접근제어 수준",
-        "excerpt":"Transactional 선언 메소드는 public 으로 지정하자 이유를 파헤쳐보자 Transactional 선언 메소드는 public 으로 지정하자 @Transactional 어노테이션을 이용하여 선언적 트랜잭션 메소드를 작성할 때는 주의해야 할 점이 있다. 메소드의 접근제어 수준을 public 으로 설정해야 Spring 에서 지원하는 트랜잭션을 획득 할 수 있다는 점인데, 이 스펙을 지키지 않으면 원하는 동작을 기대할 수 없을...","categories": ["spring"],
+        "excerpt":"Transactional 선언 메소드는 public 으로 지정하자 이유를 파헤쳐보자 관련링크 Transactional 선언 메소드는 public 으로 지정하자 @Transactional 어노테이션을 이용하여 선언적 트랜잭션 메소드를 작성할 때는 주의해야 할 점이 있다. 메소드의 접근제어 수준을 public 으로 설정해야 Spring 에서 지원하는 트랜잭션을 획득 할 수 있다는 점인데, 이 스펙을 지키지 않으면 원하는 동작을 기대할 수...","categories": ["spring"],
         "tags": [],
         "url": "https://jehuipark.github.io/spring/spring-transaction-1",
         "teaser":null}]
