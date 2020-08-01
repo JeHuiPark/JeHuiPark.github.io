@@ -173,4 +173,9 @@ var store = [{
         "excerpt":"Transactional 선언 메소드는 public 으로 지정하자 이유를 파헤쳐보자 관련링크 Transactional 선언 메소드는 public 으로 지정하자 @Transactional 어노테이션을 이용하여 선언적 트랜잭션 메소드를 작성할 때는 주의해야 할 점이 있다. 메소드의 접근제어 수준을 public 으로 설정해야 Spring 에서 지원하는 트랜잭션을 획득 할 수 있다는 점인데, 이 스펙을 지키지 않으면 원하는 동작을 기대할 수...","categories": ["spring"],
         "tags": [],
         "url": "https://jehuipark.github.io/spring/spring-transaction-1",
+        "teaser":null},{
+        "title": "레디스 기초 공부",
+        "excerpt":"레디스 주요정보 및 특징 기본 명령어 문자열 명령 리스트 명령 셋 명령 정렬된 셋 명령 해시 명령 데이터 처리 명령어 접두사와 접미사 문자열 해시 데이터 셋 데이터 정렬된 셋 데이터 리스트 데이터 키 제어 명령어 레디스 프로토콜 클러스터 복제 샤딩 레디스 운영 시 고려사항 기타 참고자료 레디스 주요정보 및 특징...","categories": ["study"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/study/redis-study",
         "teaser":null}]

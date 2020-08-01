@@ -6,9 +6,600 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 Jul 2020 22:19:51 +0900</pubDate>
-    <lastBuildDate>Sun, 12 Jul 2020 22:19:51 +0900</lastBuildDate>
+    <pubDate>Sat, 01 Aug 2020 19:04:34 +0900</pubDate>
+    <lastBuildDate>Sat, 01 Aug 2020 19:04:34 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>레디스 기초 공부</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#레디스-주요정보-및-특징&quot; id=&quot;markdown-toc-레디스-주요정보-및-특징&quot;&gt;레디스 주요정보 및 특징&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#기본-명령어&quot; id=&quot;markdown-toc-기본-명령어&quot;&gt;기본 명령어&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#문자열-명령&quot; id=&quot;markdown-toc-문자열-명령&quot;&gt;문자열 명령&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#리스트-명령&quot; id=&quot;markdown-toc-리스트-명령&quot;&gt;리스트 명령&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#셋-명령&quot; id=&quot;markdown-toc-셋-명령&quot;&gt;셋 명령&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#정렬된-셋-명령&quot; id=&quot;markdown-toc-정렬된-셋-명령&quot;&gt;정렬된 셋 명령&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#해시-명령&quot; id=&quot;markdown-toc-해시-명령&quot;&gt;해시 명령&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#데이터-처리-명령어&quot; id=&quot;markdown-toc-데이터-처리-명령어&quot;&gt;데이터 처리 명령어&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#접두사와-접미사&quot; id=&quot;markdown-toc-접두사와-접미사&quot;&gt;접두사와 접미사&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#문자열&quot; id=&quot;markdown-toc-문자열&quot;&gt;문자열&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#해시-데이터&quot; id=&quot;markdown-toc-해시-데이터&quot;&gt;해시 데이터&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#셋-데이터&quot; id=&quot;markdown-toc-셋-데이터&quot;&gt;셋 데이터&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#정렬된-셋-데이터&quot; id=&quot;markdown-toc-정렬된-셋-데이터&quot;&gt;정렬된 셋 데이터&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#리스트-데이터&quot; id=&quot;markdown-toc-리스트-데이터&quot;&gt;리스트 데이터&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#키-제어-명령어&quot; id=&quot;markdown-toc-키-제어-명령어&quot;&gt;키 제어 명령어&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#레디스-프로토콜&quot; id=&quot;markdown-toc-레디스-프로토콜&quot;&gt;레디스 프로토콜&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#클러스터&quot; id=&quot;markdown-toc-클러스터&quot;&gt;클러스터&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#복제&quot; id=&quot;markdown-toc-복제&quot;&gt;복제&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#샤딩&quot; id=&quot;markdown-toc-샤딩&quot;&gt;샤딩&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#레디스-운영-시-고려사항&quot; id=&quot;markdown-toc-레디스-운영-시-고려사항&quot;&gt;레디스 운영 시 고려사항&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#기타&quot; id=&quot;markdown-toc-기타&quot;&gt;기타&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;레디스-주요정보-및-특징&quot;&gt;레디스 주요정보 및 특징&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;영속성을 지원하는 인메모리 데이터 저장소&lt;/li&gt;
+  &lt;li&gt;읽기 성능 증대를 위한 서버 측 복제를 지원&lt;/li&gt;
+  &lt;li&gt;쓰기 성능 증대를 위한 클라이언트 측 샤딩을 지원&lt;/li&gt;
+  &lt;li&gt;5가지 데이터형 (문자열, 리스트, 해시, 셋, 정렬된 셋) 을 지원&lt;/li&gt;
+  &lt;li&gt;메모리 이외의 영구 저장소를 지원하므로 인스턴스 재시작에 대한 캐시 웜업에 대한 고려가 필요하지 않음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;기본-명령어&quot;&gt;기본 명령어&lt;/h2&gt;
+
+&lt;h3 id=&quot;문자열-명령&quot;&gt;문자열 명령&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;레디스의 증감처리는 signed integer 로 표현할 수 있는 범위에서만 가능하다(시스템 종속적인 정수형을 가지지 않는다)&lt;br /&gt;
+표현범위를 넘어설 경우 overflow 오류 발생&lt;/li&gt;
+  &lt;li&gt;문자열 데이터의 최대 크기는 &lt;code class=&quot;highlighter-rouge&quot;&gt;512MB&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;set&lt;/td&gt;
+      &lt;td&gt;OK&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;주어진 키에 값을 저장한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;append&lt;/td&gt;
+      &lt;td&gt;문자열의 전체 길이&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;키가 존재하면 append, 아니면 set 과 동일&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;incr&lt;/td&gt;
+      &lt;td&gt;결과값(value)을 리턴&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;증가연산 (1씩, 숫자만 해당)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;decr&lt;/td&gt;
+      &lt;td&gt;결과값(value)을 리턴&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;감소연산 (1씩, 숫자만 해당)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;리스트-명령&quot;&gt;리스트 명령&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;리스트 데이터는 논리적으로 링크드 리스트의 구현이다 (이중 연결 리스트)&lt;/li&gt;
+  &lt;li&gt;데이터가 입력된 순서대로 저장되고 조회된다는 특징 때문에 먼저 입력한 자료를 먼저 처리하는 큐로 사용되기도 한다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;lpush&lt;/td&gt;
+      &lt;td&gt;명령이 수행된 후 리스트 사이즈&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;맨 앞쪽에 입력된 요소를 저장한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;lrange&lt;/td&gt;
+      &lt;td&gt;해당 범위의 요소들, 존재하지 않으면 nil&lt;/td&gt;
+      &lt;td&gt;O(S+N)&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;리스트의 시작 인덱스 부터 종료 인덱스 범위의 요소를 조회한다 (&lt;a href=&quot;#negative-index-sample&quot;&gt;예시&lt;/a&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;셋-명령&quot;&gt;셋 명령&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sadd&lt;/td&gt;
+      &lt;td&gt;성공이면 입력된 값의 개수, 이미 존재하면 0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(N) N은 입력된 값의 개수&lt;/td&gt;
+      &lt;td&gt;지정된 셋에 입력된 값을 저장한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;smembers&lt;/td&gt;
+      &lt;td&gt;조회된 값 목록, 존재하지 않으면 nil&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(N) N은 입력된 값의 개수&lt;/td&gt;
+      &lt;td&gt;지정된 셋에 저장된 모든 값의 목록을 조회한다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;정렬된-셋-명령&quot;&gt;정렬된 셋 명령&lt;/h3&gt;
+&lt;p&gt;저장된 요소에 가중치를 부여하여 ASC 정렬을 제공한다.&lt;br /&gt;
+가중치가 동일할 경우에는 정렬 안정성을 보장하지 않는다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zadd&lt;/td&gt;
+      &lt;td&gt;성공이면 입력된 값의 개수, 이미 존재하면 0&lt;/td&gt;
+      &lt;td&gt;1.2&lt;/td&gt;
+      &lt;td&gt;O(log(N))&lt;/td&gt;
+      &lt;td&gt;정렬된 셋에 가중치와 값으로 우리우전 데이터를 저장한다. 단, 이미 존재하는 값이면 기존의 가중치를 입력된 가중치로 덮어쓴다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zrange&lt;/td&gt;
+      &lt;td&gt;조회된 값 목록, 값이 존재하지 않으면 nil&lt;/td&gt;
+      &lt;td&gt;1.2&lt;/td&gt;
+      &lt;td&gt;O(log(N)+M) N은 입력되어 있는 값의 개수, M은 조회된 값으 개수&lt;/td&gt;
+      &lt;td&gt;정렬된 셋의 시작 인덱스부터 종료 인덱스 범위에 해당하는 값들을 가중치 오름차순으로 조회한다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;해시-명령&quot;&gt;해시 명령&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hset&lt;/td&gt;
+      &lt;td&gt;존재하지 않는 필드일 때 1, 존재하는 필드일 때 0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;지정된 해시에 요청한 필드와 값을 저장한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hget&lt;/td&gt;
+      &lt;td&gt;지정된 필드가 존재할 때 저장된 값, 아니면 nil&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;지정된 해시에 저장된 필드의 값을 조회한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hgetall&lt;/td&gt;
+      &lt;td&gt;지정된 키에 저장된 모든 필드와 값의 목록&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(N)&lt;/td&gt;
+      &lt;td&gt;지정된 키에 저장된 모든 필드와 값을 조회한다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;데이터-처리-명령어&quot;&gt;데이터 처리 명령어&lt;/h2&gt;
+&lt;h3 id=&quot;접두사와-접미사&quot;&gt;접두사와 접미사&lt;/h3&gt;
+&lt;p&gt;레디스는 기본적인 명령에 접두사와 접미사를 조합한 명령어를 제공한다. (몇 가지 예외 사항은 존재)&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;접두사 커맨드&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;m&lt;/td&gt;
+      &lt;td&gt;멀티&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;s&lt;/td&gt;
+      &lt;td&gt;멀티&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;z&lt;/td&gt;
+      &lt;td&gt;정렬된 셋&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;h&lt;/td&gt;
+      &lt;td&gt;해시 데이터&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;접미사 커맨드&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;nx&lt;/td&gt;
+      &lt;td&gt;값이 없을 경우에만 처리 (&lt;strong&gt;원자성 보장&lt;/strong&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;by&lt;/td&gt;
+      &lt;td&gt;주어진 값만큼 증가/감소 처리 (&lt;code class=&quot;highlighter-rouge&quot;&gt;incr&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;decr&lt;/code&gt; 커맨드와 조합하여 사용, 값의 부호에 영향을 받으며 수학적 개념과 동일)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;문자열&quot;&gt;문자열&lt;/h3&gt;
+&lt;p&gt;레디스는 비트연산을 통해 저장되는 문자열 데이터를 비트 단위로 처리할 수 있다.&lt;br /&gt;
+레디스는 데이터의 저장을 바이트 단위로 하기 때문에 키가 존재하지 않을 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;setbit&lt;/code&gt; 의 실행 결과로 생성되는 데이터의 크기는 &lt;code class=&quot;highlighter-rouge&quot;&gt;(오프셋/8) + 1&lt;/code&gt; 이다&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getset&lt;/td&gt;
+      &lt;td&gt;이전에 저장된 값을 리턴&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;입력된 값을 저장하고, 저장되어 있던 값을 리턴한다. 없으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;nil&lt;/code&gt; 리턴&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;setbit&lt;/td&gt;
+      &lt;td&gt;이전에 저장된 비트의 값&lt;/td&gt;
+      &lt;td&gt;2.2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;입력된 오프셋 위치에 저장된 bit 값을 변경한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;getbit&lt;/td&gt;
+      &lt;td&gt;비트&lt;/td&gt;
+      &lt;td&gt;2.2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;입력된 오프셋 위치에 저장된 bit 값을 리턴한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bitcount&lt;/td&gt;
+      &lt;td&gt;지정된 범위에 저장된 비트 중 1의 개수&lt;/td&gt;
+      &lt;td&gt;2.6&lt;/td&gt;
+      &lt;td&gt;O(N)&lt;/td&gt;
+      &lt;td&gt;주어진 키값의 비트 중 1인 값의 개수를 조회한다. 인덱스 범위는 바이트 단위 인덱스다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;해시-데이터&quot;&gt;해시 데이터&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;해시 데이터는 2&lt;sup&gt;32&lt;/sup&gt;-1개의 필드와 값을 저장할 수 있다 (약 42억)&lt;/li&gt;
+  &lt;li&gt;경험적으로 이해할 수 있는 명령어라 명령어 표는 생략
+&lt;code class=&quot;highlighter-rouge&quot;&gt;hmset&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hsetnx&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hmget&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hlen&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hdel&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hkeys&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hvals&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hincrby&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;hincrbyfloat&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;해시에 저장된 데이터의 필드값이 숫자일 때 증감연산을 이용할 수 있다 (소수점은 17자리로 고정)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#redis-zipmap&quot;&gt;해시 데이터의 특별한 유형&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;셋-데이터&quot;&gt;셋 데이터&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;셋 데이터는 2&lt;sup&gt;32&lt;/sup&gt;-1개의 필드와 값을 저장할 수 있다 (약 42억)&lt;/li&gt;
+  &lt;li&gt;셋의 특성상 값이 저장될 때 중복에 대한 확인 작업을 수행하기 때문에 nx 접미사 명령은 존재하지 않는다&lt;/li&gt;
+  &lt;li&gt;집합 연산을 지원한다 (합집합, 교집합, 차집합)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sinter&lt;/td&gt;
+      &lt;td&gt;교집합에 해당하는 값&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(N)&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 요소들의 교집합을 돌려준다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;scard&lt;/td&gt;
+      &lt;td&gt;저장된 요소의 개수&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 요소들의 개수를 리턴한다 (card 는 cardinality 의 약자&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;srem&lt;/td&gt;
+      &lt;td&gt;제거된 값의 수&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 요소를 제거하고 제거된 요소의 개수를 리턴한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spop&lt;/td&gt;
+      &lt;td&gt;제거된 값&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 요소 중에서 임의의 요소를 제거하고 리턴한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sismember&lt;/td&gt;
+      &lt;td&gt;존재하면 1, 존재하지 않으면 0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;입력된 요소가 주어진 키에 저장되어 있는지에 대한 여부를 리턴한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;smove&lt;/td&gt;
+      &lt;td&gt;이동되었으면 1, 실패하면 0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;원본키에 저장된 요소를 대상키로 이동하고 이동 결과를 리턴한다. 원본키가 존재하지 않으면 결과로 0을 리턴하고, 대상 키가 존재하지 않으면 새로운 셋 데이터를 생성하고 요소를 이동시킨다&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;정렬된-셋-데이터&quot;&gt;정렬된 셋 데이터&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;z와 명령어 가운데에 &lt;code class=&quot;highlighter-rouge&quot;&gt;rev&lt;/code&gt; 라는 접두사가 추가되면 내림차순 정렬을 의미한다&lt;br /&gt;
+zrevrange 명령은 내림차순으로 정렬된 결과를 리턴한다&lt;/li&gt;
+  &lt;li&gt;저장 가능한 요소의 수는 셋 데이터와 동일하다&lt;/li&gt;
+  &lt;li&gt;LIMIT 키워드를 이용하여 일부의 데이터만 조회하는 것이 가능하다 MySQL 의 LIMIT 과 유사 (다른 명령어와의 조합도 가능할 것 같은데? 더 공부해봐야겠음)&lt;/li&gt;
+  &lt;li&gt;정렬된 셋의 명령 중에서 가중치의 범위를 인자로 사용하는 명령은 특별한 표현식을 포함하여 사용할 수 있다
+    &lt;ul&gt;
+      &lt;li&gt;무한대 표현식 &lt;code class=&quot;highlighter-rouge&quot;&gt;+inf&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-inf&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;초과/미만 표현식 &lt;code class=&quot;highlighter-rouge&quot;&gt;zrangebyscore ex-key (1 (3&lt;/code&gt; (ex-key 키에 저장된 요소중에 가중치가 1보다 크고 3보다 작은 범위에 해당하는 요소를 조회한다)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zincrby&lt;/td&gt;
+      &lt;td&gt;적용된 가중치 값&lt;/td&gt;
+      &lt;td&gt;1.2&lt;/td&gt;
+      &lt;td&gt;O(log(N))&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 셋 데이터 중 지정된 요소의 가중치를 입력된 값만큼 증가 시킨다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zrank&lt;/td&gt;
+      &lt;td&gt;값이 존재하면 가중치 오름차순으로 정렬된 순위, 없으면 nil&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(log(N))&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 셋 데이터 중 지정된 요소의 순위를 조회한다. (zero base)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zrevrank&lt;/td&gt;
+      &lt;td&gt;값이 존재하면 내림차순 순위, 없으면 nil&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(log(N))&lt;/td&gt;
+      &lt;td&gt;주어진 키에 저장된 셋 데이터 중 지정된 요소의 순위를 조회한다. (zero base)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zrangebyscore&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;정렬된 셋의 점수 범위에 해당하는 데이터 조회&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zremrangebyrank&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;정렬된 셋에서 순위에 해당하는 범위의 데이터 제거&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zremrangebyscore&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;정렬된 셋에서 가중치에 해당하는 범위의 데이터 제거&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;리스트-데이터&quot;&gt;리스트 데이터&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;저장 가능한 요소의 수는 셋 데이터와 동일하다&lt;/li&gt;
+  &lt;li&gt;이중 연결 리스트로 구현되어 있기 때문에 첫 번째 요소와 마지막 요소이 조회 시간이 가장 빠르며 리스트의 중간에 저장된 데이터를 조회하는 시간이 가장 오래 걸린다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;커맨드&lt;/th&gt;
+      &lt;th&gt;응답&lt;/th&gt;
+      &lt;th&gt;지원버전&lt;/th&gt;
+      &lt;th&gt;시간복잡도&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;lindex&lt;/td&gt;
+      &lt;td&gt;해당 인덱스 위치에 저장된 요소&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;O(N)&lt;/td&gt;
+      &lt;td&gt;지정된 리스트에 저장된 요소의 인덱스에 해당하는 요소의 값을 조회한다&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blpop&lt;/td&gt;
+      &lt;td&gt;조회된 요소&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;지정된 리스트에 저장된 요소 중 맨 왼쪽 요소를 조회한다. 단 저장된 데이터가 없거나 키가 존재하지 않을 때는 만료시간에 지정된 시간만큼 대기한다 (단위:초). 0이면 무한히 대기)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;brpop&lt;/td&gt;
+      &lt;td&gt;조회된 요소&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;O(1)&lt;/td&gt;
+      &lt;td&gt;지정된 리스트에 저장된 요소 중 맨 오른쪽 요소를 조회한다. 단 저장된 데이터가 없거나 키가 존재하지 않을 때는 만료시간에 지정된 시간만큼 대기한다 (단위:초). 0이면 무한히 대기)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;키-제어-명령어&quot;&gt;키 제어 명령어&lt;/h2&gt;
+
+&lt;h2 id=&quot;레디스-프로토콜&quot;&gt;레디스 프로토콜&lt;/h2&gt;
+
+&lt;h2 id=&quot;클러스터&quot;&gt;클러스터&lt;/h2&gt;
+
+&lt;h3 id=&quot;복제&quot;&gt;복제&lt;/h3&gt;
+&lt;p&gt;프라이머리 노드(쓰기 전용)와 세컨더리 노드(읽기 전용)를 구성하여 트래픽을 분산하는 기법&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;세컨더리 노드는 언제든지 확장이 가능하다 (데이터 복제 요청을 세컨더리 노드가 프라이머리 노드에게 요청하기 때문에 프라이머리 노드의 무중단이 보장됨)&lt;br /&gt;
+단, 세컨더리 노드가 처음 올라올 때 프라이머리 노드의 모든 데이터를 복제해야 하는데 이때 최대한의 리소스를 사용하기 때문에 복제하는 동안에 프라이머리 노드의 성능이 저하될 수 있다.&lt;/li&gt;
+  &lt;li&gt;프라이머리 노드에 쓰기 작업이 발생하면 세컨더리 노드에 변경 이벤트를 전파하여 데이터 일관성을 유지한다.&lt;/li&gt;
+  &lt;li&gt;노드를 복제 한다고 해서 성능이 선형으로 증가하지는 않는다 (데이터 대역폭, 네트워크 대역폭, 데이터 동기화 작업) 이를 임계점이라고 함&lt;/li&gt;
+  &lt;li&gt;레디스 클라이언트에서 쓰기/읽기 노드를 모두 알고 있어야 한다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;샤딩&quot;&gt;샤딩&lt;/h3&gt;
+&lt;p&gt;데이터를 특정 조건에 따라 나누어 저장&lt;br /&gt;
+레디스 2.6 버전은 서버측 샤딩을 지원하지 않기 때문에 위치 투명성이 보장되지 않는다. (클라이언트측 샤딩 기법을 이용해야 함)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;수직 샤딩 (Vertical Sharding) 데이터 성격에 따라 분리&lt;/li&gt;
+  &lt;li&gt;범위 샤딩 (Range Sharding) 데이터의 범위에 따라 분리&lt;/li&gt;
+  &lt;li&gt;해시 기반 샤딩 (Hash Based Sharding) 키값을 해싱하고 해싱된 값을 이용하여 저장소를 선택하는 방법으로 일관된 해싱(Consistent Hashing)이라고 부르기도 함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;레디스-운영-시-고려사항&quot;&gt;레디스 운영 시 고려사항&lt;/h2&gt;
+&lt;p&gt;레디스는 데이터 저장과 조회에 단일 스레드를 사용한다 (하나의 CPU 코어만 이용), 그렇기 때문에 멀티코어는 레디스 성능에 큰 영향을 주지 않는다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CPU 임계점&lt;/li&gt;
+  &lt;li&gt;메모리 대역폭&lt;/li&gt;
+  &lt;li&gt;네트워크 대역폭&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Q. 만약 레디스에 저장될 데이터의 크기를 산정하지 못하여 레디스 설정에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;maxmemory&lt;/code&gt; 값을 지정하지 못했다면?&lt;br /&gt;
+A. 레디스에 데이터가 계속 추가되어 물리 메모리가 부족하게 되면 스왑 메모리를 이용하게 되며 스왑 메모리에 데이터가 저장되기 시작하면 성능이 저하된다&lt;br /&gt;
+스왑 메모리 공간이 부족해지면 OOM 킬러가 동작한다&lt;/p&gt;
+
+&lt;p&gt;레디스가 &lt;code class=&quot;highlighter-rouge&quot;&gt;AOF&lt;/code&gt;나 스냅샷과 같은 영구 저장소를 사용하도록 설정되어 있다면 스왑영역은 최소한 물리 메모리 크기만큼의 스왑영역을 설정해야 한다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;레디스에서 스냅샷을 위한 &lt;code class=&quot;highlighter-rouge&quot;&gt;fork&lt;/code&gt; 함수가 동작하면 레디스가 점유하는 메모리만큼의 메모리를 다시 할당하려고 시도하게 된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;레디스 복제 구성에서는 프라이머리 노드의 스냅샷 설정이 꺼져 있더라도, 새로운 세컨더리 노드가 프라이머리 노드에 추가되면 프라이머리 노드는 전체 데이터를 복제하기 위해 스냅샷을 생성한다.&lt;br /&gt;
+레디스는 복제를 위해서 스냅샷을 생성하고 스냅샷 데이터를 세컨더리 노드로 전송하기 위한 버퍼를 생성하는데, 이 버퍼의 크기가 지정된 크기보다 커지면 세컨더리 노드의 연결을 강제로 끊게 된다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;관련설정 &lt;code class=&quot;highlighter-rouge&quot;&gt;client-output-buffer-limit&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;기타&quot;&gt;기타&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;레디스의 키 이름에는 제한이 없으며 어떤 문자도 사용할 수 있다 (관례상 콜론은 키에 의미를 부여하는 구분자로 사용된다.)&lt;/li&gt;
+  &lt;li&gt;응답값을 가지는 레디스 명령은 상태응답, 에러응답, 숫자응답, 단일 벌크응답, 멀티 벌크응답으로 나&lt;/li&gt;
+  &lt;li&gt;레디스 명령의 인덱스 표현에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;-1&lt;/code&gt; 은 조금 특별하다 (음수가 입력되면 인덱스를 맨 마지막부터 센다.)&lt;br /&gt;
+  &lt;span id=&quot;negative-index-sample&quot;&gt;예시&lt;/span&gt;)
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lrange key 0 -2&lt;/code&gt; (키의 이름이 &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt;인 리스트의 0번째부터 마지막에서 두번째까지의 데이터를 조회하라)&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CAP 정리&lt;br /&gt;
+일관성(Consistency), 가용성(Availability), 분할 허용성(Partition Tolerance) 모두를 동시에 지원하는 분산 컴퓨터 시스템은 없다&lt;/li&gt;
+  &lt;li&gt;레디스는 정전과 같은 하드웨어 장애 발생 시에 데이터 유실을 방지하기 위하여 AOF(Append Only File) 를 사용한다.&lt;/li&gt;
+  &lt;li&gt;https://blog.nahurst.com/visual-guide-to-nosql-systems&lt;/li&gt;
+  &lt;li&gt;&lt;span id=&quot;redis-zipmap&quot;&gt;해시 데이터의 특별한 유형&lt;/span&gt;
+레디스는 메모리 공간을 절약하기 위해서 세 가지 내부 저장구조(zipmap, ziplist, intset)를 사용한다.&lt;br /&gt;
+이 내부 저장구조를 사용하게 되면 CPU를 더 사용하게 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;이것이 레디스다 (저자: 정경석 출판사: 한빛 미디어)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 01 Aug 2020 18:39:29 +0900</pubDate>
+        <link>https://jehuipark.github.io/study/redis-study</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/study/redis-study</guid>
+        
+        
+        <category>study</category>
+        
+      </item>
     
       <item>
         <title>Spring Transactional 과 메소드 접근제어 수준</title>
@@ -807,52 +1398,6 @@
         
         
         <category>study</category>
-        
-      </item>
-    
-      <item>
-        <title>JUnit5 DisplayName 이 동작하지 않을 때</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#displayname-이-동작하지-않아요&quot; id=&quot;markdown-toc-displayname-이-동작하지-않아요&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; 이 동작하지 않아요&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#해결&quot; id=&quot;markdown-toc-해결&quot;&gt;해결&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; of junit5 in intellij do not working&lt;/p&gt;
-
-&lt;h2 id=&quot;displayname-이-동작하지-않아요&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@DisplayName&lt;/code&gt; 이 동작하지 않아요&lt;/h2&gt;
-
-&lt;p&gt;JUnit5 를 이용하여 아래와 같은 테스트를 작성하고&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;example&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JunitExample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-  &lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;when coding enjoy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nd&quot;&gt;@Nested&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Context_Sample&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@DisplayName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i am happy&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;이런 결과를 기대했지만?&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79642932-3974d380-81db-11ea-885d-0d5f033561b1.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이런 화면이 나온다면..😭&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79642973-780a8e00-81db-11ea-9a50-73fbc778b980.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Run tests using&lt;/code&gt; 옵션을 변경 &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;intellij&lt;/code&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79643067-0ed74a80-81dc-11ea-95bd-2a163e6b1bbf.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 19 Apr 2020 01:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/displayname-do-not-work-in-intellij</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/displayname-do-not-work-in-intellij</guid>
-        
-        
-        <category>note</category>
         
       </item>
     
