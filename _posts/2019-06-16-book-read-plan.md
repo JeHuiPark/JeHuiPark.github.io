@@ -28,3 +28,4 @@ GOF의 디자인패턴 |
 자바 네트워크 프로그래밍 | 앨리엇 러스티 해럴드
 실용주의 프로그래밍 | 앤드류 헌트, 데이비트 토머스
 [The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
+대용량 데이터 처리를 위한 Real MongoDB | 이성욱
