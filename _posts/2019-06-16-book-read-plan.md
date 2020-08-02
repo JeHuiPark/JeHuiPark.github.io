@@ -27,3 +27,4 @@ GOF의 디자인패턴 |
 자바 성능 튜닝 | 스캇 오크스
 자바 네트워크 프로그래밍 | 앨리엇 러스티 해럴드
 실용주의 프로그래밍 | 앤드류 헌트, 데이비트 토머스
+[The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
