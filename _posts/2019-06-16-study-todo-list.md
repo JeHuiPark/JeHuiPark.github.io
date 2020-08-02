@@ -1,6 +1,6 @@
 ---
 layout: posts
-title:  책봐라 제희야
+title:  공부해라 제희야
 date:   2019-06-16 17:26:00 +0900
 comments: true
 categories: note
@@ -8,7 +8,11 @@ tags:
 sitemap :
   changefreq : daily
   priority : 1.0
+redirect_from:
+  - /note/book-read-plan
 ---
+
+## 책책책책
 
 제목 | 저자 
 --- | --- 
@@ -29,3 +33,12 @@ GOF의 디자인패턴 |
 실용주의 프로그래밍 | 앤드류 헌트, 데이비트 토머스
 [The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
 대용량 데이터 처리를 위한 Real MongoDB | 이성욱
+~~이것이 레디스다~~ | 정경석
+
+
+## 공부 키워드
+- [ ] Linux Page Cache
+- [ ] B Tree
+- [ ] LSM Tree
+- [ ] Linux Read Ahead 
+- [ ] File Descriptor 와 Socket
