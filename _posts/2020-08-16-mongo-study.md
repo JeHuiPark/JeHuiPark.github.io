@@ -184,4 +184,27 @@ db.sample.find({
 }).hint({ "field" : 1 });
 ```
 
+### TTL 인덱스
+컬렉션의 도큐먼트가 언제까지 유효한지를 판단하여 더 이상 유효하지 않은 도큐먼트는 자동으로 삭제되게 하는 기능의 인덱스  
+도큐먼트 삭제는 TTL Monitor 라는 쓰레드가 지정된 시간 간격(기본:1분)마다 지정된 시간보다 오래된 도큐먼트를 찾아서 삭제한다.  
+TTL 인덱스는 쿼리의 검색 성능 향상 목적보다는 TTL Monitor 쓰레드가 삭제할 도큐먼트를 찾기 위한 인덱스로 보는게 정확하다.
+
+TTL 인덱스는 지정된 필드가 Date 타입이거나 Date 타입의 값을 배열로 가지는 필드에 대해서만 자동 삭제가 실행된다. 
+
+예시 )
+```javascript
+db.log.createIndex( { "created" : 1 }, { "expireAfterSeconds" : 600 } )
+
+// TTL Monitor 수도코드
+if (created + 600 < NOW) remove();
+```
+```javascript
+db.token.createIndex( { "expiredDateTime" : 1 }, { "expireAfterSeconds" : 0 } )
+
+// TTL Monitor 수도코드
+if (expiredDateTime < NOW) remove();
+```
+
+TTL Monitor 쓰레드의 삭제 주기는 변경이 가능하다
+
 
