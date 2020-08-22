@@ -135,4 +135,53 @@ Ex)
 
 #### 불완전한 결과
 Sparse 인덱스나 Partial 인덱스는 컬렉션에 저장되는 도큐먼트가 특정 조건을 만족하는 경우에만 인덱싱을 진행하게 된다.  
+그렇기 때문에 인덱스로 참조할 수 없는 도큐먼트가 분명히 존재하게 되어 인덱스 탐색을 하게 될 경우에 불완전환 결과를 리턴할 수 있다.  
+그래서 옵티마이저는 인덱스가 커버할 수 없는 쿼리라고 판단하면 인덱스를 사용하지 않도록 하고 있지만, 
+사용자가 인덱스 힌트를 직접 명시하면 옵티마이저는 사용자가 이런 불완전한 결과에 대한 가능성을 충분히 인지하고 있다고 가정하고 
+인덱스 탐색을 하도록 실행 계획을 수립하도록 한다.
+
+예시)
+```javascript
+// 컬렉션과 Sparse 인덱스 생성
+db.createCollection("sample");
+db.sample.createIndex({
+    "field" : 1
+}, {
+    "sparse" : true
+});
+
+// 더미 데이터 생성
+db.sample.insert({
+    _id : "1",
+    "name" : "AAA",
+    "field" : 1
+});
+db.sample.insert({
+    _id : "2",
+    "name" : "BBB",
+    "field" : 2
+});
+db.sample.insert({
+    _id : "3",
+    "name" : "CCC",
+    "field" : null
+});
+db.sample.insert({
+    _id : "4",
+    "name" : "DDD"
+});
+
+// 인덱스를 사용하지 않지만 완전한 결과
+// 3과 4 도큐먼트를 리턴한다.
+db.sample.find({
+   "field" : null
+});
+
+// 인덱스를 사용하지만 불완전한 결과
+// 3 도큐먼트만 리턴한다.
+db.sample.find({
+   "field" : null
+}).hint({ "field" : 1 });
+```
+
 
