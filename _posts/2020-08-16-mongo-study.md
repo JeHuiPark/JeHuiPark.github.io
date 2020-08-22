@@ -205,6 +205,16 @@ db.token.createIndex( { "expiredDateTime" : 1 }, { "expireAfterSeconds" : 0 } )
 if (expiredDateTime < NOW) remove();
 ```
 
-TTL Monitor 쓰레드의 삭제 주기는 변경이 가능하다
+**Partial 인덱스 옵션과 조합하여 선별적 자동 삭제도 가능하다.**
 
+예시 )
+```javascript
+db.log.createIndex( { "created" : 1 }, {
+    "created" : 600,
+    "partialFilterExpression" : { "is_admin" : false }
+})
+
+// TTL Monitor 수도코드
+if (created + 600 < NOW && isNotAdmin()) remove();
+```
 
