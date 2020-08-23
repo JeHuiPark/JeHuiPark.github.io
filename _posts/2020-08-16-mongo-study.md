@@ -234,7 +234,7 @@ db.data.find({ name : "Jehui" });
 - 컬렉션의 인덱스를 생성한 이후에는 다른 콜레이션으로 변경할 수 없다. (콜레이션을 변경하라면 인덱스 삭제 -> 생성 과정을 거쳐야 한다.)
 - 인덱스를 생성할 때 별도의 콜레이션을 명시하지 않으면 컬렉션의 기본 콜레이션을 상속받게 된다.
 
-### 트랜잭션
+## 트랜잭션
 2.6 버전 까지 사용되던 **MMAPv1** 스토리지 엔진은 트랜잭션이라고 할 만한 요소가 별로 없다. (대부분 운영체제 시스템 콜에 의존)  
 
 **WiredTiger** 스토리지 엔진이 제공하는 트랜잭션의 **ACID** 속성
@@ -246,7 +246,7 @@ MongoDB 서버에 내장된 **WiredTiger** 의 격리 수준은 **SNAPSHOT**으�
 MongoDB 서버는 **WiredTiger** 스토리지 엔진의 **SNAPSHOT** 격리수준을 100% 지원하지는 않는다.
 
 
-#### 쓰기충돌 (Write Conflict)
+### 쓰기충돌 (Write Conflict)
 
 MongoDB는 쓰기 충돌이 발생하면 RDBMS 와는 다른 방식으로 해결한다.  
 ![image](https://user-images.githubusercontent.com/25237661/90974620-e683a200-e567-11ea-81cb-e6669c657693.png)  
