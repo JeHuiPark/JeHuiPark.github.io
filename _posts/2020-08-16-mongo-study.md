@@ -256,5 +256,28 @@ MongoDB는 쓰기 충돌이 발생하면 RDBMS 와는 다른 방식으로 해결
 
 기존 RDBMS 는 쓰기 충돌이 발생하면 잠금 대기상태에 들어가기 때문에 커넥션이 일시적으로 증가하는 반면에 MongoDB 는 UPDATE 문을 재시도하는 방식이기 때문에 하나의 도큐먼트에 변경이 집중되면 **쓰기 충돌→재시도** 과정이 반복되어 CPU 의 사용량이 높아지는 현상이 발생될 수 있다.  (CPU 사용량만 증가하고 처리능력은 저하된다)
 
-#### 단일 도큐먼트 트랜잭션
+### 단일 도큐먼트 트랜잭션
+MongoDB 서버는 단일 도큐먼트의 트랜잭션만 지원한다.
+단일 도큐먼트의 변경에 대해서는 원자 단위의 처리가 보장 되지만, **문장 단위의 트랜잭션은 지원되지 않는다.**  (MongoDB 서버에서 작업을 쪼개서 진행)
 
+예시)
+```javascript
+db.user.insert([
+  {_id:1, name:"AAA"},
+  {_id:1, name:"BBB"},
+])
+
+// 몽고DB 수도코드
+BEGIN
+    db.user.insert({_id:1, name:"AAA"})
+END
+
+BEGIN
+    db.user.insert({_id:1, name:"BBB"})
+END
+```
+```javascript
+db.user.find()
+// > {_id:1, name:"AAA"}
+```
+`{multi:true}` 옵션을 명시한 **UPDATE** 명령도 동일하다
