@@ -310,18 +310,19 @@ MongoDB 서버는 도큐먼트를 조회할 때 기본적으로 스냅샷을 기
 
 ### ReadConcern, WriteConcern, ReadPreference
 
-**ReadConcern** 과 **WriteConcern** 는 데이터 읽기/쓰기를 시도할 때 동기화 수준을 결정하는 옵션이다.  
-**ReadPreference** 는 레플리카셋의 어느 MongoDB 서버로 요청을 보낼 것인지 결정하는 옵션이다.
+**ReadConcern** 과 **WriteConcern** 는 데이터 읽기/쓰기를 시도할 때 동기화 수준을 결정
+**ReadPreference** 는 레플리카 셋의 어느 MongoDB 서버로 요청을 보낼 것인지 결정
 
 
 #### WriteConcern
 
-클라이언트 수준, 데이터베이스 수준, 컬렉션 수준까지 지정이 가능하다
+클라이언트의 변경요청을 어디까지 처리하고 응답을 내려보낼 것인지 결정하는 옵션으로 클라이언트, 데이터베이스, 컬렉션 수준까지 지정이 가능하다
 
 - UNACKNOWLEDGED 변경 요청에 대한 응답을 기다리지 않는다
 - ACKNOWLEDGED **WriteConcern** 의 기본값으로 변경 내용을 메모리까지만 적용하고 클라이언트로 응답을 보낸다
 - JOURNALED 변경 내용을 저널로그까지 기록하고 클라이언트로 응답을 보낸다 (2.6 버전부터 지원)
 - FSYNC 변경 내용을 데이터파일까지 기록하고 클라이언트로 응답을 보낸다.
+    - MMAPv1 스토리지 엔진에서 사용되던 옵션
     - **WiredTiger** 스토리지 엔진은 이 스펙을 지원하지 않는다  (저널로그로 대체 가능)
     - 클라이언트의 드라이버에서 제거될 옵션이다 
 
