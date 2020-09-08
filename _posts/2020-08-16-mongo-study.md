@@ -366,3 +366,13 @@ MongoDB 서버는 도큐먼트를 조회할 때 기본적으로 스냅샷을 기
 - 세컨드리에서 실행되는 무거운 쿼리는 OpLog 적용을 지연시킨다
 - MongoDB 매뉴얼에서는 세컨드리 읽기를 가능하면 사용하지 않는 것을 권장한다 (정확히는 사용자 서비스를 세컨드리 읽기에서 처리하는 것)
 
+## 데이터 모델링
+
+### 정규화, 역정규화
+
+아래는 참고서적에 적힌 내용중 하나
+![KakaoTalk_20200908_234751372](https://user-images.githubusercontent.com/25237661/92492094-ee149d80-f22d-11ea-95d3-e53bb88c4671.jpg)
+
+
+## 참고서적
+- [대용량 데이터 처리를 위한 Real MongoDB](https://wikibook.co.kr/real-mongodb/)
