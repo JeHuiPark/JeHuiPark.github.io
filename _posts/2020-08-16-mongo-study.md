@@ -370,9 +370,12 @@ MongoDB 서버는 도큐먼트를 조회할 때 기본적으로 스냅샷을 기
 
 ### 정규화, 역정규화
 
-아래는 참고서적에 적힌 내용중 하나
+아래는 [참고서적][real-mongodb]에 적힌 내용중 하나
 ![KakaoTalk_20200908_234751372](https://user-images.githubusercontent.com/25237661/92492094-ee149d80-f22d-11ea-95d3-e53bb88c4671.jpg)
 
 
 ## 참고서적
-- [대용량 데이터 처리를 위한 Real MongoDB](https://wikibook.co.kr/real-mongodb/)
+- [대용량 데이터 처리를 위한 Real MongoDB][real-mongodb]
+
+
+[real-mongodb]:https://wikibook.co.kr/real-mongodb/ "대용량 데이터 처리를 위한 Real MongoDB"
