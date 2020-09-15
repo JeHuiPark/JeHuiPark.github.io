@@ -379,6 +379,30 @@ MongoDB 의 매뉴얼에서 MongoDB는 조인을 지원하지 (3.2부터 제한�
 - 네트워크 사용량 증가
 - 도큐먼트의 최대 사이즈는 16MB
 
+### 뷰
+- 성능상의 장점은 없다
+- Materialized View, Updatable View 와 같은 기능은 제공하지 않는다
+- 컬렉션을 캡슐화함으로써 얻는 장점을 제공
+- 생성된 뷰는 컬렉션처럼 취급하면 된다 `db.{{view}}.find()`, `db.{{view}}.drop()` 등등
+
+### BSON 도큐먼트
+MongoDB는 도큐먼트를 BSON으로 처리한다 [BSON 스펙](http://bsonspec.org/)을 한번 훑어본다면 MongoDB 사용에 도움이 될 것이다.
+
+**BSON이 갖고 있는 특징**
+- Lightweight 공간 최적화 : 단순히 문자열로 저장하지 않고 데이터 타입에 맞추어 이진 데이터 타입으로 저장한다
+- Traversable 빠른 탐색 : BSON 도큐먼트는 도큐먼트의 크기, 필드 값의 데이터 타입, 필드 값의 크기와 같은 정보를 포함하고 있어서, 빠른 탐색이 가능 하도록 설계되어 있다
+- Efficient 효율적 : C 언어의 Primitive 타입을 이용하기 때문에 대부분의 언어에서 빠르게 처리가 가능하다
+
+작성중........
+
+byte	1 byte (8-bits)
+int32	4 bytes (32-bit signed integer, two's complement)
+int64	8 bytes (64-bit signed integer, two's complement)
+uint64	8 bytes (64-bit unsigned integer)
+double	8 bytes (64-bit IEEE 754-2008 binary floating point)
+decimal128	16 bytes (128-bit IEEE 754-2008 decimal floating point)
+
+
 ### 정규화, 역정규화
 
 아래는 [참고서적][real-mongodb]에 적힌 내용중 하나
