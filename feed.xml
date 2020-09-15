@@ -6,9 +6,525 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 13 Sep 2020 18:18:20 +0900</pubDate>
-    <lastBuildDate>Sun, 13 Sep 2020 18:18:20 +0900</lastBuildDate>
+    <pubDate>Tue, 15 Sep 2020 22:10:50 +0900</pubDate>
+    <lastBuildDate>Tue, 15 Sep 2020 22:10:50 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>MongoDB 기초 공부</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#인덱스&quot; id=&quot;markdown-toc-인덱스&quot;&gt;인덱스&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#컴파운드-인덱스&quot; id=&quot;markdown-toc-컴파운드-인덱스&quot;&gt;컴파운드 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#b-tree-인덱스의-정렬-및-스캔-방향&quot; id=&quot;markdown-toc-b-tree-인덱스의-정렬-및-스캔-방향&quot;&gt;B-Tree 인덱스의 정렬 및 스캔 방향&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#b-tree-인덱스&quot; id=&quot;markdown-toc-b-tree-인덱스&quot;&gt;B-Tree 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#해시-인덱스&quot; id=&quot;markdown-toc-해시-인덱스&quot;&gt;해시 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#멀티-키-인덱스&quot; id=&quot;markdown-toc-멀티-키-인덱스&quot;&gt;멀티 키 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#프라이머리-키와-세컨드리-인덱스&quot; id=&quot;markdown-toc-프라이머리-키와-세컨드리-인덱스&quot;&gt;프라이머리 키와 세컨드리 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#유니크-인덱스&quot; id=&quot;markdown-toc-유니크-인덱스&quot;&gt;유니크 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#sparse-인덱스-와-partial-인덱스&quot; id=&quot;markdown-toc-sparse-인덱스-와-partial-인덱스&quot;&gt;Sparse 인덱스 와 Partial 인덱스&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#불완전한-결과&quot; id=&quot;markdown-toc-불완전한-결과&quot;&gt;불완전한 결과&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ttl-인덱스&quot; id=&quot;markdown-toc-ttl-인덱스&quot;&gt;TTL 인덱스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#인덱스-콜레이션&quot; id=&quot;markdown-toc-인덱스-콜레이션&quot;&gt;인덱스 콜레이션&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#잠금&quot; id=&quot;markdown-toc-잠금&quot;&gt;잠금&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#잠금-양보-yield&quot; id=&quot;markdown-toc-잠금-양보-yield&quot;&gt;잠금 양보 (Yield)&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#트랜잭션&quot; id=&quot;markdown-toc-트랜잭션&quot;&gt;트랜잭션&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#쓰기충돌-write-conflict&quot; id=&quot;markdown-toc-쓰기충돌-write-conflict&quot;&gt;쓰기충돌 (Write Conflict)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#단일-도큐먼트-트랜잭션&quot; id=&quot;markdown-toc-단일-도큐먼트-트랜잭션&quot;&gt;단일 도큐먼트 트랜잭션&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#mongodb-서버의-격리-수준과-정렬&quot; id=&quot;markdown-toc-mongodb-서버의-격리-수준과-정렬&quot;&gt;MongoDB 서버의 격리 수준과 정렬&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#readconcern-writeconcern-readpreference&quot; id=&quot;markdown-toc-readconcern-writeconcern-readpreference&quot;&gt;ReadConcern, WriteConcern, ReadPreference&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#writeconcern&quot; id=&quot;markdown-toc-writeconcern&quot;&gt;WriteConcern&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#레플리카-셋-간의-동기화-제어&quot; id=&quot;markdown-toc-레플리카-셋-간의-동기화-제어&quot;&gt;레플리카 셋 간의 동기화 제어&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#readconcern&quot; id=&quot;markdown-toc-readconcern&quot;&gt;ReadConcern&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#readpreference&quot; id=&quot;markdown-toc-readpreference&quot;&gt;ReadPreference&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#데이터-모델링&quot; id=&quot;markdown-toc-데이터-모델링&quot;&gt;데이터 모델링&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#컬렉션&quot; id=&quot;markdown-toc-컬렉션&quot;&gt;컬렉션&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#뷰&quot; id=&quot;markdown-toc-뷰&quot;&gt;뷰&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#bson-도큐먼트&quot; id=&quot;markdown-toc-bson-도큐먼트&quot;&gt;BSON 도큐먼트&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#정규화-역정규화&quot; id=&quot;markdown-toc-정규화-역정규화&quot;&gt;정규화, 역정규화&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#참고서적&quot; id=&quot;markdown-toc-참고서적&quot;&gt;참고서적&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;인덱스&quot;&gt;인덱스&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;단일 값이나 단일 필드는 인덱스를 생성해도 필드의 이름이 인덱스에 저장되지 않고 인덱스의 메타 정보에서만 관리되므로, 필드 이름의 크기는 인덱스의 크기에 영향을 미치지 않는다.&lt;br /&gt;
+  하지만 서브 도큐먼트를 값으로 가지는 필드는 그 서브 도큐먼트의 자식 필드 이름이 모두 인덱스에 저장되므로 자식 필드의 이름이 길면 그만큼 인덱스의 크기에 영향을 미친다.&lt;br /&gt;
+  서브 도큐먼트의 필드명이 길 때에는 이 값들이 인덱스의 크기를 훨씬 더 크게 만드는 역효과를 만들기도 한다.&lt;/li&gt;
+  &lt;li&gt;WiredTiger 스토리지 엔진은 데이터 파일은 기본적으로 압축을 적용하지만, 인덱스 데이터 파일은 압축을 하지 않는다.&lt;/li&gt;
+  &lt;li&gt;인덱스 키값의 크기는 &lt;strong&gt;1KB&lt;/strong&gt;를 넘을 수 없기 때문에 인덱스로 지정한 필드의 사이즈가 &lt;strong&gt;1KB&lt;/strong&gt; 초과할 경우 오류를 발생시킨다.&lt;/li&gt;
+  &lt;li&gt;서브 도큐먼트 필드에 대해서 생성되는 인덱스를 사용하려면 조건절에 서브 도큐먼트의 필드를 모두 가지고, 순서가 같을 때만 인덱스를 활용할 수 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;인덱스 인터섹션&lt;/strong&gt;: MongoDB에서는 대부분의 DBMS와 다르게 하나의 컬렉션이 가진 두 개 이상의 인덱스를 검색하여 각 검색 결과를 만들고, 그 결과 집합의 교집합을 찾는 최적화를 제공한다.&lt;br /&gt;
+  &lt;em&gt;책에서는 인덱스 인터섹션이 효율적인 경우가 별로 없다고 한다.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;*공간 인덱스와 전문 인덱스는 아직 나의 관심사가 아니므로 공부 대상에서 제외한다**&lt;/p&gt;
+
+&lt;h3 id=&quot;컴파운드-인덱스&quot;&gt;컴파운드 인덱스&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;인덱스의 N번째 컬럼은 N-1번째 컬럼이 같은 레코드 내에서 다시 정렬된다. 그렇기 때문에 인데스 내에서 각 필드의 순서는 상당히 중요하며, 신중하게 결정해야 한다.&lt;/li&gt;
+  &lt;li&gt;N번째 컬럼없이 N-1번째 컬럼만으로는 인덱스를 사용할 수 없다.&lt;/li&gt;
+  &lt;li&gt;해시 인덱스는 컴파운드 인덱스에서 사용할 수 없다. (B-Tree 알고리즘만 지원)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아래와 같은 도큐먼트가 있을 때&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;field1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;field1_1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+       &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;field1_2&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;aaa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;field2&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2020-08-16&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;field3&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;박제희&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;인덱스가 하나의 필드를 가지면 단일 필드라고 정의한다. 여기서 단일 필드는 서브 도큐먼트도 포함한다.&lt;br /&gt;
+  복합 필드 인덱스는 서브 도큐먼트의 필드도 포함할 수 있으며, 1레벨과 서브 도큐먼트의 필드와 혼용하는 것도 가능하다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt; 를 지정하면 단일 필드이다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;field2&lt;/code&gt; 를 지정하면 단일 필드이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;인덱스가 복수의 필드를 가지면 복합 필드라고 정의한다. (컴파운드 인덱스 혹은 컴포지트 인덱스)
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;field2&lt;/code&gt; 를 지정하면 복합 필드이다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;field1.field1_1&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;field1.field1_2&lt;/code&gt; 를 지정하면 복합 필드이다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;field1.field1_1&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;field3&lt;/code&gt; 를 지정하면 복합 필드이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;서브 도큐먼트를 갖는 필드(&lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt;) 를 대상으로 단일 인덱스 (&lt;code class=&quot;highlighter-rouge&quot;&gt;idx1&lt;/code&gt;) 를 생성했을 때와 복합 인덱스(&lt;code class=&quot;highlighter-rouge&quot;&gt;idx2&lt;/code&gt;)를 생성했을 때는 어떤 차이점이 존재할까?&lt;br /&gt;
+Ex)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;idx1&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt; 필드를 갖는 단일 인덱스&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;idx2&lt;/code&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;field1.field1_1&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;field1.field1_2&lt;/code&gt; 필드를 갖는 복합 인덱스&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;idx1&lt;/code&gt; 는 &lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt; 에 어떤 서브 도큐먼트가 저장되든 &lt;strong&gt;BSON&lt;/strong&gt; 으로 변환하여 인덱스 키 엔트리로 사용한다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;idx2&lt;/code&gt; 는 &lt;code class=&quot;highlighter-rouge&quot;&gt;field1&lt;/code&gt; 에 저장되는 서브 도큐먼트가 어떤 필드를 가지던지 관계없이 인덱스에 명시한 서브 필드의 조합으로 컴파운드 인덱스를 생성한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;b-tree-인덱스의-정렬-및-스캔-방향&quot;&gt;B-Tree 인덱스의 정렬 및 스캔 방향&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;인덱스 내에서 각 필드를 어떻게 정렬할 것인지는 인덱스를 최초에 생성하는 시점에 결정된다.&lt;/li&gt;
+  &lt;li&gt;인덱스를 어떤 방향으로 읽을지는 쿼리가 원하는 값에 따라 옵티마이져가 만드는 실행계획에 따라 결정된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;인덱스의 스캔 방향은 옵티마이저에 의해 결정되기 때문에, 인덱스 생성 시점에 조회 쿼리를 상상하며 ASC, DESC 를 고민할 필요는 없다.&lt;/p&gt;
+
+&lt;p&gt;컴파운드 인덱스에서 ASC 와 DESC 를 혼합해서 효과적으로 사용하는 경우는 어떤 경우인가?&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;검색조건에 컴파운드 인덱스에 명시한 필드가 포함된다.&lt;/li&gt;
+  &lt;li&gt;정렬조건에 컴파운드 인덱스에 명시한 필드가 포함된다. (인덱스와 동일하게 혼합되어 있다면 인덱스 스캔 방향만 변경하여 탐색하면 되므로 인덱스에 최적화된 탐색이 가능하다)&lt;/li&gt;
+  &lt;li&gt;검색범위가 범위 검색이다 (동등 비교가 아니다)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;b-tree-인덱스&quot;&gt;B-Tree 인덱스&lt;/h3&gt;
+
+&lt;h3 id=&quot;해시-인덱스&quot;&gt;해시 인덱스&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;필드값을 해싱하여 인덱스 키값을 관리하기 때문에 오직 동등성을 판단하는 검색에서만 인덱스를 사용할 수 있다.&lt;/li&gt;
+  &lt;li&gt;해시 인덱스는 컴파운드 인덱스로 생성할 수 없다. (서브 도큐먼트는 가능)&lt;/li&gt;
+  &lt;li&gt;MongoDB의 해시 인덱스는 내부적으로는 B-Tree 알고리즘을 이용한다.&lt;/li&gt;
+  &lt;li&gt;인덱스를 생성할 때 인덱스 필드의 값을 &lt;strong&gt;MD5&lt;/strong&gt; 알고리즘을 이용하여 저장하기 때문에 인덱스 필드의 크기와 관계없이 인덱스의 크기는 항상 &lt;strong&gt;8Byte&lt;/strong&gt;이다.&lt;/li&gt;
+  &lt;li&gt;B-Tree 인덱스와 장점보다 단점이 많은 알고리즘으로, 특수한 상황에 인덱스의 특징을 알아야 적절히 사용할 수 있음 (&lt;strong&gt;샤딩시 필수&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;멀티-키-인덱스&quot;&gt;멀티 키 인덱스&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;하나의 도큐먼트&lt;/strong&gt;에 하나의 인덱스에 대하여 &lt;strong&gt;여러개의 키&lt;/strong&gt;가 존재하면 멀티 키 인덱스라고 부른다.&lt;br /&gt;
+Ex)
+아래와 같은 구조를 가지는 도큐먼트가 있을 때&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;multi&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;multi&lt;/code&gt; 필드에 대하여 인덱스를 생성하면 하나의 인덱스에 5개의 인덱스 키가 생성되는데 이것을 멀티 키 인덱스라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;멀티 키를 이용하여 범위 검색을 할 때, 의식의 흐름대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;BETWEEN&lt;/code&gt; 연산을 이용하듯이 &lt;code class=&quot;highlighter-rouge&quot;&gt;find({ multi : { $gte : 3, $lte : 4 } })&lt;/code&gt; 이런 쿼리를 작성하면
+각 조건을 따로 비교한 다음에, 두 개의 결과를 병합한 결과를 리턴한다 (&lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt; 연산처럼 동작한다)&lt;/p&gt;
+
+&lt;p&gt;멀티 키를 이용하여 범위 검색을 하려면 &lt;code class=&quot;highlighter-rouge&quot;&gt;$elemMatch&lt;/code&gt; 연산자를 이용해야 한다.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;find({ multi : { $elemMatch: { $gte : 3, $lte : 4 } } })&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;제한사항&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;샤드 키로 사용 불가&lt;/li&gt;
+  &lt;li&gt;해시 알고리즘 사용 불가&lt;/li&gt;
+  &lt;li&gt;커버링 인덱스 처리 불가&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;프라이머리-키와-세컨드리-인덱스&quot;&gt;프라이머리 키와 세컨드리 인덱스&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;MongoDB의 프라이머리 키는 강제되며, 무조건 &lt;code class=&quot;highlighter-rouge&quot;&gt;_id&lt;/code&gt; 라는 이름으로 도큐먼트에 저장 되어야 한다.&lt;/li&gt;
+  &lt;li&gt;컬렉션마다 단 하나의 프라이머리 키만 가질 수 있으며, 나머지 인덱스는 모두 세컨드리 인덱스라고 한다.&lt;/li&gt;
+  &lt;li&gt;컬렉션이 샤딩 되어있는 경우에는 하나의 샤드에서 중복 값에 대한 체크는 MongoDB 서버에서 처리하지만, 각 샤드간 프라이머리 키 값의 중복 체크는 응용 프로그램에서 처리해야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;유니크-인덱스&quot;&gt;유니크 인덱스&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; 값을 제한하지 않는다&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; 과 존재하지 않는 값(도큐먼트에 필드를 명시하지 않음)을 동일하게 취급한다&lt;/li&gt;
+  &lt;li&gt;도큐먼트 간의 중복값은 체크를 하지만, 도큐먼트 내부에서 중복된 값을 체크하지는 않는다.&lt;/li&gt;
+  &lt;li&gt;샤딩이 적용된 경우에는 샤드키를 선행 필드로 가지는 인덱스에서만 유니크 인덱스를 생성할 수 있다.&lt;/li&gt;
+  &lt;li&gt;해시 알고리즘을 적용할 수 없다. (해시 충돌 가능성을 가지고 있기 때문)&lt;/li&gt;
+  &lt;li&gt;Mongo DB 의 유니크 인덱스는 일반 인덱스와 동일한 역할을 하므로 중복해서 인덱스를 생성하지 않도록 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sparse-인덱스-와-partial-인덱스&quot;&gt;Sparse 인덱스 와 Partial 인덱스&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Sparse&lt;/strong&gt; 인덱스
+    &lt;ul&gt;
+      &lt;li&gt;인덱스 대상 필드를 명시한 도큐먼트만 인덱스에 키 엔트리를 저장한다. (&lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; 포함)&lt;/li&gt;
+      &lt;li&gt;컴파운드 인덱스인 경우에는 인덱스를 구성하는 필드 중에서 하나라도 명시하면 인덱싱 대상이 된다.&lt;/li&gt;
+      &lt;li&gt;인덱스가 커버할 수 없는 쿼리에서는 인덱스를 사용할 수 없다&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Partial&lt;/strong&gt; 인덱스 : 특정 조건에 따라 인덱싱 가능
+    &lt;ul&gt;
+      &lt;li&gt;인덱스를 생성할 때 &lt;code class=&quot;highlighter-rouge&quot;&gt;partialFilterExpression&lt;/code&gt; 옵션을 이용하여 인덱스 생성 조건을 명시&lt;/li&gt;
+      &lt;li&gt;인덱스 생성 조건에는 인덱스 대상 필드와 무관한 필드에 대해서도 조건으로 사용하는 것이 가능하다.&lt;/li&gt;
+      &lt;li&gt;Partial 인덱스를 사용하려면 &lt;strong&gt;인덱스 생성 조건과 일치&lt;/strong&gt;하거나 부분 범위의 조건을 명시해야만 한다&lt;/li&gt;
+      &lt;li&gt;샤드키에 사용 불가&lt;/li&gt;
+      &lt;li&gt;인덱스가 커버할 수 없는 쿼리에서는 인덱스를 사용할 수 없다&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;불완전한-결과&quot;&gt;불완전한 결과&lt;/h4&gt;
+&lt;p&gt;Sparse 인덱스나 Partial 인덱스는 컬렉션에 저장되는 도큐먼트가 특정 조건을 만족하는 경우에만 인덱싱을 진행하게 된다.&lt;br /&gt;
+그렇기 때문에 인덱스로 참조할 수 없는 도큐먼트가 분명히 존재하게 되어 인덱스 탐색을 하게 될 경우에 불완전환 결과를 리턴할 수 있다.&lt;br /&gt;
+그래서 옵티마이저는 인덱스가 커버할 수 없는 쿼리라고 판단하면 인덱스를 사용하지 않도록 하고 있지만, 
+사용자가 인덱스 힌트를 직접 명시하면 옵티마이저는 사용자가 이런 불완전한 결과에 대한 가능성을 충분히 인지하고 있다고 가정하고 
+인덱스 탐색을 하도록 실행 계획을 수립하도록 한다.&lt;/p&gt;
+
+&lt;p&gt;예시)&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 컬렉션과 Sparse 인덱스 생성&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createCollection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sparse&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 더미 데이터 생성&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;AAA&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;BBB&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CCC&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;DDD&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 인덱스를 사용하지 않지만 완전한 결과&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 3과 4 도큐먼트를 리턴한다.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+   &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 인덱스를 사용하지만 불완전한 결과&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 3 도큐먼트만 리턴한다.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+   &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ttl-인덱스&quot;&gt;TTL 인덱스&lt;/h3&gt;
+&lt;p&gt;컬렉션의 도큐먼트가 언제까지 유효한지를 판단하여 더 이상 유효하지 않은 도큐먼트는 자동으로 삭제되게 하는 기능의 인덱스&lt;br /&gt;
+도큐먼트 삭제는 TTL Monitor 라는 쓰레드가 지정된 시간 간격(기본:1분)마다 지정된 시간보다 오래된 도큐먼트를 찾아서 삭제한다.&lt;br /&gt;
+TTL 인덱스는 쿼리의 검색 성능 향상 목적보다는 TTL Monitor 쓰레드가 삭제할 도큐먼트를 찾기 위한 인덱스로 보는게 정확하다.&lt;/p&gt;
+
+&lt;p&gt;TTL 인덱스는 지정된 필드가 Date 타입이거나 Date 타입의 값을 배열로 가지는 필드에 대해서만 자동 삭제가 실행된다.&lt;/p&gt;
+
+&lt;p&gt;예시 )&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;created&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;expireAfterSeconds&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// TTL Monitor 수도코드&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;created&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;expiredDateTime&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;expireAfterSeconds&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// TTL Monitor 수도코드&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;expiredDateTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Partial 인덱스 옵션과 조합하여 선별적 자동 삭제도 가능하다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예시 )&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;created&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;created&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;partialFilterExpression&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;is_admin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// TTL Monitor 수도코드&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;created&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NOW&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isNotAdmin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;인덱스-콜레이션&quot;&gt;인덱스 콜레이션&lt;/h3&gt;
+&lt;p&gt;MongoDB는 모든 문자열 비교에서 대소문자를 구분하는 Case-Sensitive 방식이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;jehui&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Jehui&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// &amp;gt;&amp;gt; not found&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3.4 버전 부터 컬렉션과 인덱스에 대해서 콜레이션을 지정가능
+컬레이션을 지정하면 영어의 대소문자 비교 구분뿐만 아니라 국가별 언어에 맞는 정렬 및 비교 규칙을 사용자의 요구사항에 맞게 적절히 선택할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컬렉션의 인덱스를 생성한 이후에는 다른 콜레이션으로 변경할 수 없다. (콜레이션을 변경하라면 인덱스 삭제 -&amp;gt; 생성 과정을 거쳐야 한다.)&lt;/li&gt;
+  &lt;li&gt;인덱스를 생성할 때 별도의 콜레이션을 명시하지 않으면 컬렉션의 기본 콜레이션을 상속받게 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;잠금&quot;&gt;잠금&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진은 글로벌(인스턴스 레벨) 잠금과 데이터베이스와 컬렉션 레벨의 인텐션 잠금을 지원한다.&lt;br /&gt;
+인텐션 잠금은 데이터베이스 레벨이나 컬렉션 레벨의 명령과 도큐먼트 레벨의 명령이 최적의 동시성을 유지하면서 실행될 수 있게 해준다.&lt;/p&gt;
+
+&lt;h3 id=&quot;잠금-양보-yield&quot;&gt;잠금 양보 (Yield)&lt;/h3&gt;
+&lt;p&gt;MongoDB 서버는 트랜잭션보다는 높은 동시성 처리의 우선순위가 더 높기 때문에 설정된 시간보다 오래 걸리거나, 많은 자원을 소모하는 경우에는 잠깐 쉬었다(Yield)가 다시 처리한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;읽기를 위한 IS 잠금(Intention Shared) 획득 (REV1 스냅샷 획득)&lt;/li&gt;
+  &lt;li&gt;데이터 탐색&lt;/li&gt;
+  &lt;li&gt;잠금 양보 (스냅샷 해제)&lt;/li&gt;
+  &lt;li&gt;읽기를 위한 IS 잠금(Intention Shared) 획득 (REV2 스냅샷 획득)&lt;/li&gt;
+  &lt;li&gt;loop …&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이러한 특성 때문에 쿼리 일관성이 깨질 수 있다는 문제점을 가지고 있음&lt;/p&gt;
+
+&lt;p&gt;관련 설정&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;internalQueryExecYieldIterations&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;internalQueryExecYieldPeriodMs&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;트랜잭션&quot;&gt;트랜잭션&lt;/h2&gt;
+&lt;p&gt;2.6 버전 까지 사용되던 &lt;strong&gt;MMAPv1&lt;/strong&gt; 스토리지 엔진은 트랜잭션이라고 할 만한 요소가 별로 없다. (대부분 운영체제 시스템 콜에 의존)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진이 제공하는 트랜잭션의 &lt;strong&gt;ACID&lt;/strong&gt; 속성&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;최고 레벨의 격리 수준은 &lt;strong&gt;SNAPSHOT&lt;/strong&gt;(RR)&lt;/li&gt;
+  &lt;li&gt;트랜잭션의 커밋과 체크포인트 2가지 형태로 영속성 보장&lt;/li&gt;
+  &lt;li&gt;커밋되지 않은 변경 데이터는 공유 캐시 크기보다 작아야 함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MongoDB 서버에 내장된 &lt;strong&gt;WiredTiger&lt;/strong&gt; 의 격리 수준은 &lt;strong&gt;SNAPSHOT&lt;/strong&gt;으로 고정되어 있다.&lt;br /&gt;
+MongoDB 서버는 &lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진의 &lt;strong&gt;SNAPSHOT&lt;/strong&gt; 격리수준을 100% 지원하지는 않는다.&lt;/p&gt;
+
+&lt;h3 id=&quot;쓰기충돌-write-conflict&quot;&gt;쓰기충돌 (Write Conflict)&lt;/h3&gt;
+
+&lt;p&gt;MongoDB는 쓰기 충돌이 발생하면 RDBMS 와는 다른 방식으로 해결한다.&lt;br /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/90974620-e683a200-e567-11ea-81cb-e6669c657693.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;변경하고자 하는 도큐먼트에 잠금이 걸려있을 경우에는 즉시 업데이트 실행을 취소하고 재시도를 수행한다.&lt;br /&gt;
+이런 과정들은 MongoDB 서버 프로세스 내부에서만 실행되기 때문에 응용 프로그램에는 투명하게 작동한다.&lt;/p&gt;
+
+&lt;p&gt;기존 RDBMS 는 쓰기 충돌이 발생하면 잠금 대기상태에 들어가기 때문에 커넥션이 일시적으로 증가하는 반면에 MongoDB 는 UPDATE 문을 재시도하는 방식이기 때문에 하나의 도큐먼트에 변경이 집중되면 &lt;strong&gt;쓰기 충돌→재시도&lt;/strong&gt; 과정이 반복되어 CPU 의 사용량이 높아지는 현상이 발생될 수 있다.  (CPU 사용량만 증가하고 처리능력은 저하된다)&lt;/p&gt;
+
+&lt;h3 id=&quot;단일-도큐먼트-트랜잭션&quot;&gt;단일 도큐먼트 트랜잭션&lt;/h3&gt;
+&lt;p&gt;MongoDB 서버는 단일 도큐먼트의 트랜잭션만 지원한다.
+단일 도큐먼트의 변경에 대해서는 원자 단위의 처리가 보장 되지만, &lt;strong&gt;문장 단위의 트랜잭션은 지원되지 않는다.&lt;/strong&gt;  (MongoDB 서버에서 작업을 쪼개서 진행)&lt;/p&gt;
+
+&lt;p&gt;예시)&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;AAA&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;BBB&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 몽고DB 수도코드&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;BEGIN&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;AAA&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;END&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;BEGIN&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;BBB&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;END&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// &amp;gt; {_id:1, name:&quot;AAA&quot;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{multi:true}&lt;/code&gt; 옵션을 명시한 &lt;strong&gt;UPDATE&lt;/strong&gt; 명령도 동일하다&lt;/p&gt;
+
+&lt;h3 id=&quot;mongodb-서버의-격리-수준과-정렬&quot;&gt;MongoDB 서버의 격리 수준과 정렬&lt;/h3&gt;
+
+&lt;p&gt;MongoDB 서버는 도큐먼트를 조회할 때 기본적으로 스냅샷을 기반으로 처리하며 스냅샷은 도큐먼트 건수나 일정 시간을 기준으로 초기화가 진행된다.&lt;br /&gt;
+그런데 실행하는 쿼리가 &lt;strong&gt;정렬&lt;/strong&gt;이 필요하다면 MongoDB 서버는 컬렉션의 데이터를 모두 가져와서 메모리에 적재하고 정렬을 실행하여 그 결과를 클라이언트로 보내게 된다.&lt;/p&gt;
+
+&lt;p&gt;요약하면 정렬이 포함되지 않거나 정렬이 인덱스로 보장될(정렬 SKIP) 때에는 스냅샷 격리 수준이 제한적으로만 보장된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;readconcern-writeconcern-readpreference&quot;&gt;ReadConcern, WriteConcern, ReadPreference&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;ReadConcern&lt;/strong&gt; 과 &lt;strong&gt;WriteConcern&lt;/strong&gt; 는 데이터 읽기/쓰기를 시도할 때 동기화 수준을 결정
+&lt;strong&gt;ReadPreference&lt;/strong&gt; 는 레플리카 셋의 어느 MongoDB 서버로 요청을 보낼 것인지 결정&lt;/p&gt;
+
+&lt;h4 id=&quot;writeconcern&quot;&gt;WriteConcern&lt;/h4&gt;
+
+&lt;p&gt;클라이언트의 변경요청을 어디까지 처리하고 응답을 내려보낼 것인지 결정하는 옵션으로 클라이언트, 데이터베이스, 컬렉션 수준까지 지정이 가능하다&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UNACKNOWLEDGED&lt;/code&gt; 변경 요청에 대한 응답을 기다리지 않는다&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ACKNOWLEDGED&lt;/code&gt; 변경 내용을 메모리까지만 적용하고 클라이언트로 응답을 보낸다 (기본값)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;JOURNALED&lt;/code&gt; 변경 내용을 저널로그까지 기록하고 클라이언트로 응답을 보낸다 (2.6 버전부터 지원)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FSYNC&lt;/code&gt; 변경 내용을 데이터파일까지 기록하고 클라이언트로 응답을 보낸다.
+    &lt;ul&gt;
+      &lt;li&gt;MMAPv1 스토리지 엔진에서 사용되던 옵션&lt;/li&gt;
+      &lt;li&gt;WiredTiger 스토리지 엔진은 이 스펙을 지원하지 않는다 (저널로그로 대체)&lt;/li&gt;
+      &lt;li&gt;클라이언트의 드라이버에서 제거될 옵션이다&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/92327939-300bdb00-f098-11ea-8404-952cb435dc08.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;레플리카-셋-간의-동기화-제어&quot;&gt;레플리카 셋 간의 동기화 제어&lt;/h4&gt;
+&lt;p&gt;레플리카 셋에서 변경 결과를 어느정도 수준으로 동기화 시킬건지 제어할 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{ w : 2 }&lt;/code&gt; 레플리카 셋에서 2대 이상의 멤버가 &lt;strong&gt;WriteConcern&lt;/strong&gt; 조건을 만족 해야한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{ w : &quot;majority&quot;}&lt;/code&gt; 레플리카 셋에서 과반수 이상의 멤버가  &lt;strong&gt;WriteConcern&lt;/strong&gt; 조건을 만족 해야한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;readconcern&quot;&gt;ReadConcern&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;WriteConcern&lt;/strong&gt; 옵션에 따라 MongoDB 레플리카 셋의 멤버들은 서로 다른 상태를 가질 수 있다.&lt;br /&gt;
+이런 특징이 데이터를 읽어갈 때 문제점을 유발할 가능성이 있기 때문에 데이터 읽기를 일관성 있게 유지할 수 있도록 지원하는 옵션이다&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;local&lt;/code&gt; 쿼리가 실행되는 MongoDB 서버가 가진 최신의 데이터를 반환 (기본값)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;majority&lt;/code&gt; 레플리카 셋에서 과반수 이상의 멤버가 가진 최신의 데이터를 반환
+    &lt;ul&gt;
+      &lt;li&gt;WiredTiger 스토리지 엔진만 지원&lt;/li&gt;
+      &lt;li&gt;3.2 이상부터 지원&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;enableMajorityReadConcern&lt;/code&gt; 옵션 활성화가 전제조건&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;linearizable&lt;/code&gt; 레플리카 셋의 모든 멤버가 가진 변경 사항에 대해서만 쿼리 결과를 반환
+    &lt;ul&gt;
+      &lt;li&gt;3.4 이상부터 지원&lt;/li&gt;
+      &lt;li&gt;프라이머리 멤버에서 쿼리를 실행할 때만 사용가능&lt;/li&gt;
+      &lt;li&gt;레플리카 셋의 특정 멤버에 장애가 발생할 경우 무한정 대기상태에 빠질 수 있기 때문에 쿼리 타임아웃을 지정하는 것을 권장&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;readpreference&quot;&gt;ReadPreference&lt;/h3&gt;
+
+&lt;p&gt;드라이버 수준에서 클라이언트의 쿼리를 어떤 MongoDB 서버로 요청해서 실행할 것인지 결정하는 옵션이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;primary&lt;/code&gt; 프라이머리 멤버로만 쿼리를 요청한다 (기본값, 레플리카 셋에서 프라이머리 멤버가 없으면 쿼리 실행은 실패)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;primaryPreferred&lt;/code&gt; 레플리카 셋에서 프라이머리 멤버가 없으면 세컨드리 멤버로 쿼리를 요청한다&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;secondary&lt;/code&gt; 쿼리를 레플리카 셋의 세컨드리 멤버로만 요청한다 (세컨드리 멤버가 없으면 쿼리 실행은 실패)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;secondaryPreferred&lt;/code&gt; 레플리카 셋에서 세컨드리 멤버가 없으면 프라이머리 멤버로 쿼리를 요청한다&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nearest&lt;/code&gt; 레플리카 셋에서 쿼리의 응답 시간이 빠른 멤버로 쿼리를 요청한다.  (레플리카 셋의 멤버들이 글로벌하게 분산되어 있을 경우에 적절한 옵션)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;primaryPreferred&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;secondaryPreferred&lt;/code&gt; 옵션을 사용하는 경우에 일시적인 장애로 커넥션에서 쿼리를 처리하는 멤버가 변경 되었을 경우에는 커넥션이 종료될 때까지 쿼리를 처리하는 멤버는 변경되지 않는다&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;세컨드리 읽기는 복제 지연에 대해 검토한 후에 적용하는 것이 좋다.&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;세컨드리 멤버는 OpLog 를 적용할 때 글로벌 잠금을 획득한다&lt;/li&gt;
+  &lt;li&gt;세컨드리에서 실행되는 무거운 쿼리는 OpLog 적용을 지연시킨다&lt;/li&gt;
+  &lt;li&gt;MongoDB 매뉴얼에서는 세컨드리 읽기를 가능하면 사용하지 않는 것을 권장한다 (정확히는 사용자 서비스를 세컨드리 읽기에서 처리하는 것)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;데이터-모델링&quot;&gt;데이터 모델링&lt;/h2&gt;
+
+&lt;h3 id=&quot;컬렉션&quot;&gt;컬렉션&lt;/h3&gt;
+&lt;p&gt;MongoDB 의 매뉴얼에서 MongoDB는 조인을 지원하지 (3.2부터 제한적으로 지원) 않기 때문에 MongoDB의 도큐먼트는 &lt;strong&gt;가능하면&lt;/strong&gt; 많은 데이터를 포함할 것을 권장하고 있다.&lt;/p&gt;
+
+&lt;p&gt;이 권장사항은 조인 제거, 트랜잭션 보장등의 장점도 있는 반면에 단점도 존재하기 때문에 데이터 특성에 따라 적절한 트레이드 오프가 필요하다&lt;/p&gt;
+
+&lt;p&gt;도큐먼트의 크기가 커지면 발생하는 단점&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;메모리 캐시 효율 저하&lt;/li&gt;
+  &lt;li&gt;디스크 읽기 오퍼레이션 증가&lt;/li&gt;
+  &lt;li&gt;네트워크 사용량 증가&lt;/li&gt;
+  &lt;li&gt;도큐먼트의 최대 사이즈는 16MB&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;뷰&quot;&gt;뷰&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;성능상의 장점은 없다&lt;/li&gt;
+  &lt;li&gt;Materialized View, Updatable View 와 같은 기능은 제공하지 않는다&lt;/li&gt;
+  &lt;li&gt;컬렉션을 캡슐화함으로써 얻는 장점을 제공&lt;/li&gt;
+  &lt;li&gt;생성된 뷰는 컬렉션처럼 취급하면 된다 &lt;code class=&quot;highlighter-rouge&quot;&gt;db..find()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;db..drop()&lt;/code&gt; 등등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bson-도큐먼트&quot;&gt;BSON 도큐먼트&lt;/h3&gt;
+&lt;p&gt;MongoDB는 도큐먼트를 BSON으로 처리한다 &lt;a href=&quot;http://bsonspec.org/&quot;&gt;BSON 스펙&lt;/a&gt;을 한번 훑어본다면 MongoDB 사용에 도움이 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;BSON이 갖고 있는 특징&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Lightweight 공간 최적화 : 단순히 문자열로 저장하지 않고 데이터 타입에 맞추어 이진 데이터 타입으로 저장한다&lt;/li&gt;
+  &lt;li&gt;Traversable 빠른 탐색 : BSON 도큐먼트는 도큐먼트의 크기, 필드 값의 데이터 타입, 필드 값의 크기와 같은 정보를 포함하고 있어서, 빠른 탐색이 가능 하도록 설계되어 있다&lt;/li&gt;
+  &lt;li&gt;Efficient 효율적 : C 언어의 Primitive 타입을 이용하기 때문에 대부분의 언어에서 빠르게 처리가 가능하다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;작성중……..&lt;/p&gt;
+
+&lt;p&gt;byte	1 byte (8-bits)
+int32	4 bytes (32-bit signed integer, two’s complement)
+int64	8 bytes (64-bit signed integer, two’s complement)
+uint64	8 bytes (64-bit unsigned integer)
+double	8 bytes (64-bit IEEE 754-2008 binary floating point)
+decimal128	16 bytes (128-bit IEEE 754-2008 decimal floating point)&lt;/p&gt;
+
+&lt;h3 id=&quot;정규화-역정규화&quot;&gt;정규화, 역정규화&lt;/h3&gt;
+
+&lt;p&gt;아래는 &lt;a href=&quot;https://wikibook.co.kr/real-mongodb/&quot; title=&quot;대용량 데이터 처리를 위한 Real MongoDB&quot;&gt;참고서적&lt;/a&gt;에 적힌 내용중 하나
+&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/92492094-ee149d80-f22d-11ea-95d3-e53bb88c4671.jpg&quot; alt=&quot;KakaoTalk_20200908_234751372&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고서적&quot;&gt;참고서적&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wikibook.co.kr/real-mongodb/&quot; title=&quot;대용량 데이터 처리를 위한 Real MongoDB&quot;&gt;대용량 데이터 처리를 위한 Real MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 16 Aug 2020 13:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/study/mongo-study</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/study/mongo-study</guid>
+        
+        
+        <category>study</category>
+        
+      </item>
     
       <item>
         <title>레디스 기초 공부</title>
@@ -1359,45 +1875,6 @@ A. 레디스에 데이터가 계속 추가되어 물리 메모리가 부족하�
         
         
         <category>note</category>
-        
-      </item>
-    
-      <item>
-        <title>디자인 패턴 : 팩토리 메소드</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#정의&quot; id=&quot;markdown-toc-정의&quot;&gt;정의&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#내-생각&quot; id=&quot;markdown-toc-내-생각&quot;&gt;내 생각&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
-&lt;p&gt;GoF의 디자인 패턴(p156)에서는 팩토리 메소드에 대한 패턴을 이렇게 정의한다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;객체 생성을 위한 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할 지에 대한 결정은 서브클래스가 내리도록 한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;내-생각&quot;&gt;내 생각&lt;/h2&gt;
-&lt;p&gt;이 문구를 보고 이상한 점을 느꼈다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;그렇다면 팩토리 메소드 패턴과 추상 팩토리 패턴의 차이는 뭐지? 말장난인가?&lt;br /&gt;
-아직 나의 식견이 좁아서 그런 걸 수도 있다. 다음에 이 생각에 변화가 생긴다면, 이 문서를 갱신할 계획이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;어쨌든, 이 패턴을 이용하여 이루고자 하는 목적은 이렇다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;마찬가지로 어플리케이션 코드와 결합도를 줄이기 위해서 추상화 타입을 반환한다.&lt;/li&gt;
-  &lt;li&gt;생성에 대한 책임을 구체 클래스를 가장 잘 아는 클래스에게 위임한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;예제코드도 작성해보려고 시도해보았지만, 예제 코드를 작성할 수록 머릿속에서 충돌이 일어나서 결국 작성중이던 예제코드를 지웠다.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 19 Apr 2020 22:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/study/factory-method</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/study/factory-method</guid>
-        
-        <category>디자인 패턴</category>
-        
-        
-        <category>study</category>
         
       </item>
     

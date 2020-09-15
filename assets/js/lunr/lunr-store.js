@@ -178,4 +178,9 @@ var store = [{
         "excerpt":"레디스 주요정보 및 특징 기본 명령어 문자열 명령 리스트 명령 셋 명령 정렬된 셋 명령 해시 명령 데이터 처리 명령어 접두사와 접미사 문자열 해시 데이터 셋 데이터 정렬된 셋 데이터 리스트 데이터 키 제어 명령어 레디스 프로토콜 클러스터 복제 샤딩 레디스 운영 시 고려사항 기타 참고자료 레디스 주요정보 및 특징...","categories": ["study"],
         "tags": [],
         "url": "https://jehuipark.github.io/study/redis-study",
+        "teaser":null},{
+        "title": "MongoDB 기초 공부",
+        "excerpt":"인덱스 컴파운드 인덱스 B-Tree 인덱스의 정렬 및 스캔 방향 B-Tree 인덱스 해시 인덱스 멀티 키 인덱스 프라이머리 키와 세컨드리 인덱스 유니크 인덱스 Sparse 인덱스 와 Partial 인덱스 불완전한 결과 TTL 인덱스 인덱스 콜레이션 잠금 잠금 양보 (Yield) 트랜잭션 쓰기충돌 (Write Conflict) 단일 도큐먼트 트랜잭션 MongoDB 서버의 격리 수준과 정렬 ReadConcern,...","categories": ["study"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/study/mongo-study",
         "teaser":null}]
