@@ -393,14 +393,35 @@ MongoDB는 도큐먼트를 BSON으로 처리한다 [BSON 스펙](http://bsonspec
 - Traversable 빠른 탐색 : BSON 도큐먼트는 도큐먼트의 크기, 필드 값의 데이터 타입, 필드 값의 크기와 같은 정보를 포함하고 있어서, 빠른 탐색이 가능 하도록 설계되어 있다
 - Efficient 효율적 : C 언어의 Primitive 타입을 이용하기 때문에 대부분의 언어에서 빠르게 처리가 가능하다
 
-작성중........
+**도큐먼트 구성**
+4바이트 (도큐먼트 크기)  
+1바이트 (필드 값의 타입)  
+필드 명  
+0x00 (필드 명의 끝)  
+4바이트 (필드 값의 크기)  
+필드 값  
+0x00 (필드 값의 끝)  
+0x00 (도큐먼트의 끝)
 
-byte	1 byte (8-bits)
-int32	4 bytes (32-bit signed integer, two's complement)
-int64	8 bytes (64-bit signed integer, two's complement)
-uint64	8 bytes (64-bit unsigned integer)
-double	8 bytes (64-bit IEEE 754-2008 binary floating point)
-decimal128	16 bytes (128-bit IEEE 754-2008 decimal floating point)
+```json
+{
+    "key":"value"
+}
+```
+
+```byte
+0x14 0x00 0x00 0x00 
+0x02 
+0x6b 0x65 0x79 
+0x00 
+0x05 0x00 0x00 0x00 
+0x76 0x61 0x6c 0x75 0x65
+0x00
+0x00
+```
+
+
+
 
 
 ### 정규화, 역정규화
