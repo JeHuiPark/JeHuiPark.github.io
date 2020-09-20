@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 15 Sep 2020 22:39:00 +0900</pubDate>
-    <lastBuildDate>Tue, 15 Sep 2020 22:39:00 +0900</lastBuildDate>
+    <pubDate>Sun, 20 Sep 2020 20:28:06 +0900</pubDate>
+    <lastBuildDate>Sun, 20 Sep 2020 20:28:06 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -51,6 +51,8 @@
       &lt;li&gt;&lt;a href=&quot;#뷰&quot; id=&quot;markdown-toc-뷰&quot;&gt;뷰&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#bson-도큐먼트&quot; id=&quot;markdown-toc-bson-도큐먼트&quot;&gt;BSON 도큐먼트&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#정규화-역정규화&quot; id=&quot;markdown-toc-정규화-역정규화&quot;&gt;정규화, 역정규화&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#쿼리-개발-및-튜닝&quot; id=&quot;markdown-toc-쿼리-개발-및-튜닝&quot;&gt;쿼리 개발 및 튜닝&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#쿼리-실행계획&quot; id=&quot;markdown-toc-쿼리-실행계획&quot;&gt;쿼리 실행계획&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#참고서적&quot; id=&quot;markdown-toc-참고서적&quot;&gt;참고서적&lt;/a&gt;&lt;/li&gt;
@@ -507,25 +509,42 @@ MongoDB 서버는 &lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진의
 0x00 (필드 값의 끝)&lt;br /&gt;
 0x00 (도큐먼트의 끝)&lt;/p&gt;
 
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-byte&quot;&gt;0x14 0x00 0x00 0x00 
-0x02 
-0x6b 0x65 0x79 
-0x00 
-0x05 0x00 0x00 0x00 
-0x76 0x61 0x6c 0x75 0x65
-0x00
-0x00
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/blog-sample/tree/master/bson-sample&quot;&gt;BSON 이해를 위한 샘플 코드&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**
+ * expected.
+ *
+ * {&quot;key&quot;:&quot;value&quot;}
+ */&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{\&quot;key\&quot;: \&quot;value\&quot;}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INPUT_BSON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]{&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x14&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 도큐먼트 사이즈 20&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 문자열 필드&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x6b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x65&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x79&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필드명: key&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필드명의 끝 (null)&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x06&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필드 길이: 6 (null 포함)&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x76&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x6c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x75&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x65&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필드: value&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필드의 끝 (null)&lt;/span&gt;
+    &lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 도큐먼트의 끝 (null)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;정규화-역정규화&quot;&gt;정규화, 역정규화&lt;/h3&gt;
 
 &lt;p&gt;아래는 &lt;a href=&quot;https://wikibook.co.kr/real-mongodb/&quot; title=&quot;대용량 데이터 처리를 위한 Real MongoDB&quot;&gt;참고서적&lt;/a&gt;에 적힌 내용중 하나
 &lt;img src=&quot;https://user-images.githubusercontent.com/25237661/92492094-ee149d80-f22d-11ea-95d3-e53bb88c4671.jpg&quot; alt=&quot;KakaoTalk_20200908_234751372&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;쿼리-개발-및-튜닝&quot;&gt;쿼리 개발 및 튜닝&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;맵 리듀스&lt;/li&gt;
+  &lt;li&gt;Aggregation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;쿼리-실행계획&quot;&gt;쿼리 실행계획&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;쿼리 실행계획 분석&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;참고서적&quot;&gt;참고서적&lt;/h2&gt;
 &lt;ul&gt;
