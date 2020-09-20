@@ -403,32 +403,39 @@ MongoDB는 도큐먼트를 BSON으로 처리한다 [BSON 스펙](http://bsonspec
 0x00 (필드 값의 끝)  
 0x00 (도큐먼트의 끝)
 
-```json
-{
-    "key":"value"
-}
+[BSON 이해를 위한 샘플 코드](https://github.com/JeHuiPark/blog-sample/tree/master/bson-sample)
+```java
+/**
+ * expected.
+ *
+ * {"key":"value"}
+ */
+final var expected = "{\"key\": \"value\"}";
+byte [] INPUT_BSON = new byte[]{
+    0x14, 0x00, 0x00, 0x00, // 도큐먼트 사이즈 20
+    0x02, // 문자열 필드
+    0x6b, 0x65, 0x79, // 필드명: key
+    0x00, // 필드명의 끝 (null)
+    0x06, 0x00, 0x00, 0x00, // 필드 길이: 6 (null 포함)
+    0x76, 0x61, 0x6c, 0x75, 0x65, // 필드: value
+    0x00, // 필드의 끝 (null)
+    0x00 // 도큐먼트의 끝 (null)
+};
 ```
-
-```byte
-0x14 0x00 0x00 0x00 
-0x02 
-0x6b 0x65 0x79 
-0x00 
-0x05 0x00 0x00 0x00 
-0x76 0x61 0x6c 0x75 0x65
-0x00
-0x00
-```
-
-
-
-
 
 ### 정규화, 역정규화
 
 아래는 [참고서적][real-mongodb]에 적힌 내용중 하나
 ![KakaoTalk_20200908_234751372](https://user-images.githubusercontent.com/25237661/92492094-ee149d80-f22d-11ea-95d3-e53bb88c4671.jpg)
 
+### 쿼리 개발 및 튜닝
+
+- 맵 리듀스
+- Aggregation
+
+### 쿼리 실행계획
+
+- 쿼리 실행계획 분석
 
 ## 참고서적
 - [대용량 데이터 처리를 위한 Real MongoDB][real-mongodb]
