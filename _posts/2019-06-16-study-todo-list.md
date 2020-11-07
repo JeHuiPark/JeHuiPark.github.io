@@ -34,6 +34,8 @@ GOF의 디자인패턴 |
 [The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
 대용량 데이터 처리를 위한 Real MongoDB | 이성욱
 ~~이것이 레디스다~~ | 정경석
+http in action | 배리 폴라드
+자바 서블릿 프로그램 (절판ㅜㅜ)| 제이슨 헌터
 
 
 ## 공부 키워드
