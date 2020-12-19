@@ -29,10 +29,10 @@ GOF의 디자인패턴 |
 데이터 중심 애플리케이션 설계 | 마틴 클레프만
 컴퓨팅 사고 | 
 자바 성능 튜닝 | 스캇 오크스
-자바 네트워크 프로그래밍 | 앨리엇 러스티 해럴드
+~~자바 네트워크 프로그래밍~~ | 앨리엇 러스티 해럴드
 실용주의 프로그래밍 | 앤드류 헌트, 데이비트 토머스
 [The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
-대용량 데이터 처리를 위한 Real MongoDB | 이성욱
+~~대용량 데이터 처리를 위한 Real MongoDB~~ | 이성욱
 ~~이것이 레디스다~~ | 정경석
 http in action | 배리 폴라드
 자바 서블릿 프로그램 (절판ㅜㅜ)| 제이슨 헌터
