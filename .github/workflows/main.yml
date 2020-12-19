@@ -39,6 +39,7 @@ jobs:
         run: |
           git config --global user.email "pjh2359@gmail.com"
           git config --global user.name "${GITHUB_ACTOR}"
+          git reset --hard
           git fetch origin
           mv _site_prod ../temp    
           git checkout -b master origin/master
