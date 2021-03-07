@@ -16,6 +16,8 @@ jobs:
       
       - name: Setup Ruby for use with actions
         uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
       
       - name: Setup Jekyll for Gem
         run: gem install bundler 
