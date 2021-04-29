@@ -183,4 +183,9 @@ var store = [{
         "excerpt":"인덱스 컴파운드 인덱스 B-Tree 인덱스의 정렬 및 스캔 방향 B-Tree 인덱스 해시 인덱스 멀티 키 인덱스 프라이머리 키와 세컨드리 인덱스 유니크 인덱스 Sparse 인덱스 와 Partial 인덱스 불완전한 결과 TTL 인덱스 인덱스 콜레이션 잠금 잠금 양보 (Yield) 트랜잭션 쓰기충돌 (Write Conflict) 단일 도큐먼트 트랜잭션 MongoDB 서버의 격리 수준과 정렬 ReadConcern,...","categories": ["study"],
         "tags": [],
         "url": "https://jehuipark.github.io/study/mongo-study",
+        "teaser":null},{
+        "title": "Springboot Embedded Mongo DB 이슈",
+        "excerpt":"$lookup 동작X 실행 환경 발생조건 해결방법 원인 $lookup 동작X 간단한 구조의 서브 도큐먼트일 경우 $lookup aggregation 파이프라인은 예상하는 결과를 출력 하지만, 배열에 속하는 멀티 서브 도큐먼트에서 $lookup aggregation 파이프라인은 예상과 다른 결과를 출력한다. 실행 환경 lib version org.springframework.boot:spring-boot-starter-data-mongodb 2.2.4 de.flapdoodle.embed:de.flapdoodle.embed.mongo 2.2.0 발생조건 Collection: aa db.aa.insert({\"_id\": 1, \"name\": \"aa-name-1\"}); db.aa.insert({\"_id\": 2,...","categories": ["spring"],
+        "tags": ["java","mongodb","spring"],
+        "url": "https://jehuipark.github.io/spring/embedded-mongo-issue",
         "teaser":null}]

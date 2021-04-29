@@ -6,9 +6,136 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 08 Mar 2021 08:29:06 +0900</pubDate>
-    <lastBuildDate>Mon, 08 Mar 2021 08:29:06 +0900</lastBuildDate>
+    <pubDate>Fri, 30 Apr 2021 08:35:42 +0900</pubDate>
+    <lastBuildDate>Fri, 30 Apr 2021 08:35:42 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Springboot Embedded Mongo DB 이슈</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#lookup-동작x&quot; id=&quot;markdown-toc-lookup-동작x&quot;&gt;$lookup 동작X&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#실행-환경&quot; id=&quot;markdown-toc-실행-환경&quot;&gt;실행 환경&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#발생조건&quot; id=&quot;markdown-toc-발생조건&quot;&gt;발생조건&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#해결방법&quot; id=&quot;markdown-toc-해결방법&quot;&gt;해결방법&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#원인&quot; id=&quot;markdown-toc-원인&quot;&gt;원인&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lookup-동작x&quot;&gt;$lookup 동작X&lt;/h2&gt;
+
+&lt;p&gt;간단한 구조의 서브 도큐먼트일 경우 &lt;code class=&quot;highlighter-rouge&quot;&gt;$lookup&lt;/code&gt; aggregation 파이프라인은 예상하는 결과를 출력 하지만,&lt;br /&gt;
+&lt;strong&gt;배열에 속하는 멀티 서브 도큐먼트&lt;/strong&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;$lookup&lt;/code&gt; aggregation 파이프라인은 &lt;strong&gt;예상과 다른 결과를 출력&lt;/strong&gt;한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;실행-환경&quot;&gt;실행 환경&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;lib&lt;/th&gt;
+      &lt;th&gt;version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;org.springframework.boot:spring-boot-starter-data-mongodb&lt;/td&gt;
+      &lt;td&gt;2.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;de.flapdoodle.embed:de.flapdoodle.embed.mongo&lt;/td&gt;
+      &lt;td&gt;2.2.0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;발생조건&quot;&gt;발생조건&lt;/h3&gt;
+
+&lt;p&gt;Collection: aa&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;aa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;aa-name-1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;aa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;aa-name-2&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Collection: bb&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;bb-name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;bb_subs&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sub-doc-id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sub-document-1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ref_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sub-doc-id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sub-document-2&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ref_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Aggregation query&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;aggregate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;$match&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
+            &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;$lookup&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
+            &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;localField&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;bb_subs.ref_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;foreignField&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;detail&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;실행결과&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bb-name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;bb_subs&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;sub-doc-id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sub-document-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ref_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;sub-doc-id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sub-document-2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ref_id&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;detail&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;해결방법&quot;&gt;해결방법&lt;/h3&gt;
+&lt;p&gt;Embedded MongoDB 버전을 특정 버전 이상으로 변경한다. (&amp;gt; 3.5.8)&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mongodb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;embedded&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3.6.5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/mongo/embedded/EmbeddedMongoProperties.java&quot;&gt;Springboot 2.2.4 기준으로 기본 버전&lt;/a&gt; 은 &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5.5&lt;/code&gt; 버전&lt;br /&gt;
+Embedded MongoDB 라이브러리에서 지원하는 버전은 &lt;a href=&quot;https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo/blob/master/src/main/java/de/flapdoodle/embed/mongo/distribution/Version.java&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;de.flapdoodle.embed.mongo.distribution.Version&lt;/code&gt;&lt;/a&gt;
+에서 확인할 수 있다&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;원인&quot;&gt;원인&lt;/h3&gt;
+&lt;p&gt;MongoDB Bug (https://jira.mongodb.org/browse/SERVER-28717) &lt;br /&gt;
+Fixed Version&lt;code class=&quot;highlighter-rouge&quot;&gt;3.4.6&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5.8&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 29 Apr 2021 22:00:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/spring/embedded-mongo-issue</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/spring/embedded-mongo-issue</guid>
+        
+        <category>java</category>
+        
+        <category>mongodb</category>
+        
+        <category>spring</category>
+        
+        
+        <category>spring</category>
+        
+      </item>
     
       <item>
         <title>MongoDB 기초 공부</title>
@@ -56,6 +183,7 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#참고서적&quot; id=&quot;markdown-toc-참고서적&quot;&gt;참고서적&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#연결&quot; id=&quot;markdown-toc-연결&quot;&gt;연결&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;인덱스&quot;&gt;인덱스&lt;/h2&gt;
@@ -549,6 +677,11 @@ MongoDB 서버는 &lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진의
 &lt;h2 id=&quot;참고서적&quot;&gt;참고서적&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://wikibook.co.kr/real-mongodb/&quot; title=&quot;대용량 데이터 처리를 위한 Real MongoDB&quot;&gt;대용량 데이터 처리를 위한 Real MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;연결&quot;&gt;연결&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/spring/embedded-mongo-issue&quot;&gt;Springboot Embedded Mongo DB 이슈&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
@@ -1804,112 +1937,6 @@ A. 레디스에 데이터가 계속 추가되어 물리 메모리가 부족하�
         
         
         <category>study</category>
-        
-      </item>
-    
-      <item>
-        <title>IntelliJ 잘 쓰기 Tip</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#no-newline-at-end-of-file&quot; id=&quot;markdown-toc-no-newline-at-end-of-file&quot;&gt;No newline at end of file&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#보일러-플레이트-해결하기&quot; id=&quot;markdown-toc-보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#livetemplate&quot; id=&quot;markdown-toc-livetemplate&quot;&gt;LiveTemplate&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#템플릿-만들기&quot; id=&quot;markdown-toc-템플릿-만들기&quot;&gt;템플릿 만들기&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#템플릿-적용위치-설정하기&quot; id=&quot;markdown-toc-템플릿-적용위치-설정하기&quot;&gt;템플릿 적용위치 설정하기&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#사용-예시&quot; id=&quot;markdown-toc-사용-예시&quot;&gt;사용 예시&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#filetemplate&quot; id=&quot;markdown-toc-filetemplate&quot;&gt;FileTemplate&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#vue-template&quot; id=&quot;markdown-toc-vue-template&quot;&gt;Vue Template&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#blog-template&quot; id=&quot;markdown-toc-blog-template&quot;&gt;Blog Template&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#터미널에서-intellij-실행하기&quot; id=&quot;markdown-toc-터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;no-newline-at-end-of-file&quot;&gt;No newline at end of file&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;intelliJ&lt;/code&gt; 에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;커맨드&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; 단축키를 이용하여 테스트 클래스를 자동생성할 수 있는데, 이 기능을 그냥 이용하게 되면 거슬리는게 하나 있다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79998744-0b9ed000-84f6-11ea-845c-b0e5f621453b.gif&quot; alt=&quot;test_gen&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;소스트리&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80000609-4f92d480-84f8-11ea-81b9-685007f3347f.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;깃헙&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80001543-73a2e580-84f9-11ea-9614-1f321e55f53a.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;터미널&lt;/strong&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79999509-f37b8080-84f6-11ea-9b31-2604fd811578.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;EOF 전에 공백 라인이 없어서 생기는 문제인데, &lt;strong&gt;마지막 라인에 공백라인 하나만 추가&lt;/strong&gt;하면 해결된다.&lt;/p&gt;
-
-&lt;p&gt;그런데 테스트 코드를 생성할 때 마다 공백라인을 추가하는 행위를 하자니 너무 원시적이며, 되게 자주 까먹는다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;PR 2번중에 1번꼴로 하는 실수였다.
-이렇게 실수를 자주하다가 현타가와서 도구를 활용하기로 했다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;더블 쉬프트 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;file and code templates&lt;/code&gt; 입력&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002548-bfa25a00-84fa-11ea-866a-9af093ce17d1.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;여기에서 자주 사용하는 테스트 도구를 선택&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002583-caf58580-84fa-11ea-8bc9-5889d91a3471.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;공백 라인을 추가한다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80002993-596a0700-84fb-11ea-9173-b05e93c795cf.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;br /&gt;
-&lt;strong&gt;끝!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;보일러-플레이트-해결하기&quot;&gt;보일러 플레이트 해결하기&lt;/h2&gt;
-&lt;p&gt;코딩을 하다보면 보일러 플레이트가 상당히 많이 발생하는데 툴에서 지원하는 기능을 적절히 이용하면, 좀 더 스마트하게 작업을 할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;livetemplate&quot;&gt;LiveTemplate&lt;/h3&gt;
-&lt;p&gt;Example Java Test Code boilerplate&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Editor &amp;gt; Live Templates&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306715-e06ef600-87ff-11ea-9cd5-541f0d5694a6.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;템플릿-만들기&quot;&gt;템플릿 만들기&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306796-668b3c80-8800-11ea-8a18-d0f53e5b3f51.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;expression&lt;/code&gt; 에서는 이런식으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;groovy&lt;/code&gt; 문법을 지원한다.
-    &lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;groovyScript&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;_editor.getDocument().getText().split(\&quot;@.*Test\&quot;).length-1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;템플릿-적용위치-설정하기&quot;&gt;템플릿 적용위치 설정하기&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80307282-fd58f880-8802-11ea-87ef-295d50537179.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Java 파일에서 선언문 작성시에 라이브템플릿을 활성화 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;사용-예시&quot;&gt;사용 예시&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80307461-275eea80-8804-11ea-8634-69ea9ff0304c.gif&quot; alt=&quot;live_template&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;filetemplate&quot;&gt;FileTemplate&lt;/h3&gt;
-
-&lt;h4 id=&quot;vue-template&quot;&gt;Vue Template&lt;/h4&gt;
-&lt;p&gt;뷰로 프론트 작업을 한적이 있는데, 보일러플레이트 코드가 상당히 많아서 파일 템플릿을 적절하게 수정하여 작업 효율성을 높였다.&lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Preferences &amp;gt; Editor &amp;gt; file and code templates&lt;/code&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80306590-34c5a600-87ff-11ea-81be-af466056dfc0.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;blog-template&quot;&gt;Blog Template&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/85196498-91cc6c80-b315-11ea-804d-11dd10ad93a9.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/85196691-f1774780-b316-11ea-833f-af856d70330a.gif&quot; alt=&quot;blog-template&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;터미널에서-intellij-실행하기&quot;&gt;터미널에서 Intellij 실행하기&lt;/h2&gt;
-&lt;p&gt;작업을 하다보면 &lt;strong&gt;터미널에서 intellij 를 실행하고 싶을 때&lt;/strong&gt;가 자주있다.&lt;br /&gt;
-그럴땐 이런 설정을 이용하면 된다.&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79994673-3d616800-84f1-11ea-9bc7-60151edc62ee.png&quot; alt=&quot;image&quot; width=&quot;300px&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/79996611-9c27e100-84f3-11ea-81c2-c80c3b7c8152.gif&quot; alt=&quot;idea_open_in_terminal&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 20 Apr 2020 23:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/note/use-intellij-more-well</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/note/use-intellij-more-well</guid>
-        
-        
-        <category>note</category>
         
       </item>
     
