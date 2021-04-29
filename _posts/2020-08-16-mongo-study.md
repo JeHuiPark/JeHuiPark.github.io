@@ -440,5 +440,7 @@ byte [] INPUT_BSON = new byte[]{
 ## 참고서적
 - [대용량 데이터 처리를 위한 Real MongoDB][real-mongodb]
 
+## 연결
+- [Springboot Embedded Mongo DB 이슈](/spring/embedded-mongo-issue)
 
 [real-mongodb]:https://wikibook.co.kr/real-mongodb/ "대용량 데이터 처리를 위한 Real MongoDB"
