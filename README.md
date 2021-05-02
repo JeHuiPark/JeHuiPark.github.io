@@ -7,4 +7,5 @@
 https://github.com/mmistakes/minimal-mistakes
 
 ## MathJax Quick Reference
-https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+- https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference
+- [Online Editor](http://jsbin.com/zimuxulawu/edit?html,output)
