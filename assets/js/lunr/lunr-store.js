@@ -188,4 +188,9 @@ var store = [{
         "excerpt":"$lookup 동작X 실행 환경 발생조건 해결방법 원인 $lookup 동작X 간단한 구조의 서브 도큐먼트일 경우 $lookup aggregation 파이프라인은 예상하는 결과를 출력 하지만, 배열에 속하는 멀티 서브 도큐먼트에서 $lookup aggregation 파이프라인은 예상과 다른 결과를 출력한다. 실행 환경 lib version org.springframework.boot:spring-boot-starter-data-mongodb 2.2.4 de.flapdoodle.embed:de.flapdoodle.embed.mongo 2.2.0 발생조건 Collection: aa db.aa.insert({\"_id\": 1, \"name\": \"aa-name-1\"}); db.aa.insert({\"_id\": 2,...","categories": ["spring"],
         "tags": ["java","mongodb","spring"],
         "url": "https://jehuipark.github.io/spring/embedded-mongo-issue",
+        "teaser":null},{
+        "title": "동기화 비용",
+        "excerpt":"멀티 코어 시스템에서 애플리케이션의 처리 성능을 향상 시키기 위한 방법으로 스레드를 이용하여 작업을 병렬로 수행하는 방법이 있다. 하나의 자원을 다수의 스레드가 공유하며, 해당 자원이 thread safe 성격을 가져야 한다면 올바른 처리를 위해, 공유자원을 임계영역에서 처리 하도록 해야한다. 임계영역은 하나의 스레드만 접근할 수 있는 공간으로, 멀티 스레드 환경에서 임계영역으로 접근하는 순간에는...","categories": ["note"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/note/synchronize-cost",
         "teaser":null}]

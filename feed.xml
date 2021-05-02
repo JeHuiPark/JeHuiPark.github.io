@@ -6,9 +6,46 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 May 2021 16:34:58 +0900</pubDate>
-    <lastBuildDate>Sun, 02 May 2021 16:34:58 +0900</lastBuildDate>
+    <pubDate>Sun, 02 May 2021 17:54:57 +0900</pubDate>
+    <lastBuildDate>Sun, 02 May 2021 17:54:57 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>동기화 비용</title>
+        <description>&lt;p&gt;멀티 코어 시스템에서 애플리케이션의 처리 성능을 향상 시키기 위한 방법으로 스레드를 이용하여 작업을 병렬로 수행하는 방법이 있다.&lt;/p&gt;
+
+&lt;p&gt;하나의 자원을 다수의 스레드가 공유하며, 해당 자원이 &lt;strong&gt;thread safe&lt;/strong&gt; 성격을 가져야 한다면 올바른 처리를 위해, 공유자원을 임계영역에서 처리 하도록 해야한다.&lt;br /&gt;
+임계영역은 하나의 스레드만 접근할 수 있는 공간으로, 멀티 스레드 환경에서 임계영역으로 접근하는 순간에는 동기화 되어 처리된다.&lt;/p&gt;
+
+&lt;p&gt;즉, 임계영역은 자원을 멀티 스레드로부터 안전하게 보호하지만, 베타적 접근만 허용하기 때문에 처리성능에 부정적인 영향을 주게된다.&lt;/p&gt;
+
+&lt;p&gt;병렬처리시 임계영역의 크기에 따라 처리 속도가 향상되는 범위가 다를 것이다. (&lt;em&gt;CPU 주기에만 의존하는 작업이라는 가정하에&lt;/em&gt;)&lt;br /&gt;
+멀티 스레드 환경에서 얻을 수 있는 처리속도는 암달의 방정식을 이용하여 이론적인 수치를 구할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;암달의-법칙&quot;&gt;암달의 법칙&lt;/h2&gt;
+
+\[S = \frac{1}{(1 - p) + \frac{P}{N}}\]
+
+&lt;p&gt;P = 병렬로 실행되는 코드의 백분율&lt;br /&gt;
+N = 스레드의 개수&lt;/p&gt;
+
+&lt;p&gt;멀티 스레드에 노출된 코드중 임계영역에서 동작하는 코드의 비율이 20%(병렬 코드 80%), 스레드의 개수가 4이면 이렇게 계산된다.&lt;/p&gt;
+
+\[\begin{align}
+    S &amp;amp; =\frac{1}{(1- 0.8) + \frac{0.8}{4}} \\[2ex]
+    &amp;amp; = \frac{1}{0.2 + 0.2} \\[2ex]
+    &amp;amp; =  2.5
+\end{align}\]
+
+</description>
+        <pubDate>Sun, 02 May 2021 17:50:00 +0900</pubDate>
+        <link>https://jehuipark.github.io/note/synchronize-cost</link>
+        <guid isPermaLink="true">https://jehuipark.github.io/note/synchronize-cost</guid>
+        
+        
+        <category>note</category>
+        
+      </item>
     
       <item>
         <title>Springboot Embedded Mongo DB 이슈</title>
@@ -1861,77 +1898,6 @@ A. 레디스에 데이터가 계속 추가되어 물리 메모리가 부족하�
         <pubDate>Fri, 01 May 2020 20:00:00 +0900</pubDate>
         <link>https://jehuipark.github.io/study/singleton-pattern</link>
         <guid isPermaLink="true">https://jehuipark.github.io/study/singleton-pattern</guid>
-        
-        <category>디자인 패턴</category>
-        
-        
-        <category>study</category>
-        
-      </item>
-    
-      <item>
-        <title>디자인 패턴 : Prototype Design Pattern</title>
-        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#정의&quot; id=&quot;markdown-toc-정의&quot;&gt;정의&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#효과&quot; id=&quot;markdown-toc-효과&quot;&gt;효과&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#구조&quot; id=&quot;markdown-toc-구조&quot;&gt;구조&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#적용예시&quot; id=&quot;markdown-toc-적용예시&quot;&gt;적용예시&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#고려-사항&quot; id=&quot;markdown-toc-고려-사항&quot;&gt;고려 사항&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#참고자료&quot; id=&quot;markdown-toc-참고자료&quot;&gt;참고자료&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
-&lt;p&gt;원본 객체를 사용하여 새로운 사본 객체를 생성하는 패턴&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;복사 객체의 타입은 서브 클래스에서 정의&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;효과&quot;&gt;효과&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;클라이언트에서 같은 상태의 객체를 생성하기 위해 알아야 할 정보가 줄어든다.&lt;/li&gt;
-  &lt;li&gt;팩토리 메소드와 다르게 객체 생성에 대한 책임을 클라이언트에게 일부 위임하기 때문에 인스턴스를 쉽게 다양화 시킬 수 있다.
-    &lt;blockquote&gt;
-      &lt;p&gt;서브 클래싱 감소&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;클래스의 인스턴스들이 서로 다른 상태 조합중 하나일 때 유용하다.
-    &lt;blockquote&gt;
-      &lt;p&gt;프로토 타입 인스턴스를 기반으로 동적으로 클래스에 따라 설정을 변경하여 사용&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;구조&quot;&gt;구조&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/tree/master/design-pattern/src/main/java/com/example/jehuipark/prototype_pattern&quot;&gt;예제코드&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/JeHuiPark/java-sample/blob/master/design-pattern/src/test/java/com/example/jehuipark/prototype_pattern/ClientTest.java&quot;&gt;예제코드 테스트&lt;/a&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80703013-f5f46080-8b1c-11ea-9dc0-f8b4d0aa94b1.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;적용예시&quot;&gt;적용예시&lt;/h2&gt;
-&lt;p&gt;Java 에서 json 처리를 위해 자주 사용되는 라이브러리 중 &lt;code class=&quot;highlighter-rouge&quot;&gt;Jackson&lt;/code&gt; 라이브러리를 살펴보면 원형패턴이 적용된 예시가 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80708450-a4e96a00-8b26-11ea-9cc1-72b14688e92f.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;br /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/25237661/80704003-c2b2d100-8b1e-11ea-95ac-491969cb41d4.png&quot; alt=&quot;image&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectMapper&lt;/code&gt; 에서 의존하는 몇몇 추상화 클래스들은 구현체에게 &lt;code class=&quot;highlighter-rouge&quot;&gt;copy&lt;/code&gt; 메소드를 구현할 수 있도록 하여, &lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectMapper&lt;/code&gt; 의 &lt;code class=&quot;highlighter-rouge&quot;&gt;copy&lt;/code&gt; 메소드를 지원한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;고려-사항&quot;&gt;고려 사항&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;깊은 복사와 얕은 복사 타겟 설정
-    &lt;blockquote&gt;
-      &lt;p&gt;보통 상태머신 객체는 깊은 복사를, &lt;code class=&quot;highlighter-rouge&quot;&gt;stateless&lt;/code&gt; 객체는 얕은 복사를 하면 될 듯 하다&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;복사를 지원하지 않는 객체를 다수 포함하고 있다면, 복사기능을 구현하기 힘들 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;참고자료&quot;&gt;참고자료&lt;/h2&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;em&gt;GoF의 디자인 패턴 p169 - p180&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Thu, 30 Apr 2020 20:00:00 +0900</pubDate>
-        <link>https://jehuipark.github.io/study/prototype_design_pattern</link>
-        <guid isPermaLink="true">https://jehuipark.github.io/study/prototype_design_pattern</guid>
         
         <category>디자인 패턴</category>
         
