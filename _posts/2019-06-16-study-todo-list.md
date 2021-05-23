@@ -28,7 +28,7 @@ GOF의 디자인패턴 |
 알고리즘 | 로버트 세지윅
 데이터 중심 애플리케이션 설계 | 마틴 클레프만
 컴퓨팅 사고 | 
-자바 성능 튜닝 | 스캇 오크스
+~~자바 성능 튜닝~~ | 스캇 오크스
 ~~자바 네트워크 프로그래밍~~ | 앨리엇 러스티 해럴드
 ~~실용주의 프로그래머~~ | 앤드류 헌트, 데이비트 토머스
 [The Linux Kernel](http://wiki.kldp.org/Translations/html/The_Linux_Kernel-KLDP/tlkindex.html) | David A Rusling
