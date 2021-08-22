@@ -443,4 +443,11 @@ byte [] INPUT_BSON = new byte[]{
 ## 연결
 - [Springboot Embedded Mongo DB 이슈](/spring/embedded-mongo-issue)
 
+## Amazon DocumentDB
+아마존 DocumentDB 는 **MongoDB API 를 일부 지원**하는 Full Managed Document Database 이다.
+스토리지 엔진은 자체적으로 개발한 엔진을 쓰는듯 하며, MongoDB 와 기능 차이가 생각보다 많으니, 도입전에 AWS Developer Guide 를 충분히 읽는게 좋겠다.
+
+- [MongoDB 호환성](https://docs.aws.amazon.com/documentdb/latest/developerguide/compatibility.html)
+- [기능적 차이](https://docs.aws.amazon.com/documentdb/latest/developerguide/functional-differences.html)
+
 [real-mongodb]:https://wikibook.co.kr/real-mongodb/ "대용량 데이터 처리를 위한 Real MongoDB"
