@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Jun 2021 23:33:53 +0900</pubDate>
-    <lastBuildDate>Sat, 05 Jun 2021 23:33:53 +0900</lastBuildDate>
+    <pubDate>Sun, 22 Aug 2021 15:44:04 +0900</pubDate>
+    <lastBuildDate>Sun, 22 Aug 2021 15:44:04 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -221,6 +221,7 @@ Fixed Version&lt;code class=&quot;highlighter-rouge&quot;&gt;3.4.6&lt;/code&gt;,
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#참고서적&quot; id=&quot;markdown-toc-참고서적&quot;&gt;참고서적&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#연결&quot; id=&quot;markdown-toc-연결&quot;&gt;연결&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#amazon-documentdb&quot; id=&quot;markdown-toc-amazon-documentdb&quot;&gt;Amazon DocumentDB&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;인덱스&quot;&gt;인덱스&lt;/h2&gt;
@@ -719,6 +720,15 @@ MongoDB 서버는 &lt;strong&gt;WiredTiger&lt;/strong&gt; 스토리지 엔진의
 &lt;h2 id=&quot;연결&quot;&gt;연결&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;/spring/embedded-mongo-issue&quot;&gt;Springboot Embedded Mongo DB 이슈&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;amazon-documentdb&quot;&gt;Amazon DocumentDB&lt;/h2&gt;
+&lt;p&gt;아마존 DocumentDB 는 &lt;strong&gt;MongoDB API 를 일부 지원&lt;/strong&gt;하는 Full Managed Document Database 이다.
+스토리지 엔진은 자체적으로 개발한 엔진을 쓰는듯 하며, MongoDB 와 기능 차이가 생각보다 많으니, 도입전에 AWS Developer Guide 를 충분히 읽는게 좋겠다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/documentdb/latest/developerguide/compatibility.html&quot;&gt;MongoDB 호환성&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/documentdb/latest/developerguide/functional-differences.html&quot;&gt;기능적 차이&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
