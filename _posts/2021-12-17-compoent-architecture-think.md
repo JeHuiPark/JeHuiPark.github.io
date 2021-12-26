@@ -1,7 +1,7 @@
 ---
 layout: posts
 title: 컴포넌트 설계
-date:   2021-12-17 01:44:00 +0900
+date:   2021-12-27 01:44:00 +0900
 comments: true
 categories: architecture
 ---
