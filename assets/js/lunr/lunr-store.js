@@ -193,4 +193,9 @@ var store = [{
         "excerpt":"멀티 코어 시스템에서 애플리케이션의 처리 성능을 향상 시키기 위한 방법으로 스레드를 이용하여 작업을 병렬로 수행하는 방법이 있다. 하나의 자원을 다수의 스레드가 공유하며, 해당 자원이 thread safe 성격을 가져야 한다면 올바른 처리를 위해, 공유자원을 임계영역에서 처리 하도록 해야한다. 임계영역은 하나의 스레드만 접근할 수 있는 공간으로, 멀티 스레드 환경에서 임계영역으로 접근하는 순간에는...","categories": ["note"],
         "tags": [],
         "url": "https://jehuipark.github.io/note/synchronize-cost",
+        "teaser":null},{
+        "title": "컴포넌트 설계",
+        "excerpt":"엔지니어링을 하다 보면 이건 어디에 배치 시켜야 적절할까? 라는 질문을 정말 자주 던지고, 이 질문에 대한 해답을 내리기까지 정말 많은 시간을 소비한다. (이때 내적갈등이 정말 심하다) 클린 아키텍처에서는 이와 같은 의사결정을 돕기위한 엔지니어링 원칙을 다음과 같이 제시한다 REP : 재사용/릴리스 등가 원칙 CCP : 공통 폐쇄 원칙 CRP : 공통...","categories": ["architecture"],
+        "tags": [],
+        "url": "https://jehuipark.github.io/architecture/compoent-architecture-think",
         "teaser":null}]
