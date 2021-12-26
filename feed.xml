@@ -6,8 +6,8 @@
     <description>developer JH website.</description>
     <link>https://jehuipark.github.io/</link>
     <atom:link href="https://jehuipark.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Dec 2021 01:58:31 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Dec 2021 01:58:31 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Dec 2021 02:02:25 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Dec 2021 02:02:25 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -59,7 +59,7 @@
 &lt;p&gt;클린 아키텍처 4부 13장&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 17 Dec 2021 01:44:00 +0900</pubDate>
+        <pubDate>Mon, 27 Dec 2021 01:44:00 +0900</pubDate>
         <link>https://jehuipark.github.io/architecture/compoent-architecture-think</link>
         <guid isPermaLink="true">https://jehuipark.github.io/architecture/compoent-architecture-think</guid>
         
